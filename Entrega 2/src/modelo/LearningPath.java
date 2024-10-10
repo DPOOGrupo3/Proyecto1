@@ -3,6 +3,7 @@ package modelo;
 import java.util.List;
 
 public class LearningPath {
+	private int ID;
 	private String titulo;
 	private String descripcion;
 	private String objetivo;
@@ -65,11 +66,25 @@ public class LearningPath {
 		return rating;
 	}
 
-	public List<Actividad> getActivdad() {
+	public List<Actividad> getActivdades() {
 		return activdades;
 	}
 
 	public void agregarActivdad(Actividad activdad) {
 		activdades.add(activdad);
+	}
+	
+	public void eliminarActivdad(Actividad activdad) {
+		try {
+			activdades.remove(activdad);
+		} catch (Exception e){
+			System.out.println("La actividad que se desea eliminar no ha sido encontrada en este Learning Path");
+		}
+	}
+	
+	@Override
+	public String toString() {
+		String camino = titulo + "/" + descripcion;
+		return camino;
 	}
 }

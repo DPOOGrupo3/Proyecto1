@@ -10,4 +10,13 @@ public abstract class Usuario {
 		this.email = email;
 		this.contraseña = contraseña;
 	}
+	
+	public boolean iniciarSesion(String email, String contraseña) {
+		return (email.equals(this.email) && contraseña.equals(this.contraseña));
+	}
+	
+	@Override
+	public String toString() {
+		return nombre + "/" + email + "/" + contraseña;
+	}
 }
