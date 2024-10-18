@@ -18,6 +18,8 @@ import modelo.usuario.Profesor;
 import modelo.usuario.Usuario;
 
 public class PersistenciaUsuarios {
+	private String[] titulos = {"nombre", "correo", "contrasena"};
+	
 	public void cargarArchivo(String ruta, List<Profesor> profesores, List<Estudiante> estudiantes) throws IOException {
 		JSONObject usuarios = new JSONObject(new String(Files.readAllBytes(new File(ruta).toPath())));
 		
@@ -54,9 +56,9 @@ public class PersistenciaUsuarios {
 		for (Profesor profesor: profesores) {
 			JSONObject profe = new JSONObject();
 			String[] atributosProfesor = profesor.cadenaAGuardar().split("/");
-			profe.put("nombre", atributosProfesor[0]);
-			profe.put("correo", atributosProfesor[1]);
-			profe.put("contrasena", atributosProfesor[2]);
+			for (int i = 0; i < titulos.length; i++) {
+				profe.put(titulos[i], atributosProfesor[i]);
+			}
 			if (atributosProfesor[3].equals("NA")) {
 				JSONArray caminos = new JSONArray();
 				profe.put("caminos", caminos);
@@ -69,9 +71,9 @@ public class PersistenciaUsuarios {
 		for (Usuario estudiante: estudiantes) {
 			JSONObject student = new JSONObject();
 			String[] atributosEstudiante = estudiante.toString().split("/");
-			student.put("nombre", atributosEstudiante[0]);
-			student.put("correo", atributosEstudiante[1]);
-			student.put("contrasena", atributosEstudiante[2]);
+			for (int i = 0; i < titulos.length; i++) {
+				student.put(titulos[i], atributosEstudiante[i]);
+			}
 			jEstudiantes.put(student);
 		}
 		

@@ -15,6 +15,7 @@ public class Profesor extends Usuario{
 	public Profesor(String nombre, String email, String contraseña) {
 		super(nombre, email, contraseña);
 		caminosCreados = new ArrayList<LearningPath>();
+		caminosCopiados = new ArrayList<LearningPath>();
 		actividades = new ArrayList<Actividad>();
 	}
 	
@@ -36,6 +37,18 @@ public class Profesor extends Usuario{
 				for (LearningPath camino: caminosCreados) {
 					if (camino.getTitulo().equals(tituloCamino)) {
 						caminosCreados.add(camino);
+					}
+				}
+			}
+		}
+	}
+	
+	public void cargarLearninPathsCopiados(List<String> caminosACargar){
+		if (caminosACargar.size() > 0) {
+			for (String tituloCamino: caminosACargar) {
+				for (LearningPath camino: caminosCreados) {
+					if (camino.getTitulo().equals(tituloCamino)) {
+						caminosCopiados.add(camino);
 					}
 				}
 			}

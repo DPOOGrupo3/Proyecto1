@@ -26,6 +26,7 @@ public class PersistenciaLearningPaths {
 		for (LearningPath camino: caminos) {
 			String[] caminoArray = camino.toString().split("/");
 			JSONObject jCamino = new JSONObject();
+			jCamino.put("titulo", caminoArray[0]);
 		}
 	}
 }

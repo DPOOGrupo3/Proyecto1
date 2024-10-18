@@ -21,7 +21,19 @@ public class CentralPersistencia {
 		}
 	}
 	
-	public void cargarUsusarios(List<Profesor> profesores, List<Estudiante> estudiantes) throws IOException {
+	private void cargarUsusarios(List<Profesor> profesores, List<Estudiante> estudiantes) throws IOException {
 		persistenciaU.cargarArchivo(RutaUsuarios, profesores, estudiantes);
+	}
+	
+	public void guardarDatos(List<Profesor> profesores, List<Estudiante> estudiantes, List<LearningPath> caminos, List<Actividad> actividades) {
+		try {
+			guardarUsusarios(profesores, estudiantes);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	private void guardarUsusarios(List<Profesor> profesores, List<Estudiante> estudiantes) throws IOException {
+		persistenciaU.guardarArchivo(RutaUsuarios, profesores, estudiantes);
 	}
 }

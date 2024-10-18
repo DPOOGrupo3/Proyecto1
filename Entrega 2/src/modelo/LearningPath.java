@@ -83,6 +83,10 @@ public class LearningPath {
 		}
 	}
 	
+	public LearningPath copy() {
+		return new LearningPath(titulo, descripcion, objetivo, duracionEsperada, nivelDificultad, rating, activdades);
+	}
+	
 	@Override
 	public String toString() {
 		String cadenaActividades = "";
