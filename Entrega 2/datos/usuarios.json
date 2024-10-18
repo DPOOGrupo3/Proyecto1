@@ -1,0 +1,28 @@
+{
+  "profesores": [
+    {
+      "correo": "j.a@mail.com",
+      "caminos": ["camino1", "camino2"],
+      "contrasena": "SoyJuan123",
+      "nombre": "Juan"
+    },
+    {
+      "correo": "p.gg@mail.com",
+      "caminos": [],
+      "contrasena": "PedroElMejor1234",
+      "nombre": "Pedro"
+    }
+  ],
+  "estudiantes": [
+    {
+      "correo": "c.e@mail.com",
+      "contrasena": "CarlosA345.",
+      "nombre": "Carlos"
+    },
+    {
+      "correo": "alb.d@gmail.com",
+      "contrasena": "Albert0G112",
+      "nombre": "Alberto"
+    }
+  ]
+}

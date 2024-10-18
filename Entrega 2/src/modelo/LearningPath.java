@@ -3,16 +3,17 @@ package modelo;
 import java.util.List;
 
 public class LearningPath {
-	private int ID;
+	private static int ID = 0;
 	private String titulo;
 	private String descripcion;
 	private String objetivo;
 	private int duracionEsperada;
-	private String nivelDificultad;
+	private int nivelDificultad;
 	private double rating;
 	private List<Actividad> activdades;
 	
-	public LearningPath(String titulo, String descripcion, String objetivo, int duracionEsperada, String nivelDificultad, double rating, List<Actividad> activdades) {
+	public LearningPath(String titulo, String descripcion, String objetivo, int duracionEsperada, int nivelDificultad, double rating, List<Actividad> activdades) {
+		ID = ID + 1;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.objetivo = objetivo;
@@ -54,11 +55,11 @@ public class LearningPath {
 		this.duracionEsperada = duracionEsperada;
 	}
 
-	public String getNivelDificultad() {
+	public int getNivelDificultad() {
 		return nivelDificultad;
 	}
 
-	public void cambiarNivelDificultad(String nivelDificultad) {
+	public void cambiarNivelDificultad(int nivelDificultad) {
 		this.nivelDificultad = nivelDificultad;
 	}
 
@@ -84,7 +85,10 @@ public class LearningPath {
 	
 	@Override
 	public String toString() {
-		String camino = titulo + "/" + descripcion;
-		return camino;
+		String cadenaActividades = "";
+		for (Actividad actividad: activdades) {
+			cadenaActividades += actividad.getTitulo() + "%";
+		}
+		return titulo + "/" + descripcion + "/" + objetivo + "/" + duracionEsperada + "/" + nivelDificultad + "/" + rating + "/" + cadenaActividades;
 	}
 }
