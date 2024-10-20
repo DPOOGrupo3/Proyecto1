@@ -10,31 +10,17 @@ import modelo.LearningPath;
 public class Profesor extends Usuario{
 	private List<LearningPath> caminosCreados;
 	private List<LearningPath> caminosCopiados;
-	private List<Actividad> actividades;
 	
 	public Profesor(String nombre, String email, String contraseña) {
 		super(nombre, email, contraseña);
 		caminosCreados = new ArrayList<LearningPath>();
 		caminosCopiados = new ArrayList<LearningPath>();
-		actividades = new ArrayList<Actividad>();
 	}
 	
-	public void cargarActividades(List<String> actividadesACargar){
-		if (actividadesACargar.size() > 0) {
-			for (String tituloActividad: actividadesACargar) {
-				for (Actividad actividad: actividades) {
-					if (actividad.getTitulo().equals(tituloActividad)) {
-						actividades.add(actividad);
-					}
-				}
-			}
-		}
-	}
-	
-	public void cargarLearninPathsCreados(List<String> caminosACargar){
+	public void cargarLearninPathsCreados(List<String> caminosACargar, List<LearningPath> caminosCompletos){
 		if (caminosACargar.size() > 0) {
 			for (String tituloCamino: caminosACargar) {
-				for (LearningPath camino: caminosCreados) {
+				for (LearningPath camino: caminosCompletos) {
 					if (camino.getTitulo().equals(tituloCamino)) {
 						caminosCreados.add(camino);
 					}
@@ -55,60 +41,82 @@ public class Profesor extends Usuario{
 		}
 	}
 	
-	public void crearActividad(String titulo, String descripcion, String objetivo, Contenido contenido, int nivelDificultad, int duracionEsperada, List<Actividad> preRequisitos) {
-		actividades.add(new Actividad(titulo, descripcion, objetivo, contenido, nivelDificultad, duracionEsperada, preRequisitos));
+	public Actividad crearActividad(int ID, String descripcion, String objetivo, Contenido contenido, int nivelDificultad, int duracionEsperada, List<Actividad> preRequisitos) {
+		Actividad actividad = new Actividad(ID, descripcion, objetivo, contenido, nivelDificultad, duracionEsperada, preRequisitos);
+		return actividad;
 	}
 	
-	public void crearLearningPath(String titulo, String descripcion, String objetivo, int duracionEsperada, int nivelDificultad, double rating, List<Actividad> activdades) {
-		caminosCreados.add(new LearningPath(titulo, descripcion, objetivo, duracionEsperada, nivelDificultad, rating, activdades));
-	}
-	
-	public LearningPath editarLearninPath(LearningPath camino, int opcion, Object cambio) {
-		if (opcion == 0) {
-			camino.cambiarTitulo((String) cambio);
-		}else if (opcion == 1) {
-			camino.cambiarDescripcion((String) cambio);
-		}else if (opcion == 2) {
-			camino.cambiarObjetivo((String) cambio);
-		}else if (opcion == 3) {
-			camino.agregarActivdad((Actividad) cambio);
-		}else if (opcion == 4) {
-			camino.eliminarActivdad((Actividad) cambio);
-		}
+	public LearningPath crearLearningPath(String titulo, String descripcion, String objetivo, List<Actividad> activdades) {
+		LearningPath camino = new LearningPath(titulo, descripcion, objetivo, activdades);
+		caminosCreados.add(camino);
 		return camino;
 	}
 	
-	public Actividad editarActividad(Actividad actividad, int opcion, Object cambio) {
-		if (opcion == 0) {
-			actividad.cambiarTitulo((String) cambio);
-		}else if (opcion == 1) {
-			actividad.cambiarDescripcion((String) cambio);
-		}else if (opcion == 2) {
-			actividad.cambiarObjetivo((String) cambio);
-		}else if (opcion == 3) {
-			actividad.cambiarDuracionEsperada((int) cambio);
-		}else if (opcion == 4) {
-			actividad.cambiarNivelDificultad((int) cambio);
-		}else if (opcion == 5) {
-			actividad.agregarPreRequisitos((Actividad) cambio);
-		}else if (opcion == 6) {
-			actividad.eliminarPreRequisitos((Actividad) cambio);
-		}
-		return actividad;
+	public void copiarLearninPath(LearningPath camino) {
+		caminosCopiados.add(camino.copy());
 	}
-
-	public String cadenaAGuardar(){
+	
+	public void cambiarTituloLearningPath(LearningPath camino, String titulo) {
+		camino.cambiarDescripcion(titulo);
+	}
+	
+	public void cambiarDescrpcionLearningPath(LearningPath camino, String descripcion) {
+		camino.cambiarDescripcion(descripcion);
+	}
+	
+	public void cambiarObjetivoLearningPath(LearningPath camino, String objetivo) {
+		camino.cambiarDescripcion(objetivo);
+	}
+	
+	public void agregarActividadLearningPath(LearningPath camino, Actividad actividadAgregar) {
+		camino.agregarActivdad(actividadAgregar);
+	}
+	
+	public void eliminarsActividadLearningPath(LearningPath camino, Actividad actividadEliminar) {
+		camino.eliminarActivdad(actividadEliminar);
+	}
+	
+	public void cambiarDescrpcionActividad(Actividad actividad, String descripcion) {
+		actividad.cambiarDescripcion(descripcion);
+	}
+	
+	public void cambiarObjetivoActividad(Actividad actividad, String objetivo) {
+		actividad.cambiarDescripcion(objetivo);
+	}
+	
+	public void cambiarDuracionEsperadaActividad(Actividad actividad, int duracion) {
+		actividad.cambiarDuracionEsperada(duracion);
+		
+	}
+	
+	public void cambiarNivelDificultadActividad(Actividad actividad, int dificultad) {
+		actividad.cambiarNivelDificultad(dificultad);
+	}
+	
+	public void agregarPreRequisitosActividad(Actividad actividad, Actividad actividadAgregar) {
+		actividad.agregarPreRequisito(actividadAgregar);
+	}
+	
+	public void eliminarPreRequisitosActividad(Actividad actividad, Actividad actividadEliminar) {
+		actividad.eliminarPreRequisito(actividadEliminar);
+	}
+	
+	private String cadenaCaminos(List<LearningPath> caminos) {
 		String cadenaCaminos = "";
-		if (caminosCreados.size() > 0) {
-			for (LearningPath camino: caminosCreados) {
+		if (caminos.size() > 0) {
+			for (LearningPath camino: caminos) {
 				cadenaCaminos += camino.getTitulo() + "%";
 			}
-			System.out.println(cadenaCaminos);
-			cadenaCaminos = cadenaCaminos.substring(0, cadenaCaminos.length()-2);
-			System.out.println(cadenaCaminos);
+			cadenaCaminos = cadenaCaminos.substring(0, cadenaCaminos.length()-1);
 		}else {
 			cadenaCaminos = "NA";
 		}
-		return this.toString() + "/" + cadenaCaminos;
+		return cadenaCaminos;
+	}
+	
+	@Override
+	public String toString() {
+		super.toString();
+		return super.toString() + "/" + cadenaCaminos(caminosCreados) + "/" + cadenaCaminos(caminosCopiados);
 	}
 }

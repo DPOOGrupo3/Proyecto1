@@ -13,30 +13,31 @@ import java.nio.file.Files;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import modelo.LearningPath;
 import modelo.usuario.Estudiante;
 import modelo.usuario.Profesor;
 import modelo.usuario.Usuario;
 
 public class PersistenciaUsuarios {
-	private String[] titulos = {"nombre", "correo", "contrasena"};
+	private String[] titulos = {"nombre", "correo", "contrasena", "caminosCreados", "caminosCopiados"};
 	
-	public void cargarArchivo(String ruta, List<Profesor> profesores, List<Estudiante> estudiantes) throws IOException {
+	public void cargarArchivo(String ruta, List<Profesor> profesores, List<Estudiante> estudiantes, List<LearningPath> caminosCompletos) throws IOException {
 		JSONObject usuarios = new JSONObject(new String(Files.readAllBytes(new File(ruta).toPath())));
 		
-		cargarProfesores(profesores, usuarios.getJSONArray("profesores"));
+		cargarProfesores(profesores, caminosCompletos, usuarios.getJSONArray("profesores"));
 		cargarEstudiantes(estudiantes, usuarios.getJSONArray("estudiantes"));
 	}
 	
-	public void cargarProfesores(List<Profesor> profesores, JSONArray jProfesores) {
+	public void cargarProfesores(List<Profesor> profesores, List<LearningPath> caminosCompletos, JSONArray jProfesores) {
 		for (int i = 0; i < jProfesores.length(); i++) {
 			JSONObject jProfesor = jProfesores.getJSONObject(i);
-			Profesor profesor = new Profesor(jProfesor.getString("nombre"), jProfesor.getString("correo"), jProfesor.getString("contrasena"));
-			JSONArray jCaminos = (JSONArray) jProfesor.get("caminos");
+			Profesor profesor = new Profesor(jProfesor.getString(titulos[0]), jProfesor.getString(titulos[1]), jProfesor.getString(titulos[2]));
+			JSONArray jCaminos = (JSONArray) jProfesor.get(titulos[3]);
 			List<String> caminos = new ArrayList<String>();
 			for (int j = 0; j < jCaminos.length(); j++) {
 				caminos.add(jCaminos.getString(j));
 			}
-			profesor.cargarLearninPathsCreados(caminos);
+			profesor.cargarLearninPathsCreados(caminos, caminosCompletos);
 			profesores.add(profesor);
 		}
 	}
@@ -44,7 +45,7 @@ public class PersistenciaUsuarios {
 	public void cargarEstudiantes(List<Estudiante> estudiantes, JSONArray jEstudiantes) {
 		for (int i = 0; i < jEstudiantes.length(); i++) {
 			JSONObject estudiante = jEstudiantes.getJSONObject(i);
-			estudiantes.add(new Estudiante(estudiante.getString("nombre"), estudiante.getString("correo"), estudiante.getString("contrasena")));
+			estudiantes.add(new Estudiante(estudiante.getString(titulos[0]), estudiante.getString(titulos[1]), estudiante.getString(titulos[2])));
 		}
 	}
 	
@@ -55,23 +56,37 @@ public class PersistenciaUsuarios {
 		
 		for (Profesor profesor: profesores) {
 			JSONObject profe = new JSONObject();
-			String[] atributosProfesor = profesor.cadenaAGuardar().split("/");
-			for (int i = 0; i < titulos.length; i++) {
+			String[] atributosProfesor = profesor.toString().split("/");
+			
+			for (int i = 0; i < titulos.length-2; i++) {
 				profe.put(titulos[i], atributosProfesor[i]);
 			}
-			if (atributosProfesor[3].equals("NA")) {
-				JSONArray caminos = new JSONArray();
-				profe.put("caminos", caminos);
-			}else {
-				profe.put("caminos", atributosProfesor[3]);
+			
+			JSONArray jCaminosCreados = new JSONArray();
+			JSONArray jCaminosCopiados = new JSONArray();
+			
+			if (!atributosProfesor[3].equals("NA")) {
+				String[] caminos = atributosProfesor[3].split("%");
+				for (String camino: caminos) {
+					jCaminosCreados.put(camino);
+				}
 			}
+			if (!atributosProfesor[4].equals("NA")) {
+				String[] caminos = atributosProfesor[4].split("%");
+				for (String camino: caminos) {
+					jCaminosCopiados.put(camino);
+				}
+			}
+			profe.put(titulos[3], jCaminosCreados);
+			profe.put(titulos[4], jCaminosCopiados);
 			jProfesores.put(profe);
 		}
 		
 		for (Usuario estudiante: estudiantes) {
 			JSONObject student = new JSONObject();
 			String[] atributosEstudiante = estudiante.toString().split("/");
-			for (int i = 0; i < titulos.length; i++) {
+			
+			for (int i = 0; i < titulos.length-2; i++) {
 				student.put(titulos[i], atributosEstudiante[i]);
 			}
 			jEstudiantes.put(student);
@@ -79,9 +94,9 @@ public class PersistenciaUsuarios {
 		
 		usuarios.put("profesores", jProfesores);
 		usuarios.put("estudiantes", jEstudiantes);
-		PrintWriter pw;
+		
 		try {
-			pw = new PrintWriter(ruta);
+			PrintWriter pw = new PrintWriter(ruta);
 			usuarios.write(pw, 2, 0);
 	        pw.close();
 		} catch (FileNotFoundException e) {

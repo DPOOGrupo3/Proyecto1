@@ -9,4 +9,9 @@ public abstract class Examen extends Contenido {
 	
 	public Examen() {
 	}
+	
+	@Override
+	public void editarContenido(Object cambio) {
+		// TODO Auto-generated method stub	
+	}
 }

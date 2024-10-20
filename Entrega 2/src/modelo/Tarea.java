@@ -3,11 +3,13 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ejercicios extends Contenido {
+public class Tarea extends Contenido {
 	List<String> ejercicios;
+	boolean enviada;
 	
-	public Ejercicios(ArrayList<String> ejercicios) {
+	public Tarea(ArrayList<String> ejercicios) {
 		this.ejercicios = ejercicios;
+		this.enviada = false;
 	}
 
 	@Override

@@ -14,15 +14,25 @@ public class CentralPersistencia {
 	private PersistenciaLearningPaths persistenciaC = new PersistenciaLearningPaths();
 	
 	public void cargarDatos(List<Profesor> profesores, List<Estudiante> estudiantes, List<LearningPath> caminos, List<Actividad> actividades) {
+		
 		try {
-			cargarUsusarios(profesores, estudiantes);
+			cargarLearningPaths(caminos, actividades);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		try {
+			cargarUsusarios(profesores, estudiantes, caminos);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
 	
-	private void cargarUsusarios(List<Profesor> profesores, List<Estudiante> estudiantes) throws IOException {
-		persistenciaU.cargarArchivo(RutaUsuarios, profesores, estudiantes);
+	private void cargarUsusarios(List<Profesor> profesores, List<Estudiante> estudiantes, List<LearningPath> caminos) throws IOException {
+		persistenciaU.cargarArchivo(RutaUsuarios, profesores, estudiantes, caminos);
+	}
+	
+	private void cargarLearningPaths(List<LearningPath> caminos, List<Actividad> actividades) throws IOException {
+		persistenciaC.cargarArchivo(RutaCaminos, caminos, actividades);
 	}
 	
 	public void guardarDatos(List<Profesor> profesores, List<Estudiante> estudiantes, List<LearningPath> caminos, List<Actividad> actividades) {
@@ -31,9 +41,18 @@ public class CentralPersistencia {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		try {
+			guardarLearningPaths(caminos);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	
 	private void guardarUsusarios(List<Profesor> profesores, List<Estudiante> estudiantes) throws IOException {
 		persistenciaU.guardarArchivo(RutaUsuarios, profesores, estudiantes);
+	}
+	
+	private void guardarLearningPaths(List<LearningPath> caminos) throws IOException {
+		persistenciaC.guardarArchivo(RutaCaminos, caminos);
 	}
 }

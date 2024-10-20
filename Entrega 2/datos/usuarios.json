@@ -1,16 +1,18 @@
 {
   "profesores": [
     {
+      "caminosCreados": ["camino1"],
       "correo": "j.a@mail.com",
-      "caminos": ["camino1", "camino2"],
       "contrasena": "SoyJuan123",
-      "nombre": "Juan"
+      "nombre": "Juan",
+      "caminosCopiados": []
     },
     {
+      "caminosCreados": [],
       "correo": "p.gg@mail.com",
-      "caminos": [],
       "contrasena": "PedroElMejor1234",
-      "nombre": "Pedro"
+      "nombre": "Pedro",
+      "caminosCopiados": []
     }
   ],
   "estudiantes": [

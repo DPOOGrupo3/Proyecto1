@@ -11,5 +11,9 @@ public class Estudiante extends Usuario{
 		super(nombre, email, contraseña);
 	}
 	
+	public void inscribirCamino(LearningPath camino) {
+		caminosInscritos.add(camino);
+	}
+	
 	
 }
