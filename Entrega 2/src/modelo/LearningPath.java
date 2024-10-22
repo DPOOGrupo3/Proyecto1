@@ -1,9 +1,14 @@
 package modelo;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
+
+import modelo.usuario.Profesor;
+import modelo.usuario.Estudiante;
 
 public class LearningPath {
-	private static int ID = 0;
+	private String ID;
 	private String titulo;
 	private String descripcion;
 	private String objetivo;
@@ -12,9 +17,15 @@ public class LearningPath {
 	private double rating;
 	private int raters;
 	private List<Actividad> actividades;
+	private List<Resenha> resenhas;
+	private List<Profesor> copias;
+	private List<Estudiante> inscripciones;
+	private Date fechaCreacion;
+	private Date fechaModificacion;
+	private double version;
 	
-	public LearningPath(String titulo, String descripcion, String objetivo, List<Actividad> activdades) {
-		ID = ID + 1;
+	public LearningPath(String ID, String titulo, String descripcion, String objetivo, List<Actividad> actividades) {
+		this.ID = ID;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.objetivo = objetivo;
@@ -22,7 +33,20 @@ public class LearningPath {
 		this.nivelDificultad = 0;
 		this.rating = 0;
 		this.raters = 0;
-		this.actividades = activdades;
+		for (Actividad actividad: actividades) {
+			actividad.setID(generarIDActividad());
+			this.actividades.add(actividad);
+		}
+		resenhas = new ArrayList<Resenha>();
+		copias = new ArrayList<Profesor>();
+		inscripciones = new ArrayList<Estudiante>();
+		//fechaCreacion = new Date();
+		//fechaModificacion = fechaCreacion;
+		version = 1;
+	}
+	
+	public String getID() {
+		return ID;
 	}
 
 	public String getTitulo() {
@@ -54,12 +78,16 @@ public class LearningPath {
 	}
 
 	public void cambiarDuracionEsperada() {
+		System.out.println("entra duracion");
+		System.out.println(actividades.size());
 		if (actividades.size() > 0) {
+			System.out.println("entra duracion if");
 			duracionEsperada = 0;
 			for (Actividad actividad: actividades) {
 				duracionEsperada += actividad.getDuracionEsperada();
 			}
 		}
+		System.out.println("Se acaba");
 	}
 
 	public int getNivelDificultad() {
@@ -91,6 +119,10 @@ public class LearningPath {
 	public List<Actividad> getActivdades() {
 		return actividades;
 	}
+	
+	public int getCantidadActivdades() {
+		return actividades.size();
+	}
 
 	public void agregarActivdad(Actividad activdad) {
 		actividades.add(activdad);
@@ -104,8 +136,41 @@ public class LearningPath {
 		}
 	}
 	
+	public void agregarResenha(Resenha resenha) {
+		resenhas.add(resenha);
+		ratePath(resenha.getCalificaicon());
+	}
+	
+	public double getVersion() {
+		return version;
+	}
+	
 	public LearningPath copy() {
-		return new LearningPath(titulo, descripcion, objetivo, actividades);
+		LearningPath camino = new LearningPath(ID, titulo, descripcion, objetivo, actividades);
+		camino.cambiarDuracionEsperada();
+		camino.cambiarNivelDificultad();
+		for (int i = 0; i < raters; i++) {
+			camino.ratePath(rating);
+		}
+		return camino;
+	}
+	
+	public void cambiarVersion() {
+		version += 0.1;
+	}
+	
+	public LearningPath copiarCamino(Profesor profesor) {
+		copias.add(profesor);
+		return copy();
+	}
+	
+	public LearningPath inscribirCamino(Estudiante estudiante) {
+		inscripciones.add(estudiante);
+		return copy();
+	}
+	
+	private String generarIDActividad() {
+		return ID + "." +String.valueOf(actividades.size() + 1);
 	}
 	
 	@Override

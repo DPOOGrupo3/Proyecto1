@@ -14,13 +14,20 @@ public class Tarea extends Contenido {
 
 	@Override
 	public void editarContenido(Object ejercicios) {
-		this.ejercicios = (List<String>) ejercicios;
+		if (ejercicios.getClass() == List.class) {
+			this.ejercicios = (List<String>) ejercicios;
+		}
+	}
+	
+	public void enviarTarea(List<String> respuestas) {
+		enviada = true;
 	}
 
 	@Override
-	public void interactuar() {
-		for (String ejercicio: ejercicios) {
+	public Object obtenerInformacion() { 
+		/*for (String ejercicio: ejercicios) {
 			System.out.println(ejercicio);
-		}
+		}*/
+		return ejercicios;
 	}
 }

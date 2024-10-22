@@ -46,75 +46,159 @@ public class CentralLogica {
 	}
 	
 	public LearningPath crearLearningPath(String titulo, String descripcion, String objetivo, List<Actividad> activdades) {
-		return ((Profesor) user).crearLearningPath(titulo, descripcion, objetivo, activdades);
+		LearningPath camino = ((Profesor) user).crearLearningPath(titulo, descripcion, objetivo, activdades);
+		caminos.add(camino);
+		return camino;
 	}
 	
-	public Actividad crearActividad(int ID, String descripcion, String objetivo, Contenido contenido, int nivelDificultad, int duracionEsperada, List<Actividad> preRequisitos) {
-		return ((Profesor) user).crearActividad(ID, descripcion, objetivo, contenido, nivelDificultad, duracionEsperada, preRequisitos);
+	public Actividad crearActividad(String descripcion, String objetivo, Contenido contenido, int nivelDificultad, int duracionEsperada, List<Actividad> preRequisitos) {
+		Actividad actividad =((Profesor) user).crearActividad(descripcion, objetivo, contenido, nivelDificultad, duracionEsperada, preRequisitos);
+		actividades.add(actividad);
+		return actividad;
 	}
 	
-	public void copiarLearninPath(LearningPath camino) {
-		((Profesor) user).copiarLearninPath(camino);
+	private LearningPath encontrarLearningPathPorID(String IDCamino) {
+		for (LearningPath camino: caminos) {
+			if (camino.getID().equals(IDCamino)) {
+				return camino;
+			}
+		}
+		return new LearningPath("", "", "", "", new ArrayList<Actividad>());
 	}
 	
-	public void cambiarTituloLearningPath(LearningPath camino, String titulo) {
-		((Profesor) user).cambiarTituloLearningPath(camino, titulo);
+	private Actividad encontrarActividadPorID(String IDActividad) {
+		for (Actividad actividad: actividades) {
+			if (actividad.getID().equals(IDActividad)) {
+				return actividad;
+			}
+		}
+		return null;
 	}
 	
-	public void cambiarDescrpcionLearningPath(LearningPath camino, String descripcion) {
-		((Profesor) user).cambiarDescrpcionLearningPath(camino, descripcion);
+	private LearningPath encontrarLearningPathPorIDActividad(String IDActividad) {
+		for (LearningPath camino: caminos) {
+			for (Actividad actividad: camino.getActivdades()) {
+				if (actividad.getID().equals(IDActividad)) {
+					return camino;
+				}
+			}
+		}
+		return null;
 	}
 	
-	public void cambiarObjetivoLearningPath(LearningPath camino, String objetivo) {
-		((Profesor) user).cambiarObjetivoLearningPath(camino, objetivo);
+	public void copiarLearninPath(String IDCamino) {
+		LearningPath camino = encontrarLearningPathPorID(IDCamino);
+		if (!camino.equals(null)) {
+			((Profesor) user).copiarLearninPath(camino);
+		}
 	}
 	
-	public void agregarActividadLearningPath(LearningPath camino, Actividad actividadAgregar) {
-		((Profesor) user).agregarActividadLearningPath(camino, actividadAgregar);
+	public void eliminarLearningPathCreado(String IDCamino) {
+		LearningPath camino = encontrarLearningPathPorID(IDCamino);
+		if (!camino.equals(null)) {
+			((Profesor) user).eliminarLearningPathCreado(camino);
+			caminos.remove(camino);
+		}
 	}
 	
-	public void eliminarsActividadLearningPath(LearningPath camino, Actividad actividadEliminar) {
-		((Profesor) user).eliminarsActividadLearningPath(camino, actividadEliminar);
+	public void cambiarTituloLearningPath(String IDCamino, String titulo) {
+		LearningPath camino = encontrarLearningPathPorID(IDCamino);
+		if (!camino.equals(null)) {
+			((Profesor) user).cambiarTituloLearningPath(camino, titulo);
+		}
 	}
 	
-	public void cambiarDescrpcionActividad(Actividad actividad, String descripcion) {
+	public void cambiarDescrpcionLearningPath(String IDCamino, String descripcion) {
+		LearningPath camino = encontrarLearningPathPorID(IDCamino);
+		if (!camino.equals(null)) {
+			((Profesor) user).cambiarDescrpcionLearningPath(camino, descripcion);
+		}
+	}
+	
+	public void cambiarObjetivoLearningPath(String IDCamino, String objetivo) {
+		LearningPath camino = encontrarLearningPathPorID(IDCamino);
+		if (!camino.equals(null)) {
+			((Profesor) user).cambiarObjetivoLearningPath(camino, objetivo);
+		}
+	}
+	
+	public void agregarActividadLearningPath(String IDCamino, String IDActividad) {
+		LearningPath camino = encontrarLearningPathPorID(IDCamino);
+		Actividad actividadAgregar = encontrarActividadPorID(IDActividad);
+		if (!camino.equals(null) && !actividadAgregar.equals(null)) {
+			((Profesor) user).agregarActividadLearningPath(camino, actividadAgregar);
+		}
+	}
+	
+	public void eliminarsActividadLearningPath(String IDCamino, String IDActividad) {
+		LearningPath camino = encontrarLearningPathPorID(IDCamino);
+		Actividad actividadEliminar = encontrarActividadPorID(IDActividad);
+		if (!camino.equals(null) && !actividadEliminar.equals(null)) {
+			((Profesor) user).eliminarActividadLearningPath(camino, actividadEliminar);
+			actividades.remove(actividadEliminar);
+		}
+	}
+	
+	public void cambiarDescrpcionActividad(String IDActividad, String descripcion) {
+		Actividad actividad = encontrarActividadPorID(IDActividad);
 		((Profesor) user).cambiarDescrpcionActividad(actividad, descripcion);
 	}
 	
-	public void cambiarObjetivoActividad(Actividad actividad, String objetivo) {
-		((Profesor) user).cambiarObjetivoActividad(actividad, objetivo);
+	public void cambiarObjetivoActividad(String IDActividad, String objetivo) {
+		Actividad actividad = encontrarActividadPorID(IDActividad);
+		if (!actividad.equals(null)) {
+			((Profesor) user).cambiarObjetivoActividad(actividad, objetivo);
+		}
 	}
 	
-	public void cambiarDuracionEsperadaActividad(Actividad actividad, int duracion) {
-		((Profesor) user).cambiarDuracionEsperadaActividad(actividad, duracion);
+	public void cambiarDuracionEsperadaActividad(String IDActividad, int duracion) {
+		Actividad actividad = encontrarActividadPorID(IDActividad);
+		LearningPath camino = encontrarLearningPathPorIDActividad(IDActividad);
+		if (!actividad.equals(null) && !camino.equals(null)) {
+			((Profesor) user).cambiarDuracionEsperadaActividad(actividad, duracion, camino);
+		}
 	}
 	
-	public void cambiarNivelDificultadActividad(Actividad actividad, int dificultad) {
-		((Profesor) user).cambiarNivelDificultadActividad(actividad, dificultad);
+	public void cambiarNivelDificultadActividad(String IDActividad, int dificultad) {
+		Actividad actividad = encontrarActividadPorID(IDActividad);
+		LearningPath camino = encontrarLearningPathPorIDActividad(IDActividad);
+		if (!actividad.equals(null) && !camino.equals(null)) {
+			((Profesor) user).cambiarNivelDificultadActividad(actividad, dificultad, camino);
+		}
 	}
 	
-	public void agregarPreRequisitosActividad(Actividad actividad, Actividad actividadAgregar) {
-		((Profesor) user).agregarPreRequisitosActividad(actividad, actividadAgregar);
+	public void agregarPreRequisitosActividad(String IDActividad, String IDActividadAgregar) {
+		Actividad actividad = encontrarActividadPorID(IDActividad);
+		Actividad actividadAgregar = encontrarActividadPorID(IDActividadAgregar);
+		if (!actividad.equals(null) && !actividadAgregar.equals(null)) {
+			((Profesor) user).agregarPreRequisitosActividad(actividad, actividadAgregar);
+		}
 	}
 	
-	public void eliminarPreRequisitosActividad(Actividad actividad, Actividad actividadEliminar) {
-		((Profesor) user).eliminarPreRequisitosActividad(actividad, actividadEliminar);
+	public void eliminarPreRequisitosActividad(String IDActividad, String IDActividadEliminar) {
+		Actividad actividad = encontrarActividadPorID(IDActividad);
+		Actividad actividadEliminar = encontrarActividadPorID(IDActividadEliminar);
+		if (!actividad.equals(null) && !actividadEliminar.equals(null)) {
+			((Profesor) user).eliminarPreRequisitosActividad(actividad, actividadEliminar);
+		}
 	}
 	
-	
+	public void actualizarVersionLP(String IDCamino) {
+		LearningPath camino = encontrarLearningPathPorID(IDCamino);
+		camino.cambiarVersion();
+	}
 	
 	public static void main(String[] args) {
 		CentralLogica centralL = new CentralLogica();
 		centralL.cargarDatos();
-		centralL.iniciarSesion("j.a@mail.com", "SoyJuan123");
+		centralL.iniciarSesion("j.p@mail.com", "SoyJuan123");
+		//centralL.crearLearningPath("camino1", "Cosas basicas", "Aprender", new ArrayList<Actividad>());
 		/*Class<? extends Usuario> tipoUser = centralL.iniciarSesion("j.a@mail.com", "SoyJuan123");
 		if (tipoUser.equals(Profesor.class)) {
 			System.out.println("Es profesor");
 		}else {
 			System.out.println("Es estudiante");
 		}*///Iniciar sesion como profesor
-		//Profesor profe = (Profesor) centralL.user;
-		//centralL.caminos.add(profe.crearLearningPath("camino1", "Cosas basicas", "Aprender", 1, 1, 0.2, new ArrayList<Actividad>()));
 		centralL.guardarDatos();
 	}
 }

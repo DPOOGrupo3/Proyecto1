@@ -27,12 +27,12 @@ public class CentralPersistencia {
 		}
 	}
 	
-	private void cargarUsusarios(List<Profesor> profesores, List<Estudiante> estudiantes, List<LearningPath> caminos) throws IOException {
-		persistenciaU.cargarArchivo(RutaUsuarios, profesores, estudiantes, caminos);
-	}
-	
 	private void cargarLearningPaths(List<LearningPath> caminos, List<Actividad> actividades) throws IOException {
 		persistenciaC.cargarArchivo(RutaCaminos, caminos, actividades);
+	}
+	
+	private void cargarUsusarios(List<Profesor> profesores, List<Estudiante> estudiantes, List<LearningPath> caminos) throws IOException {
+		persistenciaU.cargarArchivo(RutaUsuarios, profesores, estudiantes, caminos);
 	}
 	
 	public void guardarDatos(List<Profesor> profesores, List<Estudiante> estudiantes, List<LearningPath> caminos, List<Actividad> actividades) {

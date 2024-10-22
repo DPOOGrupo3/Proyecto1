@@ -15,6 +15,10 @@ public abstract class Usuario {
 		return (email.equals(this.email) && contraseña.equals(this.contraseña));
 	}
 	
+	public String getNombre() {
+		return nombre;
+	}
+	
 	@Override
 	public String toString() {
 		return nombre + "/" + email + "/" + contraseña;

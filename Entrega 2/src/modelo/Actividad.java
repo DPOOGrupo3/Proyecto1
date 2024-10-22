@@ -2,29 +2,33 @@ package modelo;
 
 import java.util.List;
 
-import modelo.examen.*;
-
 public class Actividad {
-	private int ID;
+	private String ID;
 	private String descripcion;
 	private String objetivo;
 	private Contenido contenido;
 	private double nivelDificultad;
 	private int duracionEsperada;
 	private List<Actividad> preRequisitos;
+	private String resultado;
 	
-	public Actividad(int ID, String descripcion, String objetivo, Contenido contenido, int nivelDificultad, int duracionEsperada, List<Actividad> preRequisitos) {
-		this.ID = ID;
+	public Actividad(String descripcion, String objetivo, Contenido contenido, int nivelDificultad, int duracionEsperada, List<Actividad> preRequisitos) {
+		this.ID = "";
 		this.descripcion = descripcion;
 		this.objetivo = objetivo;
 		this.contenido = contenido;
 		this.nivelDificultad = nivelDificultad;
 		this.duracionEsperada = duracionEsperada;
 		this.preRequisitos = preRequisitos;
+		resultado = "Incompleto";
 	}
 
-	public int getID() {
+	public String getID() {
 		return ID;
+	}
+	
+	public void setID(String ID) {
+		this.ID = ID;
 	}
 
 	public String getDescripcion() {
@@ -73,6 +77,14 @@ public class Actividad {
 	
 	public void eliminarPreRequisito(Actividad preRequisito) {
 		preRequisitos.remove(preRequisito);
+	}
+	
+	public String getResultado() {
+		return resultado;
+	}
+	
+	public void cambiarResultado(String resultado) {
+		this.resultado = resultado;
 	}
 	
 	@Override

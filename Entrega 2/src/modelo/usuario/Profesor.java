@@ -41,19 +41,33 @@ public class Profesor extends Usuario{
 		}
 	}
 	
-	public Actividad crearActividad(int ID, String descripcion, String objetivo, Contenido contenido, int nivelDificultad, int duracionEsperada, List<Actividad> preRequisitos) {
-		Actividad actividad = new Actividad(ID, descripcion, objetivo, contenido, nivelDificultad, duracionEsperada, preRequisitos);
+	public Actividad crearActividad(String descripcion, String objetivo, Contenido contenido, int nivelDificultad, int duracionEsperada, List<Actividad> preRequisitos) {
+		Actividad actividad = new Actividad(descripcion, objetivo, contenido, nivelDificultad, duracionEsperada, preRequisitos);
 		return actividad;
 	}
 	
+	private String generarIDLP() {
+		String[] nombresApellidos = super.getNombre().split(" ");
+		String ID = "";
+		for (String inicial: nombresApellidos) {
+			ID += inicial.substring(0, 1);
+		}
+		return ID + String.valueOf(caminosCreados.size() + 1);
+	}
+	
 	public LearningPath crearLearningPath(String titulo, String descripcion, String objetivo, List<Actividad> activdades) {
-		LearningPath camino = new LearningPath(titulo, descripcion, objetivo, activdades);
+		String ID = generarIDLP();
+		LearningPath camino = new LearningPath(ID, titulo, descripcion, objetivo, activdades);
 		caminosCreados.add(camino);
 		return camino;
 	}
 	
 	public void copiarLearninPath(LearningPath camino) {
-		caminosCopiados.add(camino.copy());
+		caminosCopiados.add(camino.copiarCamino(this));
+	}
+	
+	public void eliminarLearningPathCreado(LearningPath camino) {
+		caminosCreados.remove(camino);
 	}
 	
 	public void cambiarTituloLearningPath(LearningPath camino, String titulo) {
@@ -72,7 +86,7 @@ public class Profesor extends Usuario{
 		camino.agregarActivdad(actividadAgregar);
 	}
 	
-	public void eliminarsActividadLearningPath(LearningPath camino, Actividad actividadEliminar) {
+	public void eliminarActividadLearningPath(LearningPath camino, Actividad actividadEliminar) {
 		camino.eliminarActivdad(actividadEliminar);
 	}
 	
@@ -84,13 +98,14 @@ public class Profesor extends Usuario{
 		actividad.cambiarDescripcion(objetivo);
 	}
 	
-	public void cambiarDuracionEsperadaActividad(Actividad actividad, int duracion) {
+	public void cambiarDuracionEsperadaActividad(Actividad actividad, int duracion, LearningPath camino) {
 		actividad.cambiarDuracionEsperada(duracion);
-		
+		camino.cambiarDuracionEsperada();
 	}
 	
-	public void cambiarNivelDificultadActividad(Actividad actividad, int dificultad) {
+	public void cambiarNivelDificultadActividad(Actividad actividad, int dificultad, LearningPath camino) {
 		actividad.cambiarNivelDificultad(dificultad);
+		camino.cambiarNivelDificultad();
 	}
 	
 	public void agregarPreRequisitosActividad(Actividad actividad, Actividad actividadAgregar) {
@@ -105,7 +120,7 @@ public class Profesor extends Usuario{
 		String cadenaCaminos = "";
 		if (caminos.size() > 0) {
 			for (LearningPath camino: caminos) {
-				cadenaCaminos += camino.getTitulo() + "%";
+				cadenaCaminos += camino.getID() + "%";
 			}
 			cadenaCaminos = cadenaCaminos.substring(0, cadenaCaminos.length()-1);
 		}else {

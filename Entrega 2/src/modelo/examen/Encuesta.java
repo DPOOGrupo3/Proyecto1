@@ -1,17 +1,9 @@
 package modelo.examen;
 
+import java.util.List;
+
 public class Encuesta extends Examen {
-
-	@Override
-	public void editarContenido(Object cambio) {
-		// TODO Auto-generated method stub
-		
+	public Encuesta(List<String> preguntas) {
+		super(preguntas);
 	}
-
-	@Override
-	public void interactuar() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
