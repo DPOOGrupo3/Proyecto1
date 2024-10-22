@@ -191,7 +191,7 @@ public class CentralLogica {
 	public static void main(String[] args) {
 		CentralLogica centralL = new CentralLogica();
 		centralL.cargarDatos();
-		centralL.iniciarSesion("j.p@mail.com", "SoyJuan123");
+		centralL.iniciarSesion("j.p", "SoyJuan123");
 		//centralL.crearLearningPath("camino1", "Cosas basicas", "Aprender", new ArrayList<Actividad>());
 		/*Class<? extends Usuario> tipoUser = centralL.iniciarSesion("j.a@mail.com", "SoyJuan123");
 		if (tipoUser.equals(Profesor.class)) {

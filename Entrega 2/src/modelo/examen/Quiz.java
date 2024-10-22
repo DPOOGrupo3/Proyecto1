@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Quiz extends Examen {
 	private List<String> opciones; //lista de todas las opciones
-	private List<String> respuestas; //lista de ints del index de las correctas
+	private List<Integer> respuestas; //lista de ints del index de las correctas
 	private float calificacionMin;
 	
-	public Quiz(List<String> preguntas, List<String> opciones, List<String> respuestas, float calificacionMin) {
+	public Quiz(List<String> preguntas, List<String> opciones, List<Integer> respuestas, float calificacionMin) {
 		super(preguntas);
 		this.opciones = opciones;
 		this.respuestas = respuestas;
@@ -22,11 +22,11 @@ public class Quiz extends Examen {
 		this.opciones = opciones;
 	}
 
-	public List<String> getRespuestas() {
+	public List<Integer> getRespuestas() {
 		return respuestas;
 	}
 
-	public void editarRespuestas(List<String> respuestas) {
+	public void editarRespuestas(List<Integer> respuestas) {
 		this.respuestas = respuestas;
 	}
 

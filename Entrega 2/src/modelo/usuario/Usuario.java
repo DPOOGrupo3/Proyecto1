@@ -11,8 +11,8 @@ public abstract class Usuario {
 		this.contraseña = contraseña;
 	}
 	
-	public boolean iniciarSesion(String email, String contraseña) {
-		return (email.equals(this.email) && contraseña.equals(this.contraseña));
+	public boolean iniciarSesion(String login, String contraseña) {
+		return (login.equals(this.email.substring(0, this.email.indexOf("@"))) && contraseña.equals(this.contraseña));
 	}
 	
 	public String getNombre() {

@@ -19,9 +19,9 @@ public class Profesor extends Usuario{
 	
 	public void cargarLearninPathsCreados(List<String> caminosACargar, List<LearningPath> caminosCompletos){
 		if (caminosACargar.size() > 0) {
-			for (String tituloCamino: caminosACargar) {
+			for (String IDCamino: caminosACargar) {
 				for (LearningPath camino: caminosCompletos) {
-					if (camino.getTitulo().equals(tituloCamino)) {
+					if (camino.getID().equals(IDCamino)) {
 						caminosCreados.add(camino);
 					}
 				}
@@ -29,11 +29,11 @@ public class Profesor extends Usuario{
 		}
 	}
 	
-	public void cargarLearninPathsCopiados(List<String> caminosACargar){
+	public void cargarLearninPathsCopiados(List<String> caminosACargar, List<LearningPath> caminosCompletos){
 		if (caminosACargar.size() > 0) {
-			for (String tituloCamino: caminosACargar) {
+			for (String IDCamino: caminosACargar) {
 				for (LearningPath camino: caminosCreados) {
-					if (camino.getTitulo().equals(tituloCamino)) {
+					if (camino.getID().equals(IDCamino)) {
 						caminosCopiados.add(camino);
 					}
 				}

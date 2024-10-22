@@ -33,6 +33,7 @@ public class LearningPath {
 		this.nivelDificultad = 0;
 		this.rating = 0;
 		this.raters = 0;
+		this.actividades = new ArrayList<Actividad>();
 		for (Actividad actividad: actividades) {
 			actividad.setID(generarIDActividad());
 			this.actividades.add(actividad);
@@ -78,16 +79,12 @@ public class LearningPath {
 	}
 
 	public void cambiarDuracionEsperada() {
-		System.out.println("entra duracion");
-		System.out.println(actividades.size());
 		if (actividades.size() > 0) {
-			System.out.println("entra duracion if");
 			duracionEsperada = 0;
 			for (Actividad actividad: actividades) {
 				duracionEsperada += actividad.getDuracionEsperada();
 			}
 		}
-		System.out.println("Se acaba");
 	}
 
 	public int getNivelDificultad() {

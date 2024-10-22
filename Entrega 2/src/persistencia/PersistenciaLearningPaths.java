@@ -29,14 +29,12 @@ public class PersistenciaLearningPaths {
 			List<Actividad> actividades = obtenerActividades(jActividades, actividadesCompleta);
 			LearningPath camino = new LearningPath(jCamino.getString(titulos[0]), jCamino.getString(titulos[1]), jCamino.getString(titulos[2]), jCamino.getString(titulos[3]), actividades);
 			cargarDatos(camino, jCamino.getInt(titulos[7]), jCamino.getDouble(titulos[6]));
-			System.out.println("cargaDatos bien");
 			caminos.add(camino);
 		}
 	}
 	
 	public List<Actividad> obtenerActividades(JSONArray jActividades, List<Actividad> actividadesCompleta) {
 		List<Actividad> actividades = new ArrayList<Actividad>();
-		
 		for (int i = 0; i < jActividades.length(); i++) {
 			for (int j = 0; j < actividadesCompleta.size(); j++) {
 				if (String.valueOf(actividadesCompleta.get(j).getID()).equals(jActividades.getString(i))) {
@@ -49,15 +47,11 @@ public class PersistenciaLearningPaths {
 	}
 	
 	public void cargarDatos(LearningPath camino, int raters, double rating) {
-		System.out.println("Si entra");
 		camino.cambiarDuracionEsperada();
-		System.out.println("duración bien");
 		camino.cambiarNivelDificultad();
-		System.out.println("dificultad bien");
 		for (int i = 0; i < raters; i++) {
 			camino.ratePath(rating);
 		}
-		System.out.println("rating bien");
 	}
 	
 	public void guardarArchivo(String ruta, List<LearningPath> caminos) {
