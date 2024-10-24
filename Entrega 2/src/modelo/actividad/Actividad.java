@@ -2,10 +2,6 @@ package modelo.actividad;
 
 import java.util.List;
 
-import modelo.actividad.examen.Encuesta;
-import modelo.actividad.examen.Parcial;
-import modelo.actividad.examen.Quiz;
-
 public abstract class Actividad {
 	private String ID;
 	private String descripcion;

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 
-import modelo.usuario.Profesor;
 import modelo.actividad.Actividad;
 import modelo.usuario.Estudiante;
 
@@ -19,11 +18,10 @@ public class LearningPath {
 	private int raters;
 	private List<Actividad> actividades;
 	private List<Resenha> resenhas;
-	private List<Profesor> copias;
 	private List<Estudiante> inscripciones;
 	private Date fechaCreacion;
 	private Date fechaModificacion;
-	private double version;
+	private int version;
 	
 	public LearningPath(String ID, String titulo, String descripcion, String objetivo, List<Actividad> actividades) {
 		this.ID = ID;
@@ -40,10 +38,9 @@ public class LearningPath {
 			this.actividades.add(actividad);
 		}
 		resenhas = new ArrayList<Resenha>();
-		copias = new ArrayList<Profesor>();
 		inscripciones = new ArrayList<Estudiante>();
-		//fechaCreacion = new Date();
-		//fechaModificacion = fechaCreacion;
+		fechaCreacion = new Date();
+		fechaModificacion = fechaCreacion;
 		version = 1;
 	}
 	
@@ -139,8 +136,25 @@ public class LearningPath {
 		ratePath(resenha.getCalificaicon());
 	}
 	
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+	
+	public void setFechaModificacion(Date fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+	
 	public double getVersion() {
 		return version;
+	}
+	
+	public void setVersion(int version) {
+		this.version = version;
+	}
+	
+	public void cambiarVersion() {
+		version += 1;
+		setFechaModificacion(new Date());
 	}
 	
 	public LearningPath copy() {
@@ -150,11 +164,10 @@ public class LearningPath {
 		for (int i = 0; i < raters; i++) {
 			camino.ratePath(rating);
 		}
+		camino.setVersion(version);
+		camino.setFechaCreacion(fechaCreacion);
+		camino.setFechaModificacion(fechaModificacion);
 		return camino;
-	}
-	
-	public void cambiarVersion() {
-		version += 0.1;
 	}
 	
 	public LearningPath inscribirCamino(Estudiante estudiante) {
@@ -176,6 +189,6 @@ public class LearningPath {
 		}else {
 			cadenaActividades = "NA";
 		}
-		return ID + "/" +titulo + "/" + descripcion + "/" + objetivo + "/" + duracionEsperada + "/" + nivelDificultad + "/" + rating + "/" + raters + "/" + cadenaActividades;
+		return ID + "/" +titulo + "/" + descripcion + "/" + objetivo + "/" + duracionEsperada + "/" + nivelDificultad + "/" + rating + "/" + raters + "/" + cadenaActividades + "/" + fechaCreacion + "/" + fechaModificacion + "/" + version;
 	}
 }
