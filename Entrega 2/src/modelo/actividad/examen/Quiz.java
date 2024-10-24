@@ -41,11 +41,19 @@ public class Quiz extends Examen {
 	}
 	
 	@Override
+	public Actividad copy() {
+		Quiz copia = new Quiz(getDescripcion(), getObjetivo(), getTipo(), getNivelDificultad(), getDuracionEsperada(), getPreRequisitos(), getPreguntas(), opciones, respuestas, calificacionMin);
+		copia.setID(this.getID());
+		copia.cambiarResultado(this.getResultado());
+		return copia;
+	}
+	
+	@Override
 	public String toString() {
 		String cadenaOpciones = "";
 		if (opciones.size() > 0) {
 			for (String opcion: opciones) {
-				cadenaOpciones += opcion + "%";
+				cadenaOpciones += opcion + "//";
 			}
 			cadenaOpciones.substring(0, cadenaOpciones.length()-1);
 		}else {
@@ -54,12 +62,12 @@ public class Quiz extends Examen {
 		String cadenaRespuestas = "";
 		if (respuestas.size() > 0) {
 			for (Integer respuesta: respuestas) {
-				cadenaRespuestas += respuesta + "%";
+				cadenaRespuestas += respuesta + "//";
 			}
 			cadenaRespuestas.substring(0, cadenaRespuestas.length()-1);
 		}else {
 			cadenaRespuestas = "NA";
 		}
-		return super.toString() + "|" + cadenaOpciones + "|" + cadenaRespuestas + "|"  + calificacionMin;
+		return super.toString() + ":/:" + cadenaOpciones + ":/:" + cadenaRespuestas + ":/:"  + calificacionMin;
 	}
 }

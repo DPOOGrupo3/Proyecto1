@@ -32,17 +32,25 @@ public class Tarea extends Actividad {
 		return ejercicios;
 	}
 	
+@Override
+	public Actividad copy() {
+		Tarea copia = new Tarea(getDescripcion(), getObjetivo(), getTipo(), getNivelDificultad(), getDuracionEsperada(), getPreRequisitos(), ejercicios);
+		copia.setID(this.getID());
+		copia.cambiarResultado(this.getResultado());
+		return copia;
+	}
+	
 	@Override
 	public String toString() {
 		String cadena = "";
 		if (ejercicios.size() > 0) {
 			for (String ejercicio: ejercicios) {
-				cadena += ejercicio + "%";
+				cadena += ejercicio + "//";
 			}
 			cadena.substring(0, cadena.length()-1);
 		}else {
 			cadena = "NA";
 		}
-		return cadena;
+		return super.toString() + cadena;
 	}
 }

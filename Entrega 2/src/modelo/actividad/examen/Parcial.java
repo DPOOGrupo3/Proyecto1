@@ -8,4 +8,12 @@ public class Parcial extends Examen {
 	public Parcial(String descripcion, String objetivo, String tipo, int nivelDificultad, double duracionEsperada, List<Actividad> preRequisitos, List<String> preguntas) {
 		super(descripcion, objetivo, tipo, nivelDificultad, duracionEsperada, preRequisitos, preguntas);
 	}
+	
+	@Override
+	public Actividad copy() {
+		Parcial copia = new Parcial(getDescripcion(), getObjetivo(), getTipo(), getNivelDificultad(), getDuracionEsperada(), getPreRequisitos(), getPreguntas());
+		copia.setID(this.getID());
+		copia.cambiarResultado(this.getResultado());
+		return copia;
+	}
 }

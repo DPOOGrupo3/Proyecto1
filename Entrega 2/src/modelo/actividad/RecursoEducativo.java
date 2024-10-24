@@ -33,7 +33,15 @@ public class RecursoEducativo extends Actividad {
 	}
 	
 	@Override
+	public Actividad copy() {
+		RecursoEducativo copia = new RecursoEducativo(getDescripcion(), getObjetivo(), getTipo(), getNivelDificultad(), getDuracionEsperada(), getPreRequisitos(), recurso, tipoRecurso);
+		copia.setID(this.getID());
+		copia.cambiarResultado(this.getResultado());
+		return copia;
+	}
+	
+	@Override
 	public String toString() {
-		return recurso + "|" + tipoRecurso;
+		return super.toString() + recurso + ":/:" + tipoRecurso;
 	}
 }

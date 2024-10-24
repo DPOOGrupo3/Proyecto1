@@ -24,7 +24,7 @@ public abstract class Examen extends Actividad {
 	}
 	
 	@Override
-	public List<String> obtenerInformacion () {
+	public List<String> obtenerInformacion() {
 		return getPreguntas();
 	}
 	
@@ -33,12 +33,12 @@ public abstract class Examen extends Actividad {
 		String cadena = "";
 		if (preguntas.size() > 0) {
 			for (String pregunta: preguntas) {
-				cadena += pregunta + "%";
+				cadena += pregunta + "//";
 			}
 			cadena.substring(0, cadena.length()-1);
 		}else {
 			cadena = "NA";
 		}
-		return cadena;
+		return super.toString() + cadena;
 	}
 }

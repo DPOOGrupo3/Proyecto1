@@ -3,9 +3,9 @@
   "objetivo": "Aprender",
   "raters": "0",
   "rating": "0.0",
-  "titulo": "camino1",
+  "titulo": "Camino 1",
   "duracion": "0.0",
-  "activdades": [],
+  "activdades": ["JCPG1.1"],
   "ID": "JCPG1",
   "dificultad": "0"
 }]

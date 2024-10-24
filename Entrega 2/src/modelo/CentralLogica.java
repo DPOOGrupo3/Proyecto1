@@ -195,6 +195,11 @@ public class CentralLogica {
 		CentralLogica centralL = new CentralLogica();
 		centralL.cargarDatos();
 		centralL.iniciarSesion("j.p", "SoyJuan123");
+		centralL.eliminarLearningPathCreado("JCPG1");
+		List<Actividad> act = new ArrayList<Actividad>();
+		List<String> pre = new ArrayList<String>();
+		act.add(centralL.crearActividad("Cosas basicas", "Aprender", "RE", 0, 0, pre, "Hola Soy Stor", "Libro", null, null, null, null, 0));
+		centralL.crearLearningPath("Camino 1", "Cosas basicas", "Aprender", act);
 		/*Class<? extends Usuario> tipoUser = centralL.iniciarSesion("j.a@mail.com", "SoyJuan123");
 		if (tipoUser.equals(Profesor.class)) {
 			System.out.println("Es profesor");

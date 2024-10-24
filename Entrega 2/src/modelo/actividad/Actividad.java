@@ -2,6 +2,10 @@ package modelo.actividad;
 
 import java.util.List;
 
+import modelo.actividad.examen.Encuesta;
+import modelo.actividad.examen.Parcial;
+import modelo.actividad.examen.Quiz;
+
 public abstract class Actividad {
 	private String ID;
 	private String descripcion;
@@ -70,6 +74,10 @@ public abstract class Actividad {
 	public void cambiarNivelDificultad(int nivelDificultad) {
 		this.nivelDificultad = nivelDificultad;
 	}
+	
+	public List<Actividad> getPreRequisitos() {
+		return preRequisitos;
+	}
 
 	public void agregarPreRequisito(Actividad preRequisito) {
 		preRequisitos.add(preRequisito);
@@ -87,6 +95,8 @@ public abstract class Actividad {
 		this.resultado = resultado;
 	}
 	
+	public abstract Actividad copy();
+	
 	public abstract void editarContenido(Object cambio);
 	
 	public abstract Object obtenerInformacion();
@@ -101,6 +111,6 @@ public abstract class Actividad {
 		}else {
 			cadenaActividades = "NA";
 		}
-		return ID + "%" + descripcion + "%" + objetivo + "%" + tipo + "%" + "Contenido" + "%" + duracionEsperada + "%" + nivelDificultad + "%" + cadenaActividades;
+		return ID + "%" + descripcion + "%" + objetivo + "%" + tipo + "%" + duracionEsperada + "%" + nivelDificultad + "%" + cadenaActividades + "%";
 	}
 }
