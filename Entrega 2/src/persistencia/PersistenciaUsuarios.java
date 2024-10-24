@@ -28,11 +28,11 @@ public class PersistenciaUsuarios {
 		cargarEstudiantes(estudiantes, usuarios.getJSONArray("estudiantes"));
 	}
 	
-	public void cargarProfesores(List<Profesor> profesores, List<LearningPath> caminosCompletos, JSONArray jProfesores) {
+	private void cargarProfesores(List<Profesor> profesores, List<LearningPath> caminosCompletos, JSONArray jProfesores) {
 		for (int i = 0; i < jProfesores.length(); i++) {
 			JSONObject jProfesor = jProfesores.getJSONObject(i);
 			Profesor profesor = new Profesor(jProfesor.getString(titulos[0]), jProfesor.getString(titulos[1]), jProfesor.getString(titulos[2]));
-			JSONArray jCaminos = (JSONArray) jProfesor.get(titulos[3]);
+			JSONArray jCaminos = jProfesor.getJSONArray(titulos[3]);
 			List<String> caminos = new ArrayList<String>();
 			for (int j = 0; j < jCaminos.length(); j++) {
 				caminos.add(jCaminos.getString(j));
@@ -42,7 +42,7 @@ public class PersistenciaUsuarios {
 		}
 	}
 	
-	public void cargarEstudiantes(List<Estudiante> estudiantes, JSONArray jEstudiantes) {
+	private void cargarEstudiantes(List<Estudiante> estudiantes, JSONArray jEstudiantes) {
 		for (int i = 0; i < jEstudiantes.length(); i++) {
 			JSONObject estudiante = jEstudiantes.getJSONObject(i);
 			estudiantes.add(new Estudiante(estudiante.getString(titulos[0]), estudiante.getString(titulos[1]), estudiante.getString(titulos[2])));

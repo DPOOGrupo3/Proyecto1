@@ -3,18 +3,20 @@ package modelo.usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-import modelo.Actividad;
-import modelo.Contenido;
 import modelo.LearningPath;
+import modelo.actividad.Actividad;
+import modelo.actividad.RecursoEducativo;
+import modelo.actividad.Tarea;
+import modelo.actividad.examen.Encuesta;
+import modelo.actividad.examen.Parcial;
+import modelo.actividad.examen.Quiz;
 
 public class Profesor extends Usuario{
 	private List<LearningPath> caminosCreados;
-	private List<LearningPath> caminosCopiados;
 	
 	public Profesor(String nombre, String email, String contraseña) {
 		super(nombre, email, contraseña);
 		caminosCreados = new ArrayList<LearningPath>();
-		caminosCopiados = new ArrayList<LearningPath>();
 	}
 	
 	public void cargarLearninPathsCreados(List<String> caminosACargar, List<LearningPath> caminosCompletos){
@@ -29,20 +31,19 @@ public class Profesor extends Usuario{
 		}
 	}
 	
-	public void cargarLearninPathsCopiados(List<String> caminosACargar, List<LearningPath> caminosCompletos){
-		if (caminosACargar.size() > 0) {
-			for (String IDCamino: caminosACargar) {
-				for (LearningPath camino: caminosCreados) {
-					if (camino.getID().equals(IDCamino)) {
-						caminosCopiados.add(camino);
-					}
-				}
-			}
+	public Actividad crearActividad(String descripcion, String objetivo, String tipo, int nivelDificultad, int duracionEsperada, List<Actividad> preRequisitos, String recurso, String tipoRecurso, List<String> ejercicios, List<String> preguntas, List<String> opciones, List<Integer> respuestas, double calificacionMin) {
+		Actividad actividad = null;
+		if (tipo.equals("RE")) {
+			actividad = new RecursoEducativo(descripcion, objetivo, tipo, duracionEsperada, nivelDificultad, preRequisitos, recurso, tipoRecurso);
+		}else if (tipo.equals("T")) {
+			actividad = new Tarea(descripcion, objetivo, tipo, nivelDificultad, duracionEsperada, preRequisitos, ejercicios);
+		}else if (tipo.equals("Q")) {
+			actividad = new Quiz(descripcion, objetivo, tipo, nivelDificultad, duracionEsperada, preRequisitos, preguntas, opciones, respuestas, calificacionMin);
+		}else if (tipo.equals("P")) {
+			actividad = new Parcial(descripcion, objetivo, tipoRecurso, nivelDificultad, duracionEsperada, preRequisitos, preguntas);
+		}else if (tipo.equals("E")) {
+			actividad = new Encuesta(descripcion, objetivo, tipoRecurso, nivelDificultad, duracionEsperada, preRequisitos, preguntas);
 		}
-	}
-	
-	public Actividad crearActividad(String descripcion, String objetivo, Contenido contenido, int nivelDificultad, int duracionEsperada, List<Actividad> preRequisitos) {
-		Actividad actividad = new Actividad(descripcion, objetivo, contenido, nivelDificultad, duracionEsperada, preRequisitos);
 		return actividad;
 	}
 	
@@ -60,10 +61,6 @@ public class Profesor extends Usuario{
 		LearningPath camino = new LearningPath(ID, titulo, descripcion, objetivo, activdades);
 		caminosCreados.add(camino);
 		return camino;
-	}
-	
-	public void copiarLearninPath(LearningPath camino) {
-		caminosCopiados.add(camino.copiarCamino(this));
 	}
 	
 	public void eliminarLearningPathCreado(LearningPath camino) {
@@ -132,6 +129,6 @@ public class Profesor extends Usuario{
 	@Override
 	public String toString() {
 		super.toString();
-		return super.toString() + "/" + cadenaCaminos(caminosCreados) + "/" + cadenaCaminos(caminosCopiados);
+		return super.toString() + "/" + cadenaCaminos(caminosCreados);
 	}
 }

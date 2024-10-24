@@ -3,6 +3,7 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import modelo.actividad.Actividad;
 import modelo.usuario.*;
 import persistencia.CentralPersistencia;
 
@@ -51,8 +52,12 @@ public class CentralLogica {
 		return camino;
 	}
 	
-	public Actividad crearActividad(String descripcion, String objetivo, Contenido contenido, int nivelDificultad, int duracionEsperada, List<Actividad> preRequisitos) {
-		Actividad actividad =((Profesor) user).crearActividad(descripcion, objetivo, contenido, nivelDificultad, duracionEsperada, preRequisitos);
+	public Actividad crearActividad(String descripcion, String objetivo, String tipo, int nivelDificultad, int duracionEsperada, List<String> preRequisitos, String recurso, String tipoRecurso, List<String> ejercicios, List<String> preguntas, List<String> opciones, List<Integer> respuestas, double calificacionMin) {
+		List<Actividad> listaPreRequisitos = new ArrayList<Actividad>();
+		for (String pre: preRequisitos) {
+			listaPreRequisitos.add(encontrarActividadPorID(pre));
+		}
+		Actividad actividad = ((Profesor) user).crearActividad(descripcion, objetivo, tipo, nivelDificultad, duracionEsperada, listaPreRequisitos, recurso, tipoRecurso, ejercicios, preguntas, opciones, respuestas, calificacionMin);
 		actividades.add(actividad);
 		return actividad;
 	}
@@ -86,11 +91,9 @@ public class CentralLogica {
 		return null;
 	}
 	
-	public void copiarLearninPath(String IDCamino) {
-		LearningPath camino = encontrarLearningPathPorID(IDCamino);
-		if (!camino.equals(null)) {
-			((Profesor) user).copiarLearninPath(camino);
-		}
+	public void copiarActividad(String IDActividad) {
+		Actividad actividad = encontrarActividadPorID(IDActividad);
+		
 	}
 	
 	public void eliminarLearningPathCreado(String IDCamino) {
@@ -192,7 +195,6 @@ public class CentralLogica {
 		CentralLogica centralL = new CentralLogica();
 		centralL.cargarDatos();
 		centralL.iniciarSesion("j.p", "SoyJuan123");
-		//centralL.crearLearningPath("camino1", "Cosas basicas", "Aprender", new ArrayList<Actividad>());
 		/*Class<? extends Usuario> tipoUser = centralL.iniciarSesion("j.a@mail.com", "SoyJuan123");
 		if (tipoUser.equals(Profesor.class)) {
 			System.out.println("Es profesor");

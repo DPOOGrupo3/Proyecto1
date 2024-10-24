@@ -14,8 +14,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import modelo.Actividad;
 import modelo.LearningPath;
+import modelo.actividad.Actividad;
 
 public class PersistenciaLearningPaths {
 	private String[] titulos = {"ID", "titulo", "descripcion", "objetivo", "duracion", "dificultad", "rating", "raters", "activdades"};
@@ -25,7 +25,7 @@ public class PersistenciaLearningPaths {
 		
 		for (int i = 0; i < jCaminos.length(); i++) {
 			JSONObject jCamino = jCaminos.getJSONObject(i);
-			JSONArray jActividades = (JSONArray) jCamino.get("actividades");
+			JSONArray jActividades = jCamino.getJSONArray("actividades");
 			List<Actividad> actividades = obtenerActividades(jActividades, actividadesCompleta);
 			LearningPath camino = new LearningPath(jCamino.getString(titulos[0]), jCamino.getString(titulos[1]), jCamino.getString(titulos[2]), jCamino.getString(titulos[3]), actividades);
 			cargarDatos(camino, jCamino.getInt(titulos[7]), jCamino.getDouble(titulos[6]));
@@ -33,7 +33,7 @@ public class PersistenciaLearningPaths {
 		}
 	}
 	
-	public List<Actividad> obtenerActividades(JSONArray jActividades, List<Actividad> actividadesCompleta) {
+	private List<Actividad> obtenerActividades(JSONArray jActividades, List<Actividad> actividadesCompleta) {
 		List<Actividad> actividades = new ArrayList<Actividad>();
 		for (int i = 0; i < jActividades.length(); i++) {
 			for (int j = 0; j < actividadesCompleta.size(); j++) {
@@ -46,7 +46,7 @@ public class PersistenciaLearningPaths {
 		return actividades;
 	}
 	
-	public void cargarDatos(LearningPath camino, int raters, double rating) {
+	private void cargarDatos(LearningPath camino, int raters, double rating) {
 		camino.cambiarDuracionEsperada();
 		camino.cambiarNivelDificultad();
 		for (int i = 0; i < raters; i++) {
@@ -75,7 +75,7 @@ public class PersistenciaLearningPaths {
 				}
 			}
 			
-			jCamino.put("actividades", jActividades);
+			jCamino.put(titulos[8], jActividades);
 			jCaminos.put(jCamino);
 		}
 		try {

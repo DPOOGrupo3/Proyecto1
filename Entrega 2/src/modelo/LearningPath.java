@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import modelo.usuario.Profesor;
+import modelo.actividad.Actividad;
 import modelo.usuario.Estudiante;
 
 public class LearningPath {
@@ -154,11 +155,6 @@ public class LearningPath {
 	
 	public void cambiarVersion() {
 		version += 0.1;
-	}
-	
-	public LearningPath copiarCamino(Profesor profesor) {
-		copias.add(profesor);
-		return copy();
 	}
 	
 	public LearningPath inscribirCamino(Estudiante estudiante) {
