@@ -20,9 +20,36 @@ public class ConsolaEstudiante extends ConsolaBasica{
 	/**
      * Método para ejecutar el menú principal del estudiante.
      */
-    public void correrConsola() {
+	public void correrConsola() throws IOException {
         String[] opcionesMenu = {"Ver Learning Paths Disponibles", "Ver Progreso", "Salir"};
         int opcion = mostrarMenu("Menú Estudiante", opcionesMenu);
-	
+
+        switch (opcion) {
+		    case 1:
+		        verLearningPathsDisponibles();
+		        break;
+		    case 2:
+		        verProgreso();
+		        break;
+		    case 3:
+		        System.out.println("Saliendo de la consola del estudiante...");
+		        break;
+		    default:
+		        System.out.println("Opción no válida.");
+		        correrConsola();
+		        break;
+		}
     }
+
+	private void verProgreso() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void verLearningPathsDisponibles() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 }
