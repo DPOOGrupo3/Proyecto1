@@ -46,6 +46,8 @@ public class CentralLogica {
 		return user.getClass();
 	}
 	
+	
+	
 	public LearningPath crearLearningPath(String titulo, String descripcion, String objetivo, List<Actividad> activdades) {
 		LearningPath camino = ((Profesor) user).crearLearningPath(titulo, descripcion, objetivo, activdades);
 		caminos.add(camino);
@@ -208,4 +210,6 @@ public class CentralLogica {
 		}*///Iniciar sesion como profesor
 		centralL.guardarDatos();
 	}
+	
+	
 }
