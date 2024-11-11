@@ -94,8 +94,11 @@ public class CentralLogica {
 	}
 	
 	public void copiarActividad(String IDActividad) {
-		Actividad actividad = encontrarActividadPorID(IDActividad);
-		
+	    Actividad actividadOriginal = encontrarActividadPorID(IDActividad);
+	    if (actividadOriginal != null) {
+	        Actividad actividadCopia = actividadOriginal.copy();
+	        actividades.add(actividadCopia);
+	    }
 	}
 	
 	public void eliminarLearningPathCreado(String IDCamino) {
@@ -116,7 +119,7 @@ public class CentralLogica {
 	public void cambiarDescrpcionLearningPath(String IDCamino, String descripcion) {
 		LearningPath camino = encontrarLearningPathPorID(IDCamino);
 		if (!camino.equals(null)) {
-			((Profesor) user).cambiarDescrpcionLearningPath(camino, descripcion);
+			((Profesor) user).cambiarDescripcionLearningPath(camino, descripcion);
 		}
 	}
 	
@@ -146,7 +149,7 @@ public class CentralLogica {
 	
 	public void cambiarDescrpcionActividad(String IDActividad, String descripcion) {
 		Actividad actividad = encontrarActividadPorID(IDActividad);
-		((Profesor) user).cambiarDescrpcionActividad(actividad, descripcion);
+		((Profesor) user).cambiarDescripcionActividad(actividad, descripcion);
 	}
 	
 	public void cambiarObjetivoActividad(String IDActividad, String objetivo) {

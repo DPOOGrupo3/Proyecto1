@@ -1,5 +1,6 @@
 package modelo.actividad;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Actividad {
@@ -91,7 +92,37 @@ public abstract class Actividad {
 		this.resultado = resultado;
 	}
 	
-	public abstract Actividad copy();
+	public Actividad copy() {
+	    
+	    List<Actividad> copiaPreRequisitos = new ArrayList<>();
+	    for (Actividad preRequisito : preRequisitos) {
+	        copiaPreRequisitos.add(preRequisito.copy()); 
+	    }
+
+	    
+	    Actividad clon = new Actividad(this.descripcion, this.objetivo, this.tipo, this.nivelDificultad, this.duracionEsperada, copiaPreRequisitos) {
+	        @Override
+	        public Actividad copy() {
+	            return null;
+	        }
+
+	        @Override
+	        public void editarContenido(Object cambio) {}
+
+	        @Override
+	        public Object obtenerInformacion() {
+	            return null;
+	        }
+	    };
+	    clon.setID(generarNuevoID());
+	    clon.cambiarResultado(this.resultado);
+	    
+	    return clon;
+	}
+	
+	private String generarNuevoID() {
+	    return "ID_" + System.currentTimeMillis(); // Ejemplo simple usando la marca de tiempo para un ID único
+	}
 	
 	public abstract void editarContenido(Object cambio);
 	
@@ -109,4 +140,8 @@ public abstract class Actividad {
 		}
 		return ID + "%" + descripcion + "%" + objetivo + "%" + tipo + "%" + duracionEsperada + "%" + nivelDificultad + "%" + cadenaActividades + "%";
 	}
+	
+	
+	
+	
 }

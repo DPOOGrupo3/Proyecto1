@@ -24,10 +24,16 @@ public class ConsolaCentral extends ConsolaBasica {
 		String iUsername = this.pedirCadenaAlUSuario("Ingrese su usuario (username)");
 		String iPassword = this.pedirCadenaAlUSuario("Ingrese su contraseña: ");
 		
-		boolean result = centralLogica.iniciarSesion(iUsername, iPassword);
-	}
+		Class<? extends Usuario> user = centralLogica.iniciarSesion(iUsername, iPassword);
+		
+	       if (user == null) {
+	            
+	            System.out.println("Error: No se encuentra el usuario o la contraseña es incorrecta.");
+
 	
-	
+	       }
 	
 
+	}
+	
 }

@@ -68,15 +68,15 @@ public class Profesor extends Usuario{
 	}
 	
 	public void cambiarTituloLearningPath(LearningPath camino, String titulo) {
-		camino.cambiarDescripcion(titulo);
+	    camino.cambiarTitulo(titulo);
 	}
 	
-	public void cambiarDescrpcionLearningPath(LearningPath camino, String descripcion) {
-		camino.cambiarDescripcion(descripcion);
+	public void cambiarDescripcionLearningPath(LearningPath camino, String descripcion) {
+	    camino.cambiarDescripcion(descripcion);
 	}
-	
+
 	public void cambiarObjetivoLearningPath(LearningPath camino, String objetivo) {
-		camino.cambiarDescripcion(objetivo);
+	    camino.cambiarObjetivo(objetivo);
 	}
 	
 	public void agregarActividadLearningPath(LearningPath camino, Actividad actividadAgregar) {
@@ -87,12 +87,12 @@ public class Profesor extends Usuario{
 		camino.eliminarActivdad(actividadEliminar);
 	}
 	
-	public void cambiarDescrpcionActividad(Actividad actividad, String descripcion) {
-		actividad.cambiarDescripcion(descripcion);
+	public void cambiarDescripcionActividad(Actividad actividad, String descripcion) {
+	    actividad.cambiarDescripcion(descripcion);
 	}
-	
+
 	public void cambiarObjetivoActividad(Actividad actividad, String objetivo) {
-		actividad.cambiarDescripcion(objetivo);
+	    actividad.cambiarObjetivo(objetivo);
 	}
 	
 	public void cambiarDuracionEsperadaActividad(Actividad actividad, int duracion, LearningPath camino) {
