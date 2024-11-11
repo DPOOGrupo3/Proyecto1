@@ -54,6 +54,11 @@ public class Estudiante extends Usuario{
     public String toString() {
         return super.toString() + " - Estudiante";
     }
+
+	public void inscribirCamino(LearningPath learningPath1) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }
