@@ -213,6 +213,11 @@ public class CentralLogica {
 		}*///Iniciar sesion como profesor
 		centralL.guardarDatos();
 	}
+
+	public Usuario BuscarUsuario(String iUsername, String iPassword) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

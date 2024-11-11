@@ -32,8 +32,52 @@ public class ConsolaCentral extends ConsolaBasica {
 
 	
 	       }
-	
+	       
+
+	       
 
 	}
+	
+	
+	/**
+	 * Valida la existencia de un empleado en la galería
+	 * @return El empleado buscado o null de lo contrario
+	 */
+	
+	private Usuario autenticarUsuario() {
+		String IUsername = this.pedirCadenaAlUSuario("Ingerese su usuario: ");
+		String IPassword = this.pedirCadenaAlUSuario("Ingrese su contraseña: ");
+		
+		Usuario usuario = centralLogica.BuscarUsuario(IUsername, IPassword);
+		if ( usuario != null ) {
+			centralLogica.iniciarSesion(IUsername, IPassword);
+			System.out.println("Incio de sision exitoso, Bienvenido" + usuario.getNombre());
+		}
+		
+		return usuario;
+	}
+	
+	
+    
+    /**
+	 * Metodo para crear un nuevo usuario corriente
+	 * @throws IOException 
+	 */
+	private void crearNuevoUsuario() throws IOException {
+		
+	}
+	
+	public void correrAplicacion() {
+		
+	}
+	
+	
+	public static void main(String[] args) 
+	{
+		ConsolaCentral ca = new ConsolaCentral();
+		ca.correrAplicacion();
+	}
+	
+
 	
 }
