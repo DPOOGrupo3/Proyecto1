@@ -30,7 +30,7 @@ public class CentralLogica {
 		centralP.guardarDatos(profesores, estudiantes, caminos, actividades);
 	}
 	
-	public Class<? extends Usuario> iniciarSesion(String email, String contrasena) {
+	public Usuario iniciarSesion(String email, String contrasena) {
 		for (Profesor profesor: profesores) {
 			if (profesor.iniciarSesion(email, contrasena)) {
 				user = profesor;
@@ -43,7 +43,7 @@ public class CentralLogica {
 				break;
 			}
 		}
-		return user.getClass();
+		return user;
 	}
 	
 	
@@ -214,9 +214,31 @@ public class CentralLogica {
 		centralL.guardarDatos();
 	}
 
-	public Usuario BuscarUsuario(String iUsername, String iPassword) {
-		// TODO Auto-generated method stub
-		return null;
+	public Usuario buscarUsuario(String email, String password) {
+	    
+	    for (Profesor profesor : profesores) {
+	        if (profesor.iniciarSesion(email, password)) {
+	            return profesor; 
+	        }
+	    }
+	    
+	    for (Estudiante estudiante : estudiantes) {
+	        if (estudiante.iniciarSesion(email, password)) {
+	            return estudiante; 
+	        }
+	    }
+	   
+	    return null;
+	}
+
+	public void registrarUsuario(Usuario nuevoUsuario) {
+	    if (nuevoUsuario instanceof Profesor) {
+	        profesores.add((Profesor) nuevoUsuario); 
+	    } else if (nuevoUsuario instanceof Estudiante) {
+	        estudiantes.add((Estudiante) nuevoUsuario); 
+	    } else {
+	        throw new IllegalArgumentException("Tipo de usuario desconocido"); 
+	    }
 	}
 	
 	

@@ -6,6 +6,9 @@ import modelo.LearningPath;
 import modelo.usuario.Usuario;
 import modelo.usuario.Profesor;
 import modelo.usuario.Estudiante;
+
+import java.io.IOException;
+
 import consola.ConsolaEstudiante;
 import consola.ConsolaProfesor;
 
@@ -14,6 +17,11 @@ public class ConsolaCentral extends ConsolaBasica {
 	private static ConsolaEstudiante cEstudiante;
 	private static ConsolaProfesor cProfesor;
 	private static CentralLogica centralLogica;
+	
+	public ConsolaCentral() {
+        centralLogica = new CentralLogica();
+        centralLogica.cargarDatos(); 
+    }
 	
 	/**
 	 * Metodo para iniciar sesión de un usuario corriente
@@ -24,14 +32,28 @@ public class ConsolaCentral extends ConsolaBasica {
 		String iUsername = this.pedirCadenaAlUSuario("Ingrese su usuario (username)");
 		String iPassword = this.pedirCadenaAlUSuario("Ingrese su contraseña: ");
 		
-		Class<? extends Usuario> user = centralLogica.iniciarSesion(iUsername, iPassword);
+		Usuario user = centralLogica.iniciarSesion(iUsername, iPassword);
 		
-	       if (user == null) {
+	       if (user != null) {
+	    	   
 	            
-	            System.out.println("Error: No se encuentra el usuario o la contraseña es incorrecta.");
+	    	   System.out.println("Inicio de sesion exitoso, Bienvenido" + user.getNombre());
+	    	   
+	    	   
+	    	   if (user instanceof Profesor) {
+	    		   cProfesor = new ConsolaProfesor((Profesor)user, centralLogica);
+	    		   cEstudiante.correrConsola();
+	    	   } else if (user instanceof Estudiante) {
+	    		   cEstudiante = new ConsolaEstudiante((Estudiante)user, centralLogica);
+	    		   cEstudiante.correrConsola();
+	    	   }
+	    		   
+	       } else {
+	    	   System.out.println("Error: No se encuentra el usuario o la contraseña es incorrecta.");
 
-	
 	       }
+	       
+	       correrAplicacion();
 	       
 
 	       
@@ -44,17 +66,9 @@ public class ConsolaCentral extends ConsolaBasica {
 	 * @return El empleado buscado o null de lo contrario
 	 */
 	
-	private Usuario autenticarUsuario() {
-		String IUsername = this.pedirCadenaAlUSuario("Ingerese su usuario: ");
-		String IPassword = this.pedirCadenaAlUSuario("Ingrese su contraseña: ");
+	private Usuario autenticarUsuario(String email, String password) {
 		
-		Usuario usuario = centralLogica.BuscarUsuario(IUsername, IPassword);
-		if ( usuario != null ) {
-			centralLogica.iniciarSesion(IUsername, IPassword);
-			System.out.println("Incio de sision exitoso, Bienvenido" + usuario.getNombre());
-		}
-		
-		return usuario;
+		return centralLogica.buscarUsuario(email, password);
 	}
 	
 	
@@ -65,9 +79,62 @@ public class ConsolaCentral extends ConsolaBasica {
 	 */
 	private void crearNuevoUsuario() throws IOException {
 		
+		String nombre = this.pedirCadenaAlUSuario("Ingerese su nombre: ");
+		String email = this.pedirCadenaAlUSuario("Ingerese su email: ");
+		String password = this.pedirCadenaAlUSuario("Ingrese su contraseña: ");
+		
+		String[] opciones = {"Profesor", "Estudiante"};
+		int opcion = this.mostrarMenu("Seleccione el tipo de usuario que desea crear: ", opciones);
+		
+		
+		Usuario nuevoUsuario = null;
+		
+		if (opcion == 1) {
+			nuevoUsuario = new Profesor(nombre, email, password);
+			System.out.println("¡Usuario profesor creado exitosamente!");
+			
+		} else if(opcion == 2) {
+			nuevoUsuario = new Estudiante(nombre, email, password);
+			System.out.println("¡Usuario estudiante creado exitosamente!");
+			
+		} else {
+			System.out.println("Opcion no valida");
+		}
+		
+		centralLogica.registrarUsuario(nuevoUsuario);
+		centralLogica.guardarDatos();
+		correrAplicacion();
 	}
 	
 	public void correrAplicacion() {
+		
+		
+		String[] opcionesMenu = {"Iniciar sesión", "Crear nuevo usuario", "Salir"};
+        int opcion = this.mostrarMenu("Bienvenido al sistema de Learning Path", opcionesMenu);
+
+        try {
+            switch (opcion) {
+                case 1:
+                    iniciarSesion();
+                    break;
+                case 2:
+                    crearNuevoUsuario();
+                    break;
+                case 3:
+                    System.out.println("Saliendo de la aplicación...");
+                    centralLogica.guardarDatos(); 
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+                    correrAplicacion();
+                    break;
+            }
+        } catch (IOException e) {
+            System.out.println("Error al procesar la solicitud. Intente nuevamente.");
+            correrAplicacion();
+        }
+		
 		
 	}
 	
