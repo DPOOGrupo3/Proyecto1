@@ -131,4 +131,12 @@ public class Profesor extends Usuario{
 		super.toString();
 		return super.toString() + "/" + cadenaCaminos(caminosCreados);
 	}
+
+
+	
+
+	public List<LearningPath> getCaminosCreados() {
+		// TODO Auto-generated method stub
+		return caminosCreados;
+	}
 }

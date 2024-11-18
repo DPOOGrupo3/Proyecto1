@@ -247,6 +247,55 @@ public class CentralLogica {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public List<LearningPath> obtenerLearningPathsProfesor(Profesor profesor) {
+	    return profesor.getCaminosCreados();
+	}
+
+	public List<Actividad> obtenerActividadesIndependientes() {
+	    List<Actividad> independientes = new ArrayList<>();
+	    for (Actividad actividad : actividades) {
+	        if (!esActividadParteDeLearningPath(actividad)) {
+	            independientes.add(actividad);
+	        }
+	    }
+	    return independientes;
+	}
+
+	private boolean esActividadParteDeLearningPath(Actividad actividad) {
+	    for (LearningPath camino : caminos) {
+	        if (camino.getActivdades().contains(actividad)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+
+	/**
+	 * Elimina una actividad del sistema.
+	 * Si la actividad está asociada a algún Learning Path, también se elimina de ellos.
+	 * @param idActividad El ID de la actividad a eliminar.
+	 */
+	public void eliminarActividad(String idActividad) {
+	    Actividad actividadAEliminar = encontrarActividadPorID(idActividad);
+
+	    if (actividadAEliminar == null) {
+	        System.out.println("Error: No se encontró la actividad con el ID proporcionado.");
+	        return;
+	    }
+
+	    for (LearningPath camino : caminos) {
+	        if (camino.getActivdades().contains(actividadAEliminar)) {
+	            camino.eliminarActivdad(actividadAEliminar);
+	            System.out.println("La actividad ha sido eliminada del Learning Path: " + camino.getID());
+	        }
+	    }
+
+	    actividades.remove(actividadAEliminar);
+	    System.out.println("Actividad eliminada exitosamente del sistema. ID: " + idActividad);
+	}
+
+
 	
 	
 }

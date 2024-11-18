@@ -23,6 +23,14 @@ public class ConsolaCentral extends ConsolaBasica {
         centralLogica.cargarDatos(); 
     }
 	
+    /**
+     * Valida la existencia de un usuario en el sistema.
+     * @param email Correo electrónico del usuario
+     * @param password Contraseña del usuario
+     * @return El usuario autenticado o null si no existe
+     */
+
+	
 	/**
 	 * Metodo para iniciar sesión de un usuario corriente
 	 * @throws IOException 
@@ -32,7 +40,7 @@ public class ConsolaCentral extends ConsolaBasica {
 		String iUsername = this.pedirCadenaAlUSuario("Ingrese su usuario (username)");
 		String iPassword = this.pedirCadenaAlUSuario("Ingrese su contraseña: ");
 		
-		Usuario user = centralLogica.iniciarSesion(iUsername, iPassword);
+		Usuario user = autenticarUsuario(iUsername, iPassword);
 		
 	       if (user != null) {
 	    	   
@@ -99,10 +107,12 @@ public class ConsolaCentral extends ConsolaBasica {
 			
 		} else {
 			System.out.println("Opcion no valida");
+			return;
 		}
 		
 		centralLogica.registrarUsuario(nuevoUsuario);
 		centralLogica.guardarDatos();
+		System.out.println("Datos guardados exitosamente");
 		correrAplicacion();
 	}
 	
