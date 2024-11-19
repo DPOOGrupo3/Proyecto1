@@ -18,7 +18,7 @@ public class ConsolaProfesor extends ConsolaBasica {
 	private Profesor profesor;
 	private CentralLogica centralLogica;
 	
-	public ConsolaProfesor (Profesor user, CentralLogica centralLogica) {
+	public ConsolaProfesor (Profesor profesor, CentralLogica centralLogica) {
 		this.profesor = profesor;
 		this.centralLogica = centralLogica;
 	}
