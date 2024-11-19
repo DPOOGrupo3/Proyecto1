@@ -241,13 +241,6 @@ public class CentralLogica {
 	    }
 	}
 
-	public Actividad crearActividad(String descripcion, String objetivo, String tipo, String nivelDificultad,
-			String duracion, ArrayList<String> preRequisitos, Object recurso, Object tipoRecurso, Object ejercicios,
-			Object preguntas, Object opciones, Object respuestas, int calificacionMin) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public List<LearningPath> obtenerLearningPathsProfesor(Profesor profesor) {
 	    return profesor.getCaminosCreados();
 	}

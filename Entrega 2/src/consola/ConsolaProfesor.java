@@ -3,6 +3,11 @@ package consola;
 import modelo.CentralLogica;
 import modelo.LearningPath;
 import modelo.actividad.Actividad;
+import modelo.actividad.RecursoEducativo;
+import modelo.actividad.Tarea;
+import modelo.actividad.examen.Encuesta;
+import modelo.actividad.examen.Parcial;
+import modelo.actividad.examen.Quiz;
 import modelo.usuario.Profesor;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -174,10 +179,75 @@ public class ConsolaProfesor extends ConsolaBasica {
     private void crearActividad() throws IOException {
     	String descripcion = pedirCadenaAlUSuario("Ingrese la descirpcion de la actividad: ");
     	String objetivo = pedirCadenaAlUSuario("Ingrese el objetivo de la actividad: ");
-    	String tipo = pedirCadenaAlUSuario("Ingrese el tipo de la actividad: ");
-    	String nivelDificultad = pedirCadenaAlUSuario("Ingrese el nivel de dificultad de la actividad: ");
-    	String duracion = pedirCadenaAlUSuario("Ingrese la duracion de la actividad: ");
+    	int nivelDificultad = pedirEnteroAlUsuario("Ingrese el nivel de dificultad de la actividad: ");
+    	Double duracion = pedirNumeroAlUsuario("Ingrese la duracion de la actividad: ");
+    	List <String> pre = new ArrayList<String>();
+    	boolean hayMas = true;
+    	while (hayMas) {
+    		String p = pedirCadenaAlUSuario("Ingrese prerequisito: ");
+    		pre.add(p);
+    		
+    		int opcion = (int) pedirNumeroAlUsuario("Ingrese 1 si hay mas prerequisitos, ingrese 2 si no hay mas prerequisitos: ");
+    		
+    		if (opcion == 2) {
+    			hayMas = false;
+    		} else {
+    			hayMas = true;
+    		}
+    		
+    	}
+    	String[] opciones = {
+                 "Recurso educativo: RE",
+                 "Tarea: T",
+                 "Quiz: Q",
+                 "Parcial: P",
+                 "Encuesta: E"
+             };
     	
+    	 int opcion = this.mostrarMenu("Eliga que tipo de actividad es", opciones);
+    	 
+    	 
+    	 switch (opcion) {
+         case 1 -> {
+        	 
+        	 String tipoRecurso = pedirCadenaAlUSuario("Ingerese el tipo de recurso educativo: ");
+        	 String recurso = pedirCadenaAlUSuario("Ingrese el recurso ecucativo: ");
+        	 Actividad actividad = centralLogica.crearActividad(descripcion, objetivo, "RE", nivelDificultad, duracion, pre, recurso, tipoRecurso, null, null, null, null, null);
+        	 
+             
+             
+         }
+         case 2 -> {
+         
+             System.out.println("Descripción actualizada.");
+         }
+         case 3 -> {
+     
+             System.out.println("Objetivo actualizado.");
+         }
+         case 4 -> {
+             Actividad actividad = (Actividad) seleccionarActividades();
+  
+         }
+         case 5 -> {
+
+         }
+         default -> System.out.println("Opción no válida.");
+         
+         
+
+    }
+    	 
+    	 
+    	 
+
+
+    	
+    	
+    	
+		
+		
+
     	Actividad nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, tipo, nivelDificultad, duracion, new ArrayList<>() , null, null, null, null, null, null, 0);
     	
     	System.out.println("Actividad creada con exito con ID: " + nuevaActividad.getID());
