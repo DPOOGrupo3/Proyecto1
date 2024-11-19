@@ -38,7 +38,7 @@ public class ConsolaCentral extends ConsolaBasica {
 	private void iniciarSesion() throws IOException {
 		
 		String iUsername = this.pedirCadenaAlUSuario("Ingrese su usuario (username)");
-		String iPassword = this.pedirCadenaAlUSuario("Ingrese su contraseña: ");
+		String iPassword = this.pedirCadenaAlUSuario("Ingrese su contraseña");
 		
 		Usuario user = centralLogica.iniciarSesion(iUsername, iPassword);
 		
