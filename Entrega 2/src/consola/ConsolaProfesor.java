@@ -209,28 +209,45 @@ public class ConsolaProfesor extends ConsolaBasica {
     	 
     	 switch (opcion) {
          case 1 -> {
-        	 String tipoRecurso = pedirCadenaAlUSuario("Ingerese el tipo de recurso educativo: ");
-        	 String recurso = pedirCadenaAlUSuario("Ingrese el recurso ecucativo: ");
+        	 String tipoRecurso = pedirCadenaAlUSuario("Ingerese el tipo de recurso educativo");
+        	 String recurso = pedirCadenaAlUSuario("Ingrese el recurso ecucativo");
         	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "RE", nivelDificultad, duracion, pre, recurso, tipoRecurso, null, null, null, 0);
         	 
          }
          case 2 -> {
         	 List<String> ejercicios = new ArrayList<String>();
+        	 int cant = pedirEnteroAlUsuario("Ingrese la cantidad de ejercicios");
+        	 for (int i = 0; i < cant; i++) {
+        		 ejercicios.add(pedirCadenaAlUSuario("Ingrese el ejercicio número" + String.valueOf(i)));
+        	 }
         	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "T", nivelDificultad, duracion, pre, null, null, ejercicios, null, null, 0);
          }
          case 3 -> {
         	 List<String> preguntas = new ArrayList<String>();
         	 List<String> respuestas = new ArrayList<String>();
+        	 int cant = pedirEnteroAlUsuario("Ingrese la cantidad de preguntas");
+        	 for (int i = 0; i < cant; i++) {
+        		 preguntas.add(pedirCadenaAlUSuario("Ingrese la pregunta número" + String.valueOf(i)));
+        		 respuestas.add(pedirCadenaAlUSuario("Ingrese la respuestas número" + String.valueOf(i)));
+        	 }
         	 int calMin = pedirEnteroAlUsuario("Ingrese la calificación minima");
-        	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "T", nivelDificultad, duracion, pre, null, null, null, preguntas, respuestas, calMin);
+        	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "Q", nivelDificultad, duracion, pre, null, null, null, preguntas, respuestas, calMin);
          }
          case 4 -> {
         	 List<String> preguntas = new ArrayList<String>();
-        	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "T", nivelDificultad, duracion, pre, null, null, null, preguntas, null, 0);
+        	 int cant = pedirEnteroAlUsuario("Ingrese la cantidad de preguntas");
+        	 for (int i = 0; i < cant; i++) {
+        		 preguntas.add(pedirCadenaAlUSuario("Ingrese la pregunta número" + String.valueOf(i)));
+        	 }
+        	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "P", nivelDificultad, duracion, pre, null, null, null, preguntas, null, 0);
          }
          case 5 -> {
         	 List<String> preguntas = new ArrayList<String>();
-        	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "T", nivelDificultad, duracion, pre, null, null, null, preguntas, null, 0);
+        	 int cant = pedirEnteroAlUsuario("Ingrese la cantidad de preguntas");
+        	 for (int i = 0; i < cant; i++) {
+        		 preguntas.add(pedirCadenaAlUSuario("Ingrese la pregunta número" + String.valueOf(i)));
+        	 }
+        	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "E", nivelDificultad, duracion, pre, null, null, null, preguntas, null, 0);
          }
          default -> System.out.println("Opción no válida.");
          
