@@ -6,59 +6,73 @@ import java.util.List;
 import java.util.Map;
 
 import modelo.LearningPath;
+import modelo.Progreso;
 import modelo.actividad.Actividad;
 
 public class Estudiante extends Usuario{
 	private List<LearningPath> caminosInscritos;
-	private Map<LearningPath, Map<Actividad, Double>> progresoActividades;
+	
+	private Map<String, List<String>> actividadesPendientes;
+	
+	private Map<String, Progreso> progresos;
 	
 	public Estudiante(String nombre, String email, String contraseña) {
 		super(nombre, email, contraseña);
-		this.caminosInscritos = new ArrayList<>();
-        this.progresoActividades = new HashMap<>();
+		this.progresos = new HashMap<String, Progreso>();
 	}
 	
-	public void inscribirseEnLearningPath(LearningPath camino) {
-        if (!caminosInscritos.contains(camino)) {
-            caminosInscritos.add(camino);
-            progresoActividades.put(camino, new HashMap<>());
-        }
-    }
-
-    public void registrarProgreso(Actividad actividad, double porcentaje) {
-        for (LearningPath camino : caminosInscritos) {
-            if (camino.getActivdades().contains(actividad)) {
-                progresoActividades.get(camino).put(actividad, porcentaje);
-                break;
-            }
-        }
-    }
-
-    public double consultarProgresoLearningPath(LearningPath camino) {
-        if (progresoActividades.containsKey(camino)) {
-            Map<Actividad, Double> progreso = progresoActividades.get(camino);
-            double totalProgreso = 0;
-            for (Double porcentaje : progreso.values()) {
-                totalProgreso += porcentaje;
-            }
-            return totalProgreso / progreso.size();
-        }
-        return 0;
-    }
-
-    public List<LearningPath> getCaminosInscritos() {
-        return caminosInscritos;
-    }
-
+	
+	public void inscribirCamino(LearningPath camino) {
+		caminosInscritos.add(camino);
+		Progreso newProgreso = new Progreso(this, camino);
+		progresos.put(camino.getID(), newProgreso);
+		ArrayList<String> actividades = new ArrayList<>();
+		for (Actividad a : camino.getActivdades()) {
+			// if (actividad no es obligatoria) { no agregar la actividad a la lista de actividades pendientes}
+			actividades.add(a.getID());
+		}
+		actividadesPendientes.put(camino.getID(), actividades);
+	}
+	
+	public List<String> getActividadesPendientes(String LearningPathID){
+		return this.actividadesPendientes.get(LearningPathID);
+	}
+	
+	public Progreso getProgresoLP(String LearningPathID) {
+		Progreso progreso = this.progresos.get(LearningPathID);
+		return progreso;
+	}
+	
+	public void hacerQuiz(LearningPath lp, String quizID) {
+		
+		this.actividadesPendientes.get(lp.getID()).remove(quizID);
+		this.progresos.get(lp.getID()).avance(quizID);
+	}
+	
+	public void subirTarea(LearningPath lp, String tareaID) {
+		this.actividadesPendientes.get(lp.getID()).remove(tareaID);
+		this.progresos.get(lp.getID()).avance(tareaID);
+	}
+	
+	public void subirParcial(LearningPath lp, String ParcialID) {
+		this.actividadesPendientes.get(lp.getID()).remove(ParcialID);
+		this.progresos.get(lp.getID()).avance(ParcialID);
+	}
+	
+	public void revisarRecurso(LearningPath lp, String recursoID) {
+		this.actividadesPendientes.get(lp.getID()).remove(recursoID);
+		this.progresos.get(lp.getID()).avance(recursoID);
+	}
+	
+	public void realizarEncuesta() {
+		this.actividadesPendientes.get(lp.getID()).remove(quizID);
+		this.progresos.get(lp.getID()).avance(quizID);
+	}
+	
     @Override
     public String toString() {
         return super.toString() + " - Estudiante";
     }
 
-	public void inscribirCamino(LearningPath learningPath1) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 }
