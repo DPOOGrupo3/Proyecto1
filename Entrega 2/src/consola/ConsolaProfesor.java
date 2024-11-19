@@ -454,18 +454,3 @@ public class ConsolaProfesor extends ConsolaBasica {
     }
 }
     
-    
-
-
-
-    
-    
-    
-    
-    
-    
-
-      
-    
-
-
