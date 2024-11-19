@@ -1,62 +1,152 @@
 package test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import modelo.LearningPath;
 import modelo.actividad.Actividad;
-import modelo.actividad.RecursoEducativo;
 import modelo.usuario.Profesor;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfesorTest {
+import static org.junit.jupiter.api.Assertions.*;
+
+class ProfesorTest {
 
     private Profesor profesor;
-    private LearningPath learningPath;
-    private Actividad actividad;
+    private List<LearningPath> learningPaths;
 
     @BeforeEach
     void setUp() {
         profesor = new Profesor("Juan Pérez", "juan.perez@mail.com", "password123");
-        List<Actividad> actividades = new ArrayList<>();
-        learningPath = new LearningPath("LP001", "Path de Prueba", "Descripción inicial", "Objetivo inicial", actividades);
-        actividad = new RecursoEducativo("Leer PDF", "Comprender el contenido", "RE", 30, 3.5, new ArrayList<>(), "PDF de prueba", "PDF");
+        learningPaths = new ArrayList<>();
     }
 
     @Test
     void testCrearLearningPath() {
-        LearningPath nuevoPath = profesor.crearLearningPath("Nuevo Path", "Descripción", "Objetivo", new ArrayList<>());
-        assertNotNull(nuevoPath, "El Learning Path creado no debe ser nulo.");
-        assertEquals("Nuevo Path", nuevoPath.getTitulo(), "El título del Learning Path no coincide.");
-        assertEquals(1, profesor.getCaminosCreados().size(), "El número de caminos creados debe ser 1.");
+        
+        String titulo = "Introducción a la Programación";
+        String descripcion = "Un camino para aprender programación desde cero.";
+        String objetivo = "Dominar conceptos básicos.";
+        List<Actividad> actividades = new ArrayList<>();
+
+        
+        LearningPath learningPath = profesor.crearLearningPath(titulo, descripcion, objetivo, actividades);
+
+        
+        assertNotNull(learningPath, "El Learning Path creado no debe ser nulo.");
+        assertEquals(titulo, learningPath.getTitulo(), "El título del Learning Path no es correcto.");
+        assertEquals(descripcion, learningPath.getDescripcion(), "La descripción del Learning Path no es correcta.");
+        assertEquals(objetivo, learningPath.getObjetivo(), "El objetivo del Learning Path no es correcto.");
+        assertTrue(profesor.getCaminosCreados().contains(learningPath), "El Learning Path no se añadió a la lista del profesor.");
     }
 
     @Test
     void testEliminarLearningPath() {
-        profesor.crearLearningPath(learningPath.getTitulo(), learningPath.getDescripcion(), learningPath.getObjetivo(), new ArrayList<>());
-        profesor.eliminarLearningPathCreado(learningPath);
-        assertEquals(0, profesor.getCaminosCreados().size(), "El Learning Path no se eliminó correctamente.");
+        
+        LearningPath path1 = profesor.crearLearningPath("Camino 1", "Descripción 1", "Objetivo 1", new ArrayList<>());
+        LearningPath path2 = profesor.crearLearningPath("Camino 2", "Descripción 2", "Objetivo 2", new ArrayList<>());
+        
+        
+        assertEquals(2, profesor.getCaminosCreados().size(), "El profesor debe tener 2 Learning Paths creados.");
+
+        
+        profesor.eliminarLearningPathCreado(path1);
+
+        
+        assertEquals(1, profesor.getCaminosCreados().size(), "El profesor debe tener 1 Learning Path después de la eliminación.");
+        assertFalse(profesor.getCaminosCreados().contains(path1), "El Learning Path eliminado no debe estar en la lista.");
     }
 
     @Test
     void testCambiarTituloLearningPath() {
-        profesor.crearLearningPath(learningPath.getTitulo(), learningPath.getDescripcion(), learningPath.getObjetivo(), new ArrayList<>());
-        profesor.cambiarTituloLearningPath(learningPath, "Nuevo Título");
-        assertEquals("Nuevo Título", learningPath.getTitulo(), "El título del Learning Path no se actualizó correctamente.");
+        
+        LearningPath path = profesor.crearLearningPath("Camino Inicial", "Descripción Inicial", "Objetivo Inicial", new ArrayList<>());
+
+        
+        profesor.cambiarTituloLearningPath(path, "Nuevo Título");
+
+        
+        assertEquals("Nuevo Título", path.getTitulo(), "El título del Learning Path no se actualizó correctamente.");
+    }
+
+    @Test
+    void testCambiarDescripcionLearningPath() {
+        
+        LearningPath path = profesor.crearLearningPath("Camino Inicial", "Descripción Inicial", "Objetivo Inicial", new ArrayList<>());
+
+        
+        profesor.cambiarDescripcionLearningPath(path, "Nueva Descripción");
+
+        
+        assertEquals("Nueva Descripción", path.getDescripcion(), "La descripción del Learning Path no se actualizó correctamente.");
+    }
+
+    @Test
+    void testCambiarObjetivoLearningPath() {
+       
+        LearningPath path = profesor.crearLearningPath("Camino Inicial", "Descripción Inicial", "Objetivo Inicial", new ArrayList<>());
+
+        
+        profesor.cambiarObjetivoLearningPath(path, "Nuevo Objetivo");
+
+        
+        assertEquals("Nuevo Objetivo", path.getObjetivo(), "El objetivo del Learning Path no se actualizó correctamente.");
     }
 
     @Test
     void testAgregarActividadLearningPath() {
-        profesor.agregarActividadLearningPath(learningPath, actividad);
-        assertEquals(1, learningPath.getActivdades().size(), "La actividad no se agregó correctamente.");
+        
+        LearningPath path = profesor.crearLearningPath("Camino Inicial", "Descripción Inicial", "Objetivo Inicial", new ArrayList<>());
+        Actividad actividad = new Actividad("Descripción Actividad", "Objetivo Actividad", "T", 2, 60.0, new ArrayList<>()) {
+            @Override
+            public Actividad copy() {
+                return this;
+            }
+
+            @Override
+            public void editarContenido(Object cambio) {
+            }
+
+            @Override
+            public Object obtenerInformacion() {
+                return null;
+            }
+        };
+
+        
+        profesor.agregarActividadLearningPath(path, actividad);
+
+        
+        assertTrue(path.getActivdades().contains(actividad), "La actividad no se añadió al Learning Path.");
     }
 
     @Test
     void testEliminarActividadLearningPath() {
-        profesor.agregarActividadLearningPath(learningPath, actividad);
-        profesor.eliminarActividadLearningPath(learningPath, actividad);
-        assertEquals(0, learningPath.getActivdades().size(), "La actividad no se eliminó correctamente.");
+        
+        LearningPath path = profesor.crearLearningPath("Camino Inicial", "Descripción Inicial", "Objetivo Inicial", new ArrayList<>());
+        Actividad actividad = new Actividad("Descripción Actividad", "Objetivo Actividad", "T", 2, 60.0, new ArrayList<>()) {
+            @Override
+            public Actividad copy() {
+                return this;
+            }
+
+            @Override
+            public void editarContenido(Object cambio) {
+            }
+
+            @Override
+            public Object obtenerInformacion() {
+                return null;
+            }
+        };
+
+        path.agregarActivdad(actividad);
+
+        
+        profesor.eliminarActividadLearningPath(path, actividad);
+
+        
+        assertFalse(path.getActivdades().contains(actividad), "La actividad no se eliminó del Learning Path.");
     }
 }
