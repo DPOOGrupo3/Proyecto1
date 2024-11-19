@@ -136,7 +136,6 @@ public class Profesor extends Usuario{
 	
 
 	public List<LearningPath> getCaminosCreados() {
-		// TODO Auto-generated method stub
 		return caminosCreados;
 	}
 }
