@@ -40,17 +40,17 @@ public class ConsolaCentral extends ConsolaBasica {
 		String iUsername = this.pedirCadenaAlUSuario("Ingrese su usuario (username)");
 		String iPassword = this.pedirCadenaAlUSuario("Ingrese su contraseña: ");
 		
-		Usuario user = autenticarUsuario(iUsername, iPassword);
+		Usuario user = centralLogica.iniciarSesion(iUsername, iPassword);
 		
 	       if (user != null) {
 	    	   
 	            
-	    	   System.out.println("Inicio de sesion exitoso, Bienvenido" + user.getNombre());
+	    	   System.out.println("Inicio de sesion exitoso, Bienvenido " + user.getNombre());
 	    	   
 	    	   
 	    	   if (user instanceof Profesor) {
 	    		   cProfesor = new ConsolaProfesor((Profesor)user, centralLogica);
-	    		   cEstudiante.correrConsola();
+	    		   cProfesor.correrConsola();
 	    	   } else if (user instanceof Estudiante) {
 	    		   cEstudiante = new ConsolaEstudiante((Estudiante)user, centralLogica);
 	    		   cEstudiante.correrConsola();
@@ -87,9 +87,9 @@ public class ConsolaCentral extends ConsolaBasica {
 	 */
 	private void crearNuevoUsuario() throws IOException {
 		
-		String nombre = this.pedirCadenaAlUSuario("Ingerese su nombre: ");
-		String email = this.pedirCadenaAlUSuario("Ingerese su email: ");
-		String password = this.pedirCadenaAlUSuario("Ingrese su contraseña: ");
+		String nombre = this.pedirCadenaAlUSuario("Ingerese su nombre");
+		String email = this.pedirCadenaAlUSuario("Ingerese su email");
+		String password = this.pedirCadenaAlUSuario("Ingrese su contraseña");
 		
 		String[] opciones = {"Profesor", "Estudiante"};
 		int opcion = this.mostrarMenu("Seleccione el tipo de usuario que desea crear: ", opciones);
