@@ -196,39 +196,10 @@ public class CentralLogica {
 		camino.cambiarVersion();
 	}
 	
-	public static void main(String[] args) {
-		CentralLogica centralL = new CentralLogica();
-		centralL.cargarDatos();
-		centralL.iniciarSesion("j.p", "SoyJuan123");
-		/*Class<? extends Usuario> tipoUser = centralL.iniciarSesion("j.a@mail.com", "SoyJuan123");
-		if (tipoUser.equals(Profesor.class)) {
-			System.out.println("Es profesor");
-		}else {
-			System.out.println("Es estudiante");
-		}*///Iniciar sesion como profesor
-		centralL.guardarDatos();
-	}
-
-	public Usuario buscarUsuario(String email, String password) {
-	    
-	    for (Profesor profesor : profesores) {
-	        if (profesor.iniciarSesion(email, password)) {
-	            return profesor; 
-	        }
-	    }
-	    
-	    for (Estudiante estudiante : estudiantes) {
-	        if (estudiante.iniciarSesion(email, password)) {
-	            return estudiante; 
-	        }
-	    }
-	   
-	    return null;
-	}
 
 	public void registrarUsuario(Usuario nuevoUsuario) {
 	    if (nuevoUsuario instanceof Profesor) {
-	        profesores.add((Profesor) nuevoUsuario); 
+	        profesores.add((Profesor) nuevoUsuario);
 	    } else if (nuevoUsuario instanceof Estudiante) {
 	        estudiantes.add((Estudiante) nuevoUsuario); 
 	    } else {

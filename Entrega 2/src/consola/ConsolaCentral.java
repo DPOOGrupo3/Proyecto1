@@ -37,7 +37,7 @@ public class ConsolaCentral extends ConsolaBasica {
 	 */
 	private void iniciarSesion() throws IOException {
 		
-		String iUsername = this.pedirCadenaAlUSuario("Ingrese su usuario (username)");
+		String iUsername = this.pedirCadenaAlUSuario("Ingrese su usuario (username// correo sin el @)");
 		String iPassword = this.pedirCadenaAlUSuario("Ingrese su contraseña");
 		
 		Usuario user = centralLogica.iniciarSesion(iUsername, iPassword);
@@ -67,18 +67,6 @@ public class ConsolaCentral extends ConsolaBasica {
 	       
 
 	}
-	
-	
-	/**
-	 * Valida la existencia de un empleado en la galería
-	 * @return El empleado buscado o null de lo contrario
-	 */
-	
-	private Usuario autenticarUsuario(String email, String password) {
-		
-		return centralLogica.buscarUsuario(email, password);
-	}
-	
 	
     
     /**
