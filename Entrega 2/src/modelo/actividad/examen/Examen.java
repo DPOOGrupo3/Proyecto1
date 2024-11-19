@@ -7,7 +7,7 @@ import modelo.actividad.Actividad;
 public abstract class Examen extends Actividad {
 	private List<String> preguntas; //lista de preguntas
 	
-	public Examen(String descripcion, String objetivo, String tipo, int nivelDificultad, double duracionEsperada, List<Actividad> preRequisitos, List<String> preguntas) {
+	public Examen(String descripcion, String objetivo, String tipo, int nivelDificultad, Double duracionEsperada, List<Actividad> preRequisitos, List<String> preguntas) {
 		super(descripcion, objetivo, tipo, nivelDificultad, duracionEsperada, preRequisitos);
 		this.preguntas = preguntas;
 	}

@@ -31,14 +31,14 @@ public class Profesor extends Usuario{
 		}
 	}
 	
-	public Actividad crearActividad(String descripcion, String objetivo, String tipo, int nivelDificultad, int duracionEsperada, List<Actividad> preRequisitos, String recurso, String tipoRecurso, List<String> ejercicios, List<String> preguntas, List<String> opciones, List<Integer> respuestas, double calificacionMin) {
+	public Actividad crearActividad(String descripcion, String objetivo, String tipo, int nivelDificultad, Double duracionEsperada, List<Actividad> preRequisitos, String recurso, String tipoRecurso, List<String> ejercicios, List<String> preguntas, List<String> respuestas, Double calificacionMin) {
 		Actividad actividad = null;
 		if (tipo.equals("RE")) {
-			actividad = new RecursoEducativo(descripcion, objetivo, tipo, duracionEsperada, nivelDificultad, preRequisitos, recurso, tipoRecurso);
+			actividad = new RecursoEducativo(descripcion, objetivo, tipo, nivelDificultad, duracionEsperada, preRequisitos, recurso, tipoRecurso);
 		}else if (tipo.equals("T")) {
 			actividad = new Tarea(descripcion, objetivo, tipo, nivelDificultad, duracionEsperada, preRequisitos, ejercicios);
 		}else if (tipo.equals("Q")) {
-			actividad = new Quiz(descripcion, objetivo, tipo, nivelDificultad, duracionEsperada, preRequisitos, preguntas, opciones, respuestas, calificacionMin);
+			actividad = new Quiz(descripcion, objetivo, tipo, nivelDificultad, duracionEsperada, preRequisitos, preguntas, respuestas, calificacionMin);
 		}else if (tipo.equals("P")) {
 			actividad = new Parcial(descripcion, objetivo, tipoRecurso, nivelDificultad, duracionEsperada, preRequisitos, preguntas);
 		}else if (tipo.equals("E")) {
@@ -95,7 +95,7 @@ public class Profesor extends Usuario{
 	    actividad.cambiarObjetivo(objetivo);
 	}
 	
-	public void cambiarDuracionEsperadaActividad(Actividad actividad, int duracion, LearningPath camino) {
+	public void cambiarDuracionEsperadaActividad(Actividad actividad, Double duracion, LearningPath camino) {
 		actividad.cambiarDuracionEsperada(duracion);
 		camino.cambiarDuracionEsperada();
 	}

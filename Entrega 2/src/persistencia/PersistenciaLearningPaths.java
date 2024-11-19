@@ -19,7 +19,7 @@ import modelo.LearningPath;
 import modelo.actividad.Actividad;
 
 public class PersistenciaLearningPaths {
-	private String[] titulos = {"ID", "titulo", "descripcion", "objetivo", "duracion", "dificultad", "rating", "raters", "activdades", "fechaCreacion", "fechaModificacion", "version"};
+	private String[] titulos = {"ID", "titulo", "descripcion", "objetivo", "duracion", "dificultad", "rating", "raters", "actividades", "fechaCreacion", "fechaModificacion", "version"};
 	
 	public void cargarArchivo(String ruta, List<LearningPath> caminos, List<Actividad> actividadesCompleta) throws JSONException, IOException {
 		JSONArray jCaminos = new JSONArray(new String(Files.readAllBytes(new File(ruta).toPath())));
@@ -35,9 +35,12 @@ public class PersistenciaLearningPaths {
 	}
 	
 	private List<Actividad> obtenerActividades(JSONArray jActividades, List<Actividad> actividadesCompleta) {
+		System.out.println(jActividades);
 		List<Actividad> actividades = new ArrayList<Actividad>();
 		for (int i = 0; i < jActividades.length(); i++) {
 			for (int j = 0; j < actividadesCompleta.size(); j++) {
+				System.out.println(String.valueOf(actividadesCompleta.get(j).getID()));
+				System.out.println(jActividades.getString(i));
 				if (String.valueOf(actividadesCompleta.get(j).getID()).equals(jActividades.getString(i))) {
 					actividades.add(actividadesCompleta.get(j));
 					break;
@@ -69,7 +72,7 @@ public class PersistenciaLearningPaths {
 			}
 		}
 		String[] hora = arrayFecha[3].split(":");
-		return new Date(Integer.parseInt(arrayFecha[5]), mes, Integer.parseInt(arrayFecha[2]), Integer.parseInt(hora[0]), Integer.parseInt(hora[1]), Integer.parseInt(hora[2]));
+		return new Date(Integer.parseInt(arrayFecha[5]) - 1900, mes, Integer.parseInt(arrayFecha[2]), Integer.parseInt(hora[0]), Integer.parseInt(hora[1]), Integer.parseInt(hora[2]));
 	}
 	
 	public void guardarArchivo(String ruta, List<LearningPath> caminos) {

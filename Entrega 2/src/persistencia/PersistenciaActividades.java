@@ -31,17 +31,19 @@ public class PersistenciaActividades {
 			JSONObject jActividad = jActividades.getJSONObject(i);
 			List<Actividad> preRequisitos = obtenerActividades(jActividades, actividades);
 			Actividad actividad = null;
+			
 			if (jActividad.getString(titulos[3]).equals("RE")) {
-				actividad = new RecursoEducativo(jActividad.getString(titulos[1]), jActividad.getString(titulos[2]), jActividad.getString(titulos[3]), jActividad.getInt(titulos[5]), jActividad.getDouble(titulos[6]), preRequisitos, jActividad.getJSONObject(titulos[4]).getString("recurso"), jActividad.getJSONObject(titulos[4]).getString("tipoRecurso"));
+				actividad = new RecursoEducativo(jActividad.getString(titulos[1]), jActividad.getString(titulos[2]), jActividad.getString(titulos[3]), jActividad.getInt(titulos[4]), jActividad.getDouble(titulos[5]), preRequisitos, jActividad.getJSONObject(titulos[7]).getString("recurso"), jActividad.getJSONObject(titulos[7]).getString("tipo"));
 			}else if (jActividad.getString(titulos[3]).equals("T")) {
-				actividad = new Tarea(jActividad.getString(titulos[1]), jActividad.getString(titulos[2]), jActividad.getString(titulos[3]), jActividad.getInt(titulos[5]), jActividad.getDouble(titulos[6]), preRequisitos, obtenerListaStrings(jActividad.getJSONObject(titulos[4]).getJSONArray("ejercicios")));
+				actividad = new Tarea(jActividad.getString(titulos[1]), jActividad.getString(titulos[2]), jActividad.getString(titulos[3]), jActividad.getInt(titulos[4]), jActividad.getDouble(titulos[5]), preRequisitos, obtenerListaStrings(jActividad.getJSONObject(titulos[7]).getJSONArray("ejercicios")));
 			}else if (jActividad.getString(titulos[3]).equals("Q")) {
-				actividad = new Quiz(jActividad.getString(titulos[1]), jActividad.getString(titulos[2]), jActividad.getString(titulos[3]), jActividad.getInt(titulos[5]), jActividad.getDouble(titulos[6]), preRequisitos, obtenerListaStrings(jActividad.getJSONObject(titulos[4]).getJSONArray("preguntas")), obtenerListaStrings(jActividad.getJSONObject(titulos[4]).getJSONArray("opciones")), obtenerListaInts(jActividad.getJSONObject(titulos[4]).getJSONArray("respuestas")), jActividad.getJSONObject(titulos[4]).getDouble("calificacionMin"));
+				actividad = new Quiz(jActividad.getString(titulos[1]), jActividad.getString(titulos[2]), jActividad.getString(titulos[3]), jActividad.getInt(titulos[4]), jActividad.getDouble(titulos[5]), preRequisitos, obtenerListaStrings(jActividad.getJSONObject(titulos[7]).getJSONArray("preguntas")), obtenerListaStrings(jActividad.getJSONObject(titulos[7]).getJSONArray("respuestas")), jActividad.getJSONObject(titulos[7]).getDouble("calificacionMin"));
 			}else if (jActividad.getString(titulos[3]).equals("P")) {
-				actividad = new Parcial(jActividad.getString(titulos[1]), jActividad.getString(titulos[2]), jActividad.getString(titulos[3]), jActividad.getInt(titulos[5]), jActividad.getDouble(titulos[6]), preRequisitos, obtenerListaStrings(jActividad.getJSONObject(titulos[4]).getJSONArray("preguntas")));
+				actividad = new Parcial(jActividad.getString(titulos[1]), jActividad.getString(titulos[2]), jActividad.getString(titulos[3]), jActividad.getInt(titulos[4]), jActividad.getDouble(titulos[5]), preRequisitos, obtenerListaStrings(jActividad.getJSONObject(titulos[7]).getJSONArray("preguntas")));
 			}else if (jActividad.getString(titulos[3]).equals("E")) {
-				actividad = new Encuesta(jActividad.getString(titulos[1]), jActividad.getString(titulos[2]), jActividad.getString(titulos[3]), jActividad.getInt(titulos[5]), jActividad.getDouble(titulos[6]), preRequisitos, obtenerListaStrings(jActividad.getJSONObject(titulos[4]).getJSONArray("preguntas")));
+				actividad = new Encuesta(jActividad.getString(titulos[1]), jActividad.getString(titulos[2]), jActividad.getString(titulos[3]), jActividad.getInt(titulos[4]), jActividad.getDouble(titulos[5]), preRequisitos, obtenerListaStrings(jActividad.getJSONObject(titulos[7]).getJSONArray("preguntas")));
 			}
+			
 			actividades.add(actividad);
 		}
 	}
@@ -52,14 +54,6 @@ public class PersistenciaActividades {
 			strings.add(jStrings.getString(i));
 		}
 		return strings;
-	}
-	
-	private List<Integer> obtenerListaInts(JSONArray jInts) {
-		List<Integer> ints = new ArrayList<Integer>();
-		for (int i = 0; i < jInts.length(); i++) {
-			ints.add(jInts.getInt(i));
-		}
-		return ints;
 	}
 	
 	private List<Actividad> obtenerActividades(JSONArray jActividades, List<Actividad> actividadesCompleta) {
@@ -128,7 +122,7 @@ public class PersistenciaActividades {
 			}
 			jContenido.put("preguntas", ejericios);
 		}else if (tipo.equals("Q")) {
-			String[] titulosQuiz = {"preguntas", "opciones", "respuestas", "calificacionMin"};
+			String[] titulosQuiz = {"preguntas", "respuestas", "calificacionMin"};
 			String[] arrayContenido = contenido.split(":/:");
 			for (int i = 0; i < titulosQuiz.length-1; i++) {
 				String[] arreglo = arrayContenido[i].split("//");

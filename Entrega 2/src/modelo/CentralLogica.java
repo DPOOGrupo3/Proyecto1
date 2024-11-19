@@ -54,12 +54,12 @@ public class CentralLogica {
 		return camino;
 	}
 	
-	public Actividad crearActividad(String descripcion, String objetivo, String tipo, int nivelDificultad, int duracionEsperada, List<String> preRequisitos, String recurso, String tipoRecurso, List<String> ejercicios, List<String> preguntas, List<String> opciones, List<Integer> respuestas, double calificacionMin) {
+	public Actividad crearActividad(String descripcion, String objetivo, String tipo, int nivelDificultad, Double duracionEsperada, List<String> preRequisitos, String recurso, String tipoRecurso, List<String> ejercicios, List<String> preguntas, List<String> respuestas, double calificacionMin) {
 		List<Actividad> listaPreRequisitos = new ArrayList<Actividad>();
 		for (String pre: preRequisitos) {
 			listaPreRequisitos.add(encontrarActividadPorID(pre));
 		}
-		Actividad actividad = ((Profesor) user).crearActividad(descripcion, objetivo, tipo, nivelDificultad, duracionEsperada, listaPreRequisitos, recurso, tipoRecurso, ejercicios, preguntas, opciones, respuestas, calificacionMin);
+		Actividad actividad = ((Profesor) user).crearActividad(descripcion, objetivo, tipo, nivelDificultad, duracionEsperada, listaPreRequisitos, recurso, tipoRecurso, ejercicios, preguntas, respuestas, calificacionMin);
 		actividades.add(actividad);
 		return actividad;
 	}
@@ -159,7 +159,7 @@ public class CentralLogica {
 		}
 	}
 	
-	public void cambiarDuracionEsperadaActividad(String IDActividad, int duracion) {
+	public void cambiarDuracionEsperadaActividad(String IDActividad, Double duracion) {
 		Actividad actividad = encontrarActividadPorID(IDActividad);
 		LearningPath camino = encontrarLearningPathPorIDActividad(IDActividad);
 		if (!actividad.equals(null) && !camino.equals(null)) {
@@ -200,11 +200,6 @@ public class CentralLogica {
 		CentralLogica centralL = new CentralLogica();
 		centralL.cargarDatos();
 		centralL.iniciarSesion("j.p", "SoyJuan123");
-		centralL.eliminarLearningPathCreado("JCPG1");
-		List<Actividad> act = new ArrayList<Actividad>();
-		List<String> pre = new ArrayList<String>();
-		act.add(centralL.crearActividad("Cosas basicas", "Aprender", "RE", 0, 0, pre, "Hola Soy Stor", "Libro", null, null, null, null, 0));
-		centralL.crearLearningPath("Camino 1", "Cosas basicas", "Aprender", act);
 		/*Class<? extends Usuario> tipoUser = centralL.iniciarSesion("j.a@mail.com", "SoyJuan123");
 		if (tipoUser.equals(Profesor.class)) {
 			System.out.println("Es profesor");

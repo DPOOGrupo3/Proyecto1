@@ -7,7 +7,7 @@ public class Tarea extends Actividad {
 	List<String> ejercicios;
 	boolean enviada;
 	
-	public Tarea(String descripcion, String objetivo, String tipo, int nivelDificultad, double duracionEsperada, List<Actividad> preRequisitos, List<String> ejercicios) {
+	public Tarea(String descripcion, String objetivo, String tipo, int nivelDificultad, Double duracionEsperada, List<Actividad> preRequisitos, List<String> ejercicios) {
 		super(descripcion, objetivo, tipo, nivelDificultad, duracionEsperada, preRequisitos);
 		this.ejercicios = ejercicios;
 		this.enviada = false;

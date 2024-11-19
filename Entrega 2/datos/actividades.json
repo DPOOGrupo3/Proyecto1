@@ -6,8 +6,8 @@
     "recurso": "Hola Soy Stor",
     "tipo": "Libro"
   },
-  "nivelDificultad": "0.0",
-  "duracionEsperada": "0",
-  "ID": "JCPG1.1",
+  "nivelDificultad": "0",
+  "duracionEsperada": "0.0",
+  "ID": "",
   "preRequisitos": []
 }]

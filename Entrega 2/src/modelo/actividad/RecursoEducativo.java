@@ -6,7 +6,7 @@ public class RecursoEducativo extends Actividad {
 	private String recurso;
 	private String tipoRecurso;
 	
-	public RecursoEducativo(String descripcion, String objetivo, String tipo, int nivelDificultad, double duracionEsperada, List<Actividad> preRequisitos, String recurso, String tipoRecurso) {
+	public RecursoEducativo(String descripcion, String objetivo, String tipo, int nivelDificultad, Double duracionEsperada, List<Actividad> preRequisitos, String recurso, String tipoRecurso) {
 		super(descripcion, objetivo, tipo, nivelDificultad, duracionEsperada, preRequisitos);
 		this.recurso = recurso;
 		this.tipoRecurso = tipoRecurso;

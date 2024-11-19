@@ -1,14 +1,14 @@
 [{
   "descripcion": "Cosas basicas",
   "objetivo": "Aprender",
-  "fechaModificacion": "Wed Oct 23 23:45:27 COT 2024",
+  "fechaModificacion": "Mon Oct 28 14:17:25 COT 2024",
   "raters": "0",
   "rating": "0.0",
   "titulo": "Camino 1",
   "duracion": "0.0",
-  "fechaCreacion": "Wed Oct 23 23:45:27 COT 2024",
-  "activdades": ["JCPG1.1"],
+  "fechaCreacion": "Mon Oct 28 14:17:25 COT 2024",
   "ID": "JCPG1",
+  "actividades": ["JCPG1.1"],
   "version": "1",
   "dificultad": "0"
 }]

@@ -9,11 +9,11 @@ public abstract class Actividad {
 	private String objetivo;
 	private String tipo;
 	private int nivelDificultad;
-	private double duracionEsperada;
+	private Double duracionEsperada;
 	private List<Actividad> preRequisitos;
 	private String resultado;
 	
-	public Actividad(String descripcion, String objetivo, String tipo, int nivelDificultad, double duracionEsperada, List<Actividad> preRequisitos) {
+	public Actividad(String descripcion, String objetivo, String tipo, int nivelDificultad, Double duracionEsperada, List<Actividad> preRequisitos) {
 		this.ID = "";
 		this.descripcion = descripcion;
 		this.objetivo = objetivo;
@@ -60,7 +60,7 @@ public abstract class Actividad {
 		return nivelDificultad;
 	}
 
-	public void cambiarDuracionEsperada(int duracionEsperada) {
+	public void cambiarDuracionEsperada(Double duracionEsperada) {
 		this.duracionEsperada = duracionEsperada;
 	}
 	
@@ -138,7 +138,7 @@ public abstract class Actividad {
 		}else {
 			cadenaActividades = "NA";
 		}
-		return ID + "%" + descripcion + "%" + objetivo + "%" + tipo + "%" + duracionEsperada + "%" + nivelDificultad + "%" + cadenaActividades + "%";
+		return ID + "%" + descripcion + "%" + objetivo + "%" + tipo + "%" + nivelDificultad + "%" + duracionEsperada + "%" + cadenaActividades + "%";
 	}
 	
 	

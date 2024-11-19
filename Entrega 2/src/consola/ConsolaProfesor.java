@@ -205,51 +205,37 @@ public class ConsolaProfesor extends ConsolaBasica {
              };
     	
     	 int opcion = this.mostrarMenu("Eliga que tipo de actividad es", opciones);
-    	 
+    	 Actividad nuevaActividad = null;
     	 
     	 switch (opcion) {
          case 1 -> {
-        	 
         	 String tipoRecurso = pedirCadenaAlUSuario("Ingerese el tipo de recurso educativo: ");
         	 String recurso = pedirCadenaAlUSuario("Ingrese el recurso ecucativo: ");
-        	 Actividad actividad = centralLogica.crearActividad(descripcion, objetivo, "RE", nivelDificultad, duracion, pre, recurso, tipoRecurso, null, null, null, null, null);
+        	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "RE", nivelDificultad, duracion, pre, recurso, tipoRecurso, null, null, null, 0);
         	 
-             
-             
          }
          case 2 -> {
-         
-             System.out.println("Descripción actualizada.");
+        	 List<String> ejercicios = new ArrayList<String>();
+        	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "T", nivelDificultad, duracion, pre, null, null, ejercicios, null, null, 0);
          }
          case 3 -> {
-     
-             System.out.println("Objetivo actualizado.");
+        	 List<String> preguntas = new ArrayList<String>();
+        	 List<String> respuestas = new ArrayList<String>();
+        	 int calMin = pedirEnteroAlUsuario("Ingrese la calificación minima");
+        	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "T", nivelDificultad, duracion, pre, null, null, null, preguntas, respuestas, calMin);
          }
          case 4 -> {
-             Actividad actividad = (Actividad) seleccionarActividades();
-  
+        	 List<String> preguntas = new ArrayList<String>();
+        	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "T", nivelDificultad, duracion, pre, null, null, null, preguntas, null, 0);
          }
          case 5 -> {
-
+        	 List<String> preguntas = new ArrayList<String>();
+        	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "T", nivelDificultad, duracion, pre, null, null, null, preguntas, null, 0);
          }
          default -> System.out.println("Opción no válida.");
          
-         
-
     }
     	 
-    	 
-    	 
-
-
-    	
-    	
-    	
-		
-		
-
-    	Actividad nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, tipo, nivelDificultad, duracion, new ArrayList<>() , null, null, null, null, null, null, 0);
-    	
     	System.out.println("Actividad creada con exito con ID: " + nuevaActividad.getID());
     	
     	correrConsola();
@@ -284,7 +270,7 @@ public class ConsolaProfesor extends ConsolaBasica {
                     System.out.println("Objetivo actualizado.");
                 }
                 case 3 -> {
-                    int nuevaDuracion = pedirEnteroAlUsuario("Ingrese la nueva duración esperada (en minutos)");
+                    Double nuevaDuracion = pedirNumeroAlUsuario("Ingrese la nueva duración esperada (en minutos)");
                     centralLogica.cambiarDuracionEsperadaActividad(actividad.getID(), nuevaDuracion);
                     System.out.println("Duración actualizada.");
                 }
