@@ -44,7 +44,7 @@ public class ConsolaProfesor extends ConsolaBasica {
                 case 7 -> consultarLearningPaths();
                 case 8 -> {
                     System.out.println("Saliendo...");
-                    return;
+                    break;
                 }
                 default -> System.out.println("Opción no válida.");
             }
@@ -54,18 +54,15 @@ public class ConsolaProfesor extends ConsolaBasica {
 
         if (opcion != 8) correrConsola();
     }
-    
-    // ##########################################################################
-    // FUNCIONALIDADES RELACIONADAS CON LEARNING PATHS
-    // ##########################################################################
+   
     
     /**
      * Método para crear un nuevo Learning Path.
      */
     private void crearLearningPath() throws IOException {
-    	String titulo = pedirCadenaAlUSuario("Ingrese el titulo del Learning Path: ");
-    	String descripcion = pedirCadenaAlUSuario("Ingrese la descripcion del Learning Path: ");
-    	String objetivo = pedirCadenaAlUSuario("Ingrese el objetivo del Learning Path: ");
+    	String titulo = pedirCadenaAlUSuario("Ingrese el titulo del Learning Path");
+    	String descripcion = pedirCadenaAlUSuario("Ingrese la descripcion del Learning Path");
+    	String objetivo = pedirCadenaAlUSuario("Ingrese el objetivo del Learning Path");
     	 List<Actividad> actividades = seleccionarActividades();
 
     	
@@ -97,14 +94,14 @@ public class ConsolaProfesor extends ConsolaBasica {
 
             switch (opcion) {
                 case 1 -> {
-                    String nuevoTitulo = pedirCadenaAlUSuario("Ingrese el nuevo título");
+                    String nuevoTitulo = pedirCadenaAlUSuario("Ingrese el nuevo titulo");
                     centralLogica.cambiarTituloLearningPath(camino.getID(), nuevoTitulo);
                     System.out.println("Título actualizado.");
                 }
                 case 2 -> {
-                    String nuevaDescripcion = pedirCadenaAlUSuario("Ingrese la nueva descripción");
+                    String nuevaDescripcion = pedirCadenaAlUSuario("Ingrese la nueva descripcion");
                     centralLogica.cambiarDescrpcionLearningPath(camino.getID(), nuevaDescripcion);
-                    System.out.println("Descripción actualizada.");
+                    System.out.println("Descripcion actualizada.");
                 }
                 case 3 -> {
                     String nuevoObjetivo = pedirCadenaAlUSuario("Ingrese el nuevo objetivo");
@@ -125,10 +122,10 @@ public class ConsolaProfesor extends ConsolaBasica {
                         System.out.println("Actividad eliminada.");
                     }
                 }
-                default -> System.out.println("Opción no válida.");
+                default -> System.out.println("Opción no valida.");
             }
         } else {
-            System.out.println("No se seleccionó un Learning Path válido.");
+            System.out.println("No se seleccionó un Learning Path valido.");
         }
     }
     
@@ -143,7 +140,7 @@ public class ConsolaProfesor extends ConsolaBasica {
             centralLogica.eliminarLearningPathCreado(camino.getID());
             System.out.println("Learning Path eliminado exitosamente.");
         } else {
-            System.out.println("No se seleccionó un Learning Path válido.");
+            System.out.println("No se seleccionó un Learning Path valido.");
         }
     }
     
@@ -166,28 +163,23 @@ public class ConsolaProfesor extends ConsolaBasica {
     
     	
     
-    	
-     // ##########################################################################
-     // FUNCIONALIDADES RELACIONADAS CON ACTIVIDADES
-     // ##########################################################################	
-    			
 
 
 	/**
      * Método para crear una nueva actividad.
      */
     private void crearActividad() throws IOException {
-    	String descripcion = pedirCadenaAlUSuario("Ingrese la descirpcion de la actividad: ");
-    	String objetivo = pedirCadenaAlUSuario("Ingrese el objetivo de la actividad: ");
-    	int nivelDificultad = pedirEnteroAlUsuario("Ingrese el nivel de dificultad de la actividad: ");
-    	Double duracion = pedirNumeroAlUsuario("Ingrese la duracion de la actividad: ");
+    	String descripcion = pedirCadenaAlUSuario("Ingrese la descirpcion de la actividad");
+    	String objetivo = pedirCadenaAlUSuario("Ingrese el objetivo de la actividad");
+    	int nivelDificultad = pedirEnteroAlUsuario("Ingrese el nivel de dificultad de la actividad");
+    	Double duracion = pedirNumeroAlUsuario("Ingrese la duracion de la actividad");
     	List <Integer> pre = new ArrayList<Integer>();
     	boolean hayMas = true;
     	while (hayMas) {
-    		int p = pedirEnteroAlUsuario("Ingrese el id del prerequisito: ");
+    		int p = pedirEnteroAlUsuario("Ingrese el id del prerequisito");
     		pre.add(p);
     		
-    		int opcion = (int) pedirNumeroAlUsuario("Ingrese 1 si hay mas prerequisitos, ingrese 2 si no hay mas prerequisitos: ");
+    		int opcion = (int) pedirNumeroAlUsuario("Ingrese 1 si hay mas prerequisitos, ingrese 2 si no hay mas prerequisitos");
     		
     		if (opcion == 2) {
     			hayMas = false;
@@ -218,7 +210,7 @@ public class ConsolaProfesor extends ConsolaBasica {
         	 List<String> ejercicios = new ArrayList<String>();
         	 int cant = pedirEnteroAlUsuario("Ingrese la cantidad de ejercicios");
         	 for (int i = 0; i < cant; i++) {
-        		 ejercicios.add(pedirCadenaAlUSuario("Ingrese el ejercicio número" + String.valueOf(i)));
+        		 ejercicios.add(pedirCadenaAlUSuario("Ingrese el ejercicio numero" + String.valueOf(i)));
         	 }
         	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "T", nivelDificultad, duracion, pre, null, null, ejercicios, null, null, 0);
          }
@@ -227,17 +219,17 @@ public class ConsolaProfesor extends ConsolaBasica {
         	 List<String> respuestas = new ArrayList<String>();
         	 int cant = pedirEnteroAlUsuario("Ingrese la cantidad de preguntas");
         	 for (int i = 0; i < cant; i++) {
-        		 preguntas.add(pedirCadenaAlUSuario("Ingrese la pregunta número" + String.valueOf(i)));
-        		 respuestas.add(pedirCadenaAlUSuario("Ingrese la respuestas número" + String.valueOf(i)));
+        		 preguntas.add(pedirCadenaAlUSuario("Ingrese la pregunta numero" + String.valueOf(i)));
+        		 respuestas.add(pedirCadenaAlUSuario("Ingrese la respuestas numero" + String.valueOf(i)));
         	 }
-        	 int calMin = pedirEnteroAlUsuario("Ingrese la calificación minima");
+        	 int calMin = pedirEnteroAlUsuario("Ingrese la calificacion minima");
         	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "Q", nivelDificultad, duracion, pre, null, null, null, preguntas, respuestas, calMin);
          }
          case 4 -> {
         	 List<String> preguntas = new ArrayList<String>();
         	 int cant = pedirEnteroAlUsuario("Ingrese la cantidad de preguntas");
         	 for (int i = 0; i < cant; i++) {
-        		 preguntas.add(pedirCadenaAlUSuario("Ingrese la pregunta número" + String.valueOf(i)));
+        		 preguntas.add(pedirCadenaAlUSuario("Ingrese la pregunta numero" + String.valueOf(i)));
         	 }
         	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "P", nivelDificultad, duracion, pre, null, null, null, preguntas, null, 0);
          }
@@ -245,11 +237,11 @@ public class ConsolaProfesor extends ConsolaBasica {
         	 List<String> preguntas = new ArrayList<String>();
         	 int cant = pedirEnteroAlUsuario("Ingrese la cantidad de preguntas");
         	 for (int i = 0; i < cant; i++) {
-        		 preguntas.add(pedirCadenaAlUSuario("Ingrese la pregunta número" + String.valueOf(i)));
+        		 preguntas.add(pedirCadenaAlUSuario("Ingrese la pregunta numero" + String.valueOf(i)));
         	 }
         	 nuevaActividad = centralLogica.crearActividad(descripcion, objetivo, "E", nivelDificultad, duracion, pre, null, null, null, preguntas, null, 0);
          }
-         default -> System.out.println("Opción no válida.");
+         default -> System.out.println("Opción no valida.");
          
     }
     	 
@@ -317,11 +309,7 @@ public class ConsolaProfesor extends ConsolaBasica {
             System.out.println("No se seleccionó una actividad válida.");
         }
     }
-    
-    // ##########################################################################
-    // MÉTODOS DE APOYO PARA SELECCIÓN
-    // ##########################################################################
-    
+       
     /**
      * Permite al profesor seleccionar un Learning Path creado.
      * @return El Learning Path seleccionado o null si no se selecciona ninguno.
@@ -379,10 +367,10 @@ public class ConsolaProfesor extends ConsolaBasica {
                     if (index >= 0 && index < actividadesDisponibles.size()) {
                         actividadesSeleccionadas.add(actividadesDisponibles.get(index));
                     } else {
-                        System.out.println("Opción " + opcion + " no válida. Ignorada.");
+                        System.out.println("Opción " + opcion + " no valida. Ignorada.");
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("Opción " + opcion + " no válida. Ignorada.");
+                    System.out.println("Opción " + opcion + " no valida. Ignorada.");
                 }
             }
         }

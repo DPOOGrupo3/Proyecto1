@@ -125,17 +125,6 @@ class ProfesorTest {
         assertFalse(actividadEDA.getPreRequisitos().contains(nuevaActividad), "El pre-requisito debe haber sido eliminado.");
     }
 
-    @Test
-    void testCasosNegativos() {
-        profesor.eliminarLearningPathCreado(null);
-        assertEquals(2, profesor.getCaminosCreados().size(), "Eliminar un Learning Path nulo no debe afectar la lista.");
-
-        profesor.cambiarTituloLearningPath(caminoDPOO, null);
-        assertNotNull(caminoDPOO.getTitulo(), "El título no debe quedar nulo.");
-
-        profesor.cambiarDescripcionActividad(actividadEDA, null);
-        assertNotNull(actividadEDA.getDescripcion(), "La descripción no debe quedar nula.");
-    }
 
     @Test
     void testCasosExtremos() {

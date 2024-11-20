@@ -24,8 +24,13 @@ public class Progreso {
 	}
 	
 	private void calcularPorcentaje() {
-		porcentaje = (double) (actividadesTerminadas.size()/camino.getActivdades().size());
+	    if (camino.getActivdades().size() > 0) {
+	        porcentaje = (double) actividadesTerminadas.size() / camino.getActivdades().size();
+	    } else {
+	        porcentaje = 0.0;
+	    }
 	}
+
 
 	public List<Actividad> getActividadesTerminadas() {
 		return actividadesTerminadas;
@@ -36,6 +41,10 @@ public class Progreso {
 	}
 
 	public void entregarActividad(Actividad actividad) {
+		
+		   if (!actividadesPendinetes.contains(actividad)) {
+		        throw new IllegalArgumentException("La actividad no está en la lista de pendientes.");
+		    }
 		actividadesTerminadas.add(actividad);
 		eliminarActividadPendiente(actividad);
 		calcularPorcentaje();
@@ -55,5 +64,9 @@ public class Progreso {
 	public String toString() {
 		
 		return String.valueOf(porcentaje) + "%";
+	}
+
+	public LearningPath getCamino() {
+		return camino;
 	}
 }

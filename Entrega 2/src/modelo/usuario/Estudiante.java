@@ -37,12 +37,22 @@ public class Estudiante extends Usuario {
 	}
 	
 	public void entregarActividad(LearningPath camino, Actividad actividad) {
+		
+	    if (!camino.getActivdades().contains(actividad)) {
+	        throw new IllegalArgumentException("La actividad no pertenece al Learning Path proporcionado.");
+	    }
 		if (actividad.getTipo().equals("RE") || actividad.getTipo().equals("Q") || actividad.getTipo().equals("E")) {
 			actividad.cambiarResultado("Entregado");
 		}
 		Progreso progreso = caminosInscritos.get(camino);
 		progreso.entregarActividad(actividad);
 	}
+	
+	
+	public Map<LearningPath, Progreso> getCaminosInscritos() {
+	    return caminosInscritos;
+	}
+	
 	
     @Override
     public String toString() {
