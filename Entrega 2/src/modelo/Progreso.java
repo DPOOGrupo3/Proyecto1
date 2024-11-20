@@ -69,7 +69,7 @@ public class Progreso {
 			for (Actividad actividad: actividadesTerminadas) {
 				cadena += String.valueOf(actividad.getID()) + "//";
 			}
-			cadena = cadena.substring(0, cadena.length()-1);
+			cadena = cadena.substring(0, cadena.length()-2);
 		}
 		if (actividadesPendinetes.isEmpty()) {
 			cadena += "NA" + ":/:";
@@ -77,7 +77,7 @@ public class Progreso {
 			for (Actividad actividad: actividadesPendinetes) {
 				cadena += String.valueOf(actividad.getID()) + "//";
 			}
-			cadena = cadena.substring(0, cadena.length()-1);
+			cadena = cadena.substring(0, cadena.length()-2);
 		}
 		return String.valueOf(porcentaje) + ":/:" + cadena;
 	}
