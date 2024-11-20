@@ -58,7 +58,7 @@ public class PersistenciaUsuarios {
 			JSONObject profe = new JSONObject();
 			String[] atributosProfesor = profesor.toString().split("/");
 			
-			for (int i = 0; i < titulos.length-2; i++) {
+			for (int i = 0; i < 3; i++) {
 				profe.put(titulos[i], atributosProfesor[i]);
 			}
 			
@@ -78,7 +78,7 @@ public class PersistenciaUsuarios {
 			JSONObject student = new JSONObject();
 			String[] atributosEstudiante = estudiante.toString().split("/");
 			
-			for (int i = 0; i < titulos.length-2; i++) {
+			for (int i = 0; i < 3; i++) {
 				student.put(titulos[i], atributosEstudiante[i]);
 			}
 			
