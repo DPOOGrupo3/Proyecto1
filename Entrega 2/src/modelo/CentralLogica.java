@@ -54,9 +54,9 @@ public class CentralLogica {
 		return camino;
 	}
 	
-	public Actividad crearActividad(String descripcion, String objetivo, String tipo, int nivelDificultad, Double duracionEsperada, List<String> preRequisitos, String recurso, String tipoRecurso, List<String> ejercicios, List<String> preguntas, List<String> respuestas, double calificacionMin) {
+	public Actividad crearActividad(String descripcion, String objetivo, String tipo, int nivelDificultad, Double duracionEsperada, List<Integer> preRequisitos, String recurso, String tipoRecurso, List<String> ejercicios, List<String> preguntas, List<String> respuestas, double calificacionMin) {
 		List<Actividad> listaPreRequisitos = new ArrayList<Actividad>();
-		for (String pre: preRequisitos) {
+		for (int pre: preRequisitos) {
 			listaPreRequisitos.add(encontrarActividadPorID(pre));
 		}
 		Actividad actividad = ((Profesor) user).crearActividad(descripcion, objetivo, tipo, nivelDificultad, duracionEsperada, listaPreRequisitos, recurso, tipoRecurso, ejercicios, preguntas, respuestas, calificacionMin);
@@ -64,28 +64,28 @@ public class CentralLogica {
 		return actividad;
 	}
 	
-	private LearningPath encontrarLearningPathPorID(String IDCamino) {
+	private LearningPath encontrarLearningPathPorID(int IDCamino) {
 		for (LearningPath camino: caminos) {
-			if (camino.getID().equals(IDCamino)) {
+			if (camino.getID()==IDCamino) {
 				return camino;
 			}
 		}
-		return new LearningPath("", "", "", "", new ArrayList<Actividad>());
+		return new LearningPath("", "", "", new ArrayList<Actividad>());
 	}
 	
-	private Actividad encontrarActividadPorID(String IDActividad) {
+	private Actividad encontrarActividadPorID(int IDActividad) {
 		for (Actividad actividad: actividades) {
-			if (actividad.getID().equals(IDActividad)) {
+			if (actividad.getID() == IDActividad) {
 				return actividad;
 			}
 		}
 		return null;
 	}
 	
-	private LearningPath encontrarLearningPathPorIDActividad(String IDActividad) {
+	private LearningPath encontrarLearningPathPorIDActividad(int IDActividad) {
 		for (LearningPath camino: caminos) {
 			for (Actividad actividad: camino.getActivdades()) {
-				if (actividad.getID().equals(IDActividad)) {
+				if (actividad.getID() == IDActividad) {
 					return camino;
 				}
 			}
@@ -93,7 +93,7 @@ public class CentralLogica {
 		return null;
 	}
 	
-	public void copiarActividad(String IDActividad) {
+	public void copiarActividad(int IDActividad) {
 	    Actividad actividadOriginal = encontrarActividadPorID(IDActividad);
 	    if (actividadOriginal != null) {
 	        Actividad actividadCopia = actividadOriginal.copy();
@@ -101,7 +101,7 @@ public class CentralLogica {
 	    }
 	}
 	
-	public void eliminarLearningPathCreado(String IDCamino) {
+	public void eliminarLearningPathCreado(int IDCamino) {
 		LearningPath camino = encontrarLearningPathPorID(IDCamino);
 		if (!camino.equals(null)) {
 			((Profesor) user).eliminarLearningPathCreado(camino);
@@ -109,28 +109,28 @@ public class CentralLogica {
 		}
 	}
 	
-	public void cambiarTituloLearningPath(String IDCamino, String titulo) {
+	public void cambiarTituloLearningPath(int IDCamino, String titulo) {
 		LearningPath camino = encontrarLearningPathPorID(IDCamino);
 		if (!camino.equals(null)) {
 			((Profesor) user).cambiarTituloLearningPath(camino, titulo);
 		}
 	}
 	
-	public void cambiarDescrpcionLearningPath(String IDCamino, String descripcion) {
+	public void cambiarDescrpcionLearningPath(int IDCamino, String descripcion) {
 		LearningPath camino = encontrarLearningPathPorID(IDCamino);
 		if (!camino.equals(null)) {
 			((Profesor) user).cambiarDescripcionLearningPath(camino, descripcion);
 		}
 	}
 	
-	public void cambiarObjetivoLearningPath(String IDCamino, String objetivo) {
+	public void cambiarObjetivoLearningPath(int IDCamino, String objetivo) {
 		LearningPath camino = encontrarLearningPathPorID(IDCamino);
 		if (!camino.equals(null)) {
 			((Profesor) user).cambiarObjetivoLearningPath(camino, objetivo);
 		}
 	}
 	
-	public void agregarActividadLearningPath(String IDCamino, String IDActividad) {
+	public void agregarActividadLearningPath(int IDCamino, int IDActividad) {
 		LearningPath camino = encontrarLearningPathPorID(IDCamino);
 		Actividad actividadAgregar = encontrarActividadPorID(IDActividad);
 		if (!camino.equals(null) && !actividadAgregar.equals(null)) {
@@ -138,7 +138,7 @@ public class CentralLogica {
 		}
 	}
 	
-	public void eliminarsActividadLearningPath(String IDCamino, String IDActividad) {
+	public void eliminarsActividadLearningPath(int IDCamino, int IDActividad) {
 		LearningPath camino = encontrarLearningPathPorID(IDCamino);
 		Actividad actividadEliminar = encontrarActividadPorID(IDActividad);
 		if (!camino.equals(null) && !actividadEliminar.equals(null)) {
@@ -147,19 +147,19 @@ public class CentralLogica {
 		}
 	}
 	
-	public void cambiarDescrpcionActividad(String IDActividad, String descripcion) {
+	public void cambiarDescrpcionActividad(int IDActividad, String descripcion) {
 		Actividad actividad = encontrarActividadPorID(IDActividad);
 		((Profesor) user).cambiarDescripcionActividad(actividad, descripcion);
 	}
 	
-	public void cambiarObjetivoActividad(String IDActividad, String objetivo) {
+	public void cambiarObjetivoActividad(int IDActividad, String objetivo) {
 		Actividad actividad = encontrarActividadPorID(IDActividad);
 		if (!actividad.equals(null)) {
 			((Profesor) user).cambiarObjetivoActividad(actividad, objetivo);
 		}
 	}
 	
-	public void cambiarDuracionEsperadaActividad(String IDActividad, Double duracion) {
+	public void cambiarDuracionEsperadaActividad(int IDActividad, Double duracion) {
 		Actividad actividad = encontrarActividadPorID(IDActividad);
 		LearningPath camino = encontrarLearningPathPorIDActividad(IDActividad);
 		if (!actividad.equals(null) && !camino.equals(null)) {
@@ -167,7 +167,7 @@ public class CentralLogica {
 		}
 	}
 	
-	public void cambiarNivelDificultadActividad(String IDActividad, int dificultad) {
+	public void cambiarNivelDificultadActividad(int IDActividad, int dificultad) {
 		Actividad actividad = encontrarActividadPorID(IDActividad);
 		LearningPath camino = encontrarLearningPathPorIDActividad(IDActividad);
 		if (!actividad.equals(null) && !camino.equals(null)) {
@@ -175,7 +175,7 @@ public class CentralLogica {
 		}
 	}
 	
-	public void agregarPreRequisitosActividad(String IDActividad, String IDActividadAgregar) {
+	public void agregarPreRequisitosActividad(int IDActividad, int IDActividadAgregar) {
 		Actividad actividad = encontrarActividadPorID(IDActividad);
 		Actividad actividadAgregar = encontrarActividadPorID(IDActividadAgregar);
 		if (!actividad.equals(null) && !actividadAgregar.equals(null)) {
@@ -183,7 +183,7 @@ public class CentralLogica {
 		}
 	}
 	
-	public void eliminarPreRequisitosActividad(String IDActividad, String IDActividadEliminar) {
+	public void eliminarPreRequisitosActividad(int IDActividad, int IDActividadEliminar) {
 		Actividad actividad = encontrarActividadPorID(IDActividad);
 		Actividad actividadEliminar = encontrarActividadPorID(IDActividadEliminar);
 		if (!actividad.equals(null) && !actividadEliminar.equals(null)) {
@@ -191,11 +191,27 @@ public class CentralLogica {
 		}
 	}
 	
-	public void actualizarVersionLP(String IDCamino) {
+	public void actualizarVersionLP(int IDCamino) {
 		LearningPath camino = encontrarLearningPathPorID(IDCamino);
 		camino.cambiarVersion();
 	}
-	
+
+	public Usuario buscarUsuario(String email, String password) {
+	    
+	    for (Profesor profesor : profesores) {
+	        if (profesor.iniciarSesion(email, password)) {
+	            return profesor; 
+	        }
+	    }
+	    
+	    for (Estudiante estudiante : estudiantes) {
+	        if (estudiante.iniciarSesion(email, password)) {
+	            return estudiante; 
+	        }
+	    }
+	   
+	    return null;
+	}
 
 	public void registrarUsuario(Usuario nuevoUsuario) {
 	    if (nuevoUsuario instanceof Profesor) {
@@ -235,7 +251,7 @@ public class CentralLogica {
 	 * Si la actividad está asociada a algún Learning Path, también se elimina de ellos.
 	 * @param idActividad El ID de la actividad a eliminar.
 	 */
-	public void eliminarActividad(String idActividad) {
+	public void eliminarActividad(int idActividad) {
 	    Actividad actividadAEliminar = encontrarActividadPorID(idActividad);
 
 	    if (actividadAEliminar == null) {

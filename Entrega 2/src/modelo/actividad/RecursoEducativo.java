@@ -18,7 +18,7 @@ public class RecursoEducativo extends Actividad {
 	}
 
 	@Override
-	public Object obtenerInformacion() {
+	public String interactuar() {
 		String cadenaImprimir = "";
 		if (tipoRecurso.equals("Video")) {
 			cadenaImprimir = "Aquí tienes la forma de acceder al video: ";
@@ -29,13 +29,12 @@ public class RecursoEducativo extends Actividad {
 		}else if (tipoRecurso.equals("Recurso Adjunto")) {
 			cadenaImprimir = "Aquí tienes la forma de acceder al recurso adjunto: ";
 		}
-		return cadenaImprimir + "\n" +recurso;
+		return cadenaImprimir + "\n" + recurso;
 	}
 	
 	@Override
 	public Actividad copy() {
 		RecursoEducativo copia = new RecursoEducativo(getDescripcion(), getObjetivo(), getTipo(), getNivelDificultad(), getDuracionEsperada(), getPreRequisitos(), recurso, tipoRecurso);
-		copia.setID(this.getID());
 		copia.cambiarResultado(this.getResultado());
 		return copia;
 	}

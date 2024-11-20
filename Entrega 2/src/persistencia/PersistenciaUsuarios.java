@@ -19,7 +19,7 @@ import modelo.usuario.Profesor;
 import modelo.usuario.Usuario;
 
 public class PersistenciaUsuarios {
-	private String[] titulos = {"nombre", "correo", "contrasena", "caminosCreados", "caminosCopiados"};
+	private String[] titulos = {"nombre", "correo", "contrasena", "caminosCreados", "caminosInscritos"};
 	
 	public void cargarArchivo(String ruta, List<Profesor> profesores, List<Estudiante> estudiantes, List<LearningPath> caminosCompletos) throws IOException {
 		JSONObject usuarios = new JSONObject(new String(Files.readAllBytes(new File(ruta).toPath())));
@@ -33,9 +33,9 @@ public class PersistenciaUsuarios {
 			JSONObject jProfesor = jProfesores.getJSONObject(i);
 			Profesor profesor = new Profesor(jProfesor.getString(titulos[0]), jProfesor.getString(titulos[1]), jProfesor.getString(titulos[2]));
 			JSONArray jCaminos = jProfesor.getJSONArray(titulos[3]);
-			List<String> caminos = new ArrayList<String>();
+			List<Integer> caminos = new ArrayList<Integer>();
 			for (int j = 0; j < jCaminos.length(); j++) {
-				caminos.add(jCaminos.getString(j));
+				caminos.add(jCaminos.getInt(j));
 			}
 			profesor.cargarLearninPathsCreados(caminos, caminosCompletos);
 			profesores.add(profesor);
@@ -63,7 +63,6 @@ public class PersistenciaUsuarios {
 			}
 			
 			JSONArray jCaminosCreados = new JSONArray();
-			JSONArray jCaminosCopiados = new JSONArray();
 			
 			if (!atributosProfesor[3].equals("NA")) {
 				String[] caminos = atributosProfesor[3].split("%");
@@ -71,14 +70,7 @@ public class PersistenciaUsuarios {
 					jCaminosCreados.put(camino);
 				}
 			}
-			if (!atributosProfesor[4].equals("NA")) {
-				String[] caminos = atributosProfesor[4].split("%");
-				for (String camino: caminos) {
-					jCaminosCopiados.put(camino);
-				}
-			}
 			profe.put(titulos[3], jCaminosCreados);
-			profe.put(titulos[4], jCaminosCopiados);
 			jProfesores.put(profe);
 		}
 		
@@ -89,6 +81,16 @@ public class PersistenciaUsuarios {
 			for (int i = 0; i < titulos.length-2; i++) {
 				student.put(titulos[i], atributosEstudiante[i]);
 			}
+			
+			JSONArray caminosInscritos = new JSONArray();
+			
+			if (!atributosEstudiante[4].equals("NA")) {
+				String[] caminos = atributosEstudiante[4].split("%");
+				for (String camino: caminos) {
+					caminosInscritos.put(camino);
+				}
+			}
+			student.put(titulos[3], caminosInscritos);
 			jEstudiantes.put(student);
 		}
 		

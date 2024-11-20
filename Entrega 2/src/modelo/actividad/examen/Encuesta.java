@@ -12,7 +12,6 @@ public class Encuesta extends Examen {
 	@Override
 	public Actividad copy() {
 		Encuesta copia = new Encuesta(getDescripcion(), getObjetivo(), getTipo(), getNivelDificultad(), getDuracionEsperada(), getPreRequisitos(), getPreguntas());
-		copia.setID(this.getID());
 		copia.cambiarResultado(this.getResultado());
 		return copia;
 	}

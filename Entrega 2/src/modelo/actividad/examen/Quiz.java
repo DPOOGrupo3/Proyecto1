@@ -33,7 +33,6 @@ public class Quiz extends Examen {
 	@Override
 	public Actividad copy() {
 		Quiz copia = new Quiz(getDescripcion(), getObjetivo(), getTipo(), getNivelDificultad(), getDuracionEsperada(), getPreRequisitos(), getPreguntas(), respuestas, calificacionMin);
-		copia.setID(this.getID());
 		copia.cambiarResultado(this.getResultado());
 		return copia;
 	}

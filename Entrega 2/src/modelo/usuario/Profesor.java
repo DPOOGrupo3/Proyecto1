@@ -19,11 +19,11 @@ public class Profesor extends Usuario{
 		caminosCreados = new ArrayList<LearningPath>();
 	}
 	
-	public void cargarLearninPathsCreados(List<String> caminosACargar, List<LearningPath> caminosCompletos){
+	public void cargarLearninPathsCreados(List<Integer> caminosACargar, List<LearningPath> caminosCompletos){
 		if (caminosACargar.size() > 0) {
-			for (String IDCamino: caminosACargar) {
+			for (int IDCamino: caminosACargar) {
 				for (LearningPath camino: caminosCompletos) {
-					if (camino.getID().equals(IDCamino)) {
+					if (camino.getID()==IDCamino) {
 						caminosCreados.add(camino);
 					}
 				}
@@ -47,18 +47,8 @@ public class Profesor extends Usuario{
 		return actividad;
 	}
 	
-	private String generarIDLP() {
-		String[] nombresApellidos = super.getNombre().split(" ");
-		String ID = "";
-		for (String inicial: nombresApellidos) {
-			ID += inicial.substring(0, 1);
-		}
-		return ID + String.valueOf(caminosCreados.size() + 1);
-	}
-	
 	public LearningPath crearLearningPath(String titulo, String descripcion, String objetivo, List<Actividad> activdades) {
-		String ID = generarIDLP();
-		LearningPath camino = new LearningPath(ID, titulo, descripcion, objetivo, activdades);
+		LearningPath camino = new LearningPath(titulo, descripcion, objetivo, activdades);
 		caminosCreados.add(camino);
 		return camino;
 	}
@@ -128,12 +118,8 @@ public class Profesor extends Usuario{
 	
 	@Override
 	public String toString() {
-		super.toString();
 		return super.toString() + "/" + cadenaCaminos(caminosCreados);
 	}
-
-
-	
 
 	public List<LearningPath> getCaminosCreados() {
 		return caminosCreados;

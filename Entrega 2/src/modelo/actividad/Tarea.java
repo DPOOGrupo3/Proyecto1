@@ -25,17 +25,22 @@ public class Tarea extends Actividad {
 	}
 
 	@Override
-	public Object obtenerInformacion() { 
-		/*for (String ejercicio: ejercicios) {
-			System.out.println(ejercicio);
-		}*/
-		return ejercicios;
+	public String interactuar() { 
+		String cadEjercicios = "";
+		if (ejercicios.size() > 0) {
+			for (String ejercicio: ejercicios) {
+				cadEjercicios += ejercicio + "/n";
+			}
+			cadEjercicios.substring(0, cadEjercicios.length()-1);
+		}else {
+			cadEjercicios = "NA";
+		}
+		return cadEjercicios;
 	}
 	
-@Override
+	@Override
 	public Actividad copy() {
 		Tarea copia = new Tarea(getDescripcion(), getObjetivo(), getTipo(), getNivelDificultad(), getDuracionEsperada(), getPreRequisitos(), ejercicios);
-		copia.setID(this.getID());
 		copia.cambiarResultado(this.getResultado());
 		return copia;
 	}

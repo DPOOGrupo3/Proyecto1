@@ -181,10 +181,10 @@ public class ConsolaProfesor extends ConsolaBasica {
     	String objetivo = pedirCadenaAlUSuario("Ingrese el objetivo de la actividad: ");
     	int nivelDificultad = pedirEnteroAlUsuario("Ingrese el nivel de dificultad de la actividad: ");
     	Double duracion = pedirNumeroAlUsuario("Ingrese la duracion de la actividad: ");
-    	List <String> pre = new ArrayList<String>();
+    	List <Integer> pre = new ArrayList<Integer>();
     	boolean hayMas = true;
     	while (hayMas) {
-    		String p = pedirCadenaAlUSuario("Ingrese prerequisito: ");
+    		int p = pedirEnteroAlUsuario("Ingrese el id del prerequisito: ");
     		pre.add(p);
     		
     		int opcion = (int) pedirNumeroAlUsuario("Ingrese 1 si hay mas prerequisitos, ingrese 2 si no hay mas prerequisitos: ");

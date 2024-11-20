@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Actividad {
-	private String ID;
+	private static int cantActividades;
+	private int ID;
 	private String descripcion;
 	private String objetivo;
 	private String tipo;
@@ -14,7 +15,7 @@ public abstract class Actividad {
 	private String resultado;
 	
 	public Actividad(String descripcion, String objetivo, String tipo, int nivelDificultad, Double duracionEsperada, List<Actividad> preRequisitos) {
-		this.ID = "";
+		this.ID = cantActividades;
 		this.descripcion = descripcion;
 		this.objetivo = objetivo;
 		this.tipo = tipo;
@@ -24,12 +25,8 @@ public abstract class Actividad {
 		resultado = "Incompleto";
 	}
 
-	public String getID() {
+	public int getID() {
 		return ID;
-	}
-	
-	public void setID(String ID) {
-		this.ID = ID;
 	}
 
 	public String getDescripcion() {
@@ -92,41 +89,11 @@ public abstract class Actividad {
 		this.resultado = resultado;
 	}
 	
-	public Actividad copy() {
-	    
-	    List<Actividad> copiaPreRequisitos = new ArrayList<>();
-	    for (Actividad preRequisito : preRequisitos) {
-	        copiaPreRequisitos.add(preRequisito.copy()); 
-	    }
-
-	    
-	    Actividad clon = new Actividad(this.descripcion, this.objetivo, this.tipo, this.nivelDificultad, this.duracionEsperada, copiaPreRequisitos) {
-	        @Override
-	        public Actividad copy() {
-	            return null;
-	        }
-
-	        @Override
-	        public void editarContenido(Object cambio) {}
-
-	        @Override
-	        public Object obtenerInformacion() {
-	            return null;
-	        }
-	    };
-	    clon.setID(generarNuevoID());
-	    clon.cambiarResultado(this.resultado);
-	    
-	    return clon;
-	}
-	
-	private String generarNuevoID() {
-	    return "ID_" + System.currentTimeMillis(); // Ejemplo simple usando la marca de tiempo para un ID único
-	}
+	public abstract Actividad copy();
 	
 	public abstract void editarContenido(Object cambio);
 	
-	public abstract Object obtenerInformacion();
+	public abstract String interactuar();
 	
 	@Override
 	public String toString() {

@@ -23,12 +23,19 @@ public class PersistenciaLearningPaths {
 	
 	public void cargarArchivo(String ruta, List<LearningPath> caminos, List<Actividad> actividadesCompleta) throws JSONException, IOException {
 		JSONArray jCaminos = new JSONArray(new String(Files.readAllBytes(new File(ruta).toPath())));
-		
+		List<JSONObject> caminosOrdenados = new ArrayList<JSONObject>();
 		for (int i = 0; i < jCaminos.length(); i++) {
 			JSONObject jCamino = jCaminos.getJSONObject(i);
+			caminosOrdenados.add(jCamino);
+		}
+		if (caminosOrdenados.size() > 0) {
+			caminosOrdenados.sort((camino1, camino2) -> comparatorID(camino1.getInt("ID"), camino2.getInt("ID")));
+		}
+		for (int i = 0; i < 10; i++) {
+			JSONObject jCamino = caminosOrdenados.get(i);
 			JSONArray jActividades = jCamino.getJSONArray("actividades");
 			List<Actividad> actividades = obtenerActividades(jActividades, actividadesCompleta);
-			LearningPath camino = new LearningPath(jCamino.getString(titulos[0]), jCamino.getString(titulos[1]), jCamino.getString(titulos[2]), jCamino.getString(titulos[3]), actividades);
+			LearningPath camino = new LearningPath(jCamino.getString(titulos[1]), jCamino.getString(titulos[2]), jCamino.getString(titulos[3]), actividades);
 			cargarDatos(camino, jCamino.getInt(titulos[7]), jCamino.getDouble(titulos[6]), jCamino.getInt(titulos[11]), jCamino.getString(titulos[9]), jCamino.getString(titulos[10]));
 			caminos.add(camino);
 		}
@@ -109,5 +116,14 @@ public class PersistenciaLearningPaths {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private int comparatorID(int first, int second) {
+		if (first < second) {
+			return -1;
+		} else if (first > second) {
+			return 1;
+		}
+		return 0;
 	}
 }

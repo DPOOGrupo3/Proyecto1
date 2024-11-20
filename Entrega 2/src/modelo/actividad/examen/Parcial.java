@@ -12,7 +12,6 @@ public class Parcial extends Examen {
 	@Override
 	public Actividad copy() {
 		Parcial copia = new Parcial(getDescripcion(), getObjetivo(), getTipo(), getNivelDificultad(), getDuracionEsperada(), getPreRequisitos(), getPreguntas());
-		copia.setID(this.getID());
 		copia.cambiarResultado(this.getResultado());
 		return copia;
 	}

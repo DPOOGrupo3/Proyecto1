@@ -24,8 +24,17 @@ public abstract class Examen extends Actividad {
 	}
 	
 	@Override
-	public List<String> obtenerInformacion() {
-		return getPreguntas();
+	public String interactuar() {
+		String cadPreguntas  = "";
+		if (preguntas.size() > 0) {
+			for (String pregunta: preguntas) {
+				cadPreguntas += pregunta + "/n";
+			}
+			cadPreguntas.substring(0, cadPreguntas.length()-1);
+		}else {
+			cadPreguntas = "NA";
+		}
+		return cadPreguntas;
 	}
 	
 	@Override

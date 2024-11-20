@@ -8,7 +8,8 @@ import modelo.actividad.Actividad;
 import modelo.usuario.Estudiante;
 
 public class LearningPath {
-	private String ID;
+	private static int cantLP;
+	private int ID;
 	private String titulo;
 	private String descripcion;
 	private String objetivo;
@@ -23,8 +24,8 @@ public class LearningPath {
 	private Date fechaModificacion;
 	private int version;
 	
-	public LearningPath(String ID, String titulo, String descripcion, String objetivo, List<Actividad> actividades) {
-		this.ID = ID;
+	public LearningPath(String titulo, String descripcion, String objetivo, List<Actividad> actividades) {
+		this.ID = cantLP++;
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.objetivo = objetivo;
@@ -34,7 +35,6 @@ public class LearningPath {
 		this.raters = 0;
 		this.actividades = new ArrayList<Actividad>();
 		for (Actividad actividad: actividades) {
-			actividad.setID(generarIDActividad());
 			this.actividades.add(actividad);
 		}
 		resenhas = new ArrayList<Resenha>();
@@ -44,7 +44,7 @@ public class LearningPath {
 		version = 1;
 	}
 	
-	public String getID() {
+	public int getID() {
 		return ID;
 	}
 
@@ -157,22 +157,9 @@ public class LearningPath {
 		setFechaModificacion(new Date());
 	}
 	
-	public LearningPath copy() {
-		LearningPath camino = new LearningPath(ID, titulo, descripcion, objetivo, actividades);
-		camino.cambiarDuracionEsperada();
-		camino.cambiarNivelDificultad();
-		for (int i = 0; i < raters; i++) {
-			camino.ratePath(rating);
-		}
-		camino.setVersion(version);
-		camino.setFechaCreacion(fechaCreacion);
-		camino.setFechaModificacion(fechaModificacion);
-		return camino;
-	}
-	
 	public LearningPath inscribirCamino(Estudiante estudiante) {
 		inscripciones.add(estudiante);
-		return copy();
+		return this;
 	}
 	
 	private String generarIDActividad() {
