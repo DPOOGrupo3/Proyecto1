@@ -64,22 +64,22 @@ public class Progreso {
 	public String toString() {
 		String cadena = "";
 		if (actividadesTerminadas.isEmpty()) {
-			cadena += "NA" + ":/:";
+			cadena += "NA" + "-";
 		} else {
 			for (Actividad actividad: actividadesTerminadas) {
-				cadena += String.valueOf(actividad.getID()) + "//";
+				cadena += String.valueOf(actividad.getID()) + "::";
 			}
 			cadena = cadena.substring(0, cadena.length()-2);
 		}
 		if (actividadesPendinetes.isEmpty()) {
-			cadena += "NA" + ":/:";
+			cadena += "NA" + "-";
 		} else {
 			for (Actividad actividad: actividadesPendinetes) {
-				cadena += String.valueOf(actividad.getID()) + "//";
+				cadena += String.valueOf(actividad.getID()) + "::";
 			}
 			cadena = cadena.substring(0, cadena.length()-2);
 		}
-		return String.valueOf(porcentaje) + ":/:" + cadena;
+		return String.valueOf(porcentaje) + "-" + cadena;
 	}
 
 	public LearningPath getCamino() {
