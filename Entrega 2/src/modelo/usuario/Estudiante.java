@@ -61,7 +61,7 @@ public class Estudiante extends Usuario {
     		cadena = "NA";
     	} else {
 	    	for (LearningPath camino: caminosInscritos.keySet()) {
-	    		 cadena += camino.getID() + "-" + caminosInscritos.get(camino).toString();
+	    		 cadena += camino.getID() + ":/:" + caminosInscritos.get(camino).toString() + "%";
 	    	}
     	}
         return super.toString() + cadena;

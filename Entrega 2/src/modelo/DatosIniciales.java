@@ -37,14 +37,25 @@ public class DatosIniciales {
 	    asignarLearningPathsAProfesores(profesores, caminos);
 	    asignarLearningPathsAEstudiantes(estudiantes, caminos);
 
-	   
-	    persistencia.guardarDatos(profesores, estudiantes, caminos, actividades);
-
 	    System.out.println("Datos iniciales guardados correctamente.");
 	    System.out.println("Cantidad de profesores: " + profesores.size());
+	    for (Profesor profe: profesores) {
+	    	System.out.println(profe);
+	    }
 	    System.out.println("Cantidad de estudiantes: " + estudiantes.size());
+	    for (Estudiante estudiante: estudiantes) {
+	    	System.out.println(estudiante);
+	    }
 	    System.out.println("Cantidad de actividades: " + actividades.size());
+	    for (Actividad actividad: actividades) {
+	    	System.out.println(actividad);
+	    }
 	    System.out.println("Cantidad de Learning Paths: " + caminos.size());
+	    for (LearningPath camino: caminos) {
+	    	System.out.println(camino);
+	    }
+	    
+	    persistencia.guardarDatos(profesores, estudiantes, caminos, actividades);
 	}
 	
 	private static void inicializarProfesores(List<Profesor> profesores) {

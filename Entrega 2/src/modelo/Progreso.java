@@ -62,8 +62,22 @@ public class Progreso {
 	
 	@Override
 	public String toString() {
-		
-		return String.valueOf(porcentaje) + "%";
+		String cadena = "";
+		if (actividadesTerminadas.isEmpty()) {
+			cadena += "NA" + ":/:";
+		} else {
+			for (Actividad actividad: actividadesTerminadas) {
+				cadena += String.valueOf(actividad.getID()) + "//";
+			}
+		}
+		if (actividadesPendinetes.isEmpty()) {
+			cadena += "NA" + ":/:";
+		} else {
+			for (Actividad actividad: actividadesPendinetes) {
+				cadena += String.valueOf(actividad.getID()) + "//";
+			}
+		}
+		return String.valueOf(porcentaje) + ":/:" + cadena;
 	}
 
 	public LearningPath getCamino() {
