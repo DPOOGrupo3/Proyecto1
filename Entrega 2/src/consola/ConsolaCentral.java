@@ -23,12 +23,6 @@ public class ConsolaCentral extends ConsolaBasica {
         centralLogica.cargarDatos(); 
     }
 	
-    /**
-     * Valida la existencia de un usuario en el sistema.
-     * @param email Correo electrónico del usuario
-     * @param password Contraseña del usuario
-     * @return El usuario autenticado o null si no existe
-     */
 
 	
 	/**

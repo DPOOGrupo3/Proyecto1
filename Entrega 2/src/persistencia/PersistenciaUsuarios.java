@@ -90,7 +90,8 @@ public class PersistenciaUsuarios {
 					caminosInscritos.put(camino);
 				}
 			}
-			student.put(titulos[3], caminosInscritos);
+			student.put(titulos[4], caminosInscritos);
+			System.out.println(student);
 			jEstudiantes.put(student);
 		}
 		
