@@ -84,11 +84,11 @@ public class PersistenciaUsuarios {
 			
 			JSONArray caminosInscritos = new JSONArray();
 			
-			if (!atributosEstudiante[4].equals("NA")) {
+			if (!atributosEstudiante[3].equals("NA")) {
 				String[] caminoTitulos = {"ID", "porcentaje", "actividadesTerminadas", "actividadesPendientes"};
-				JSONObject jCamino = new JSONObject();
-				String[] caminos = atributosEstudiante[4].split("%");
+				String[] caminos = atributosEstudiante[3].split("%");
 				for (String camino: caminos) {
+					JSONObject jCamino = new JSONObject();
 					String[] atributosCamino = camino.split("-");
 					for (int i = 0; i < atributosCamino.length; i++) {
 						if (i < 2) {
@@ -100,15 +100,14 @@ public class PersistenciaUsuarios {
 								for (String actividad: actividades) {
 									jActividades.put(actividad);
 								}
-								jCamino.put(caminoTitulos[i], jActividades);
 							}
+							jCamino.put(caminoTitulos[i], jActividades);
 						}
 					}
+					caminosInscritos.put(jCamino);
 				}
-				caminosInscritos.put(jCamino);
 			}
 			student.put(titulos[4], caminosInscritos);
-			System.out.println(student);
 			jEstudiantes.put(student);
 		}
 		
