@@ -30,7 +30,7 @@ public abstract class Examen extends Actividad {
 			for (String pregunta: preguntas) {
 				cadPreguntas += pregunta + "/n";
 			}
-			cadPreguntas.substring(0, cadPreguntas.length()-1);
+			cadPreguntas = cadPreguntas.substring(0, cadPreguntas.length()-1);
 		}else {
 			cadPreguntas = "NA";
 		}
@@ -44,7 +44,7 @@ public abstract class Examen extends Actividad {
 			for (String pregunta: preguntas) {
 				cadena += pregunta + "//";
 			}
-			cadena.substring(0, cadena.length()-1);
+			cadena = cadena.substring(0, cadena.length()-2);
 		}else {
 			cadena = "NA";
 		}

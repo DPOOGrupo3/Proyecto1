@@ -15,7 +15,7 @@ public abstract class Actividad {
 	private String resultado;
 	
 	public Actividad(String descripcion, String objetivo, String tipo, int nivelDificultad, Double duracionEsperada, List<Actividad> preRequisitos) {
-		this.ID = cantActividades;
+		this.ID = cantActividades++;
 		this.descripcion = descripcion;
 		this.objetivo = objetivo;
 		this.tipo = tipo;

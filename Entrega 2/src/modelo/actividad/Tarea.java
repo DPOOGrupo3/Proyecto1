@@ -31,7 +31,7 @@ public class Tarea extends Actividad {
 			for (String ejercicio: ejercicios) {
 				cadEjercicios += ejercicio + "/n";
 			}
-			cadEjercicios.substring(0, cadEjercicios.length()-1);
+			cadEjercicios = cadEjercicios.substring(0, cadEjercicios.length()-1);
 		}else {
 			cadEjercicios = "NA";
 		}
@@ -52,7 +52,7 @@ public class Tarea extends Actividad {
 			for (String ejercicio: ejercicios) {
 				cadena += ejercicio + "//";
 			}
-			cadena.substring(0, cadena.length()-1);
+			cadena = cadena.substring(0, cadena.length()-2);
 		}else {
 			cadena = "NA";
 		}
