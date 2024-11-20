@@ -1,5 +1,6 @@
 package modelo.usuario;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,8 +50,12 @@ public class Estudiante extends Usuario {
 	}
 	
 	
-	public Map<LearningPath, Progreso> getCaminosInscritos() {
-	    return caminosInscritos;
+	public List<LearningPath> getCaminosInscritos() {
+		List<LearningPath> caminos = new ArrayList<LearningPath>();
+		for (LearningPath camino: caminosInscritos.keySet()) {
+			caminos.add(camino);
+		}
+	    return caminos;
 	}
 	
 	

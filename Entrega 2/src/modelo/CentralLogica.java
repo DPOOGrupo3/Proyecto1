@@ -276,7 +276,7 @@ public class CentralLogica {
 	        
 	        boolean estaInscrito = false;
 	        for (Estudiante estudiante : estudiantes) {
-	            if (estudiante.getCaminosInscritos().containsKey(camino)) {
+	            if (estudiante.getCaminosInscritos().contains(camino)) {
 	                estaInscrito = true;
 	                break;
 	            }

@@ -67,7 +67,7 @@ public class DatosIniciales {
 	    estudiantes.add(new Estudiante("Angel Farfan", "angel.f@gmail.com", "Angel123"));
 	    estudiantes.add(new Estudiante("Sebastina Gomez", "sebastian.g@gmail.com", "Sebastian123"));
 	    estudiantes.add(new Estudiante("Sebastian Rodriguez", "sebastian.r@gmail.com", "SebastianR123"));
-	    estudiantes.add(new Estudiante("Estefania Ceron", "estefania.c@gmail.com", "Estefania123"));
+	    estudiantes.add(new Estudiante("La hermana de jairo", "AuraHermosa@gmail.com", "AuritaLinda"));
 	    estudiantes.add(new Estudiante("Jimmy Mujica", "jimmy.m@gmail.com", "Jimmy123"));
 	}
 	

@@ -169,7 +169,7 @@ public class ConsolaEstudiante extends ConsolaBasica{
      * @throws IOException Si hay errores en la entrada del usuario.
      */
     private LearningPath seleccionarLearningPathEstudiante() throws IOException {
-        List<LearningPath> caminosInscritos = (List<LearningPath>) (estudiante.getCaminosInscritos().keySet());
+        List<LearningPath> caminosInscritos = estudiante.getCaminosInscritos();
 
         if (caminosInscritos.isEmpty()) {
             System.out.println("No estás inscrito en ningún Learning Path");

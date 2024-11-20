@@ -44,15 +44,15 @@ class EstudianteTest {
         LearningPath nuevoCamino = new LearningPath("LP3", "Machine Learning", "Aprender ML", List.of());
         estudiante.inscribirCamino(nuevoCamino);
 
-        assertTrue(estudiante.getCaminosInscritos().containsKey(nuevoCamino), "El estudiante debería estar inscrito en el nuevo camino.");
+        assertTrue(estudiante.getCaminosInscritos().contains(nuevoCamino), "El estudiante debería estar inscrito en el nuevo camino.");
     }
 
     @Test
     void testObtenerCaminosInscritos() {
-        Map<LearningPath, Progreso> caminosInscritos = estudiante.getCaminosInscritos();
+        List<LearningPath> caminosInscritos = estudiante.getCaminosInscritos();
         assertEquals(2, caminosInscritos.size(), "El estudiante debería tener 2 Learning Paths inscritos.");
-        assertTrue(caminosInscritos.containsKey(learningPath1), "El estudiante debería estar inscrito en el Learning Path 1.");
-        assertTrue(caminosInscritos.containsKey(learningPath2), "El estudiante debería estar inscrito en el Learning Path 2.");
+        assertTrue(caminosInscritos.contains(learningPath1), "El estudiante debería estar inscrito en el Learning Path 1.");
+        assertTrue(caminosInscritos.contains(learningPath2), "El estudiante debería estar inscrito en el Learning Path 2.");
     }
 
     @Test

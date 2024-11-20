@@ -42,12 +42,9 @@ public class PersistenciaLearningPaths {
 	}
 	
 	private List<Actividad> obtenerActividades(JSONArray jActividades, List<Actividad> actividadesCompleta) {
-		System.out.println(jActividades);
 		List<Actividad> actividades = new ArrayList<Actividad>();
 		for (int i = 0; i < jActividades.length(); i++) {
 			for (int j = 0; j < actividadesCompleta.size(); j++) {
-				System.out.println(String.valueOf(actividadesCompleta.get(j).getID()));
-				System.out.println(jActividades.getString(i));
 				if (String.valueOf(actividadesCompleta.get(j).getID()).equals(jActividades.getString(i))) {
 					actividades.add(actividadesCompleta.get(j));
 					break;
