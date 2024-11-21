@@ -26,7 +26,7 @@ public class ConsolaEstudiante extends ConsolaBasica{
         String[] opcionesMenu = {"Inscribir en un Learning Path", 
         		"Ver actividades pendientes","Ver progreso en un Learning Path",
                 "Interactuar con actividad",
-                "Entregar actividad",
+                "Entregar actividad","Ver tus LearningPaths",
                 "Salir"};
         int opcion = mostrarMenu("Menú Estudiante", opcionesMenu);
 
@@ -37,7 +37,8 @@ public class ConsolaEstudiante extends ConsolaBasica{
                 case 3 -> verProgresoLearningPath();
                 case 4 -> interactuarConActividad();
                 case 5 -> entregarActividad();
-                case 6 -> {
+                case 6 -> verTusLearningPaths();
+                case 7 -> {
                     System.out.println("Saliendo...");
                     break;
                 }
@@ -47,15 +48,38 @@ public class ConsolaEstudiante extends ConsolaBasica{
             System.out.println("Error al procesar la opción. Intente nuevamente.");
         }
 
-        if (opcion != 6) correrConsola();
+        if (opcion != 7) correrConsola();
     }
 	
+	
+	/**
+     * Método para ver los Learning Paths a los cuales el estudiante esta inscrito
+     * @throws IOException Si hay errores en la entrada del usuario.
+     */
+	
+	private void verTusLearningPaths() throws IOException {
+		
+		List<LearningPath> caminos = estudiante.getCaminosInscritos();
+		
+		if (caminos.isEmpty()) {
+			System.out.println("No estas inscrito a ningun camino");
+			return;
+		}
+			System.out.println("Tus Learning Paths disponibles: ");
+			for (LearningPath camino : estudiante.getCaminosInscritos()) {
+				System.out.println("ID-" + camino.getID() + " "  + camino.getTitulo());
+		}	
+	}
+		
+
 	/**
      * Método para inscribir al estudiante en un Learning Path.
      * @throws IOException Si hay errores en la entrada del usuario.
      */
     private void inscribirEnLearningPath() throws IOException{
-    	List<LearningPath> caminosDisponibles = centralLogica.obtenerLearningPathsDisponibles();
+    	List<LearningPath> caminosDisponibles = centralLogica.obtenerLearningPathsDisponibles(estudiante);
+    	
+    	
     	
     	if (caminosDisponibles.isEmpty()) {
     		System.out.println("No hay Learning Paths disponibles para incripcion");

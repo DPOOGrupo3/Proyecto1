@@ -270,16 +270,13 @@ public class CentralLogica {
 	    System.out.println("Actividad eliminada exitosamente del sistema. ID: " + idActividad);
 	}
 	
-	public List<LearningPath> obtenerLearningPathsDisponibles() {
+	public List<LearningPath> obtenerLearningPathsDisponibles(Estudiante estudiante) {
 	    List<LearningPath> disponibles = new ArrayList<>();
 	    for (LearningPath camino : caminos) {
-	        
 	        boolean estaInscrito = false;
-	        for (Estudiante estudiante : estudiantes) {
+	        
 	            if (estudiante.getCaminosInscritos().contains(camino)) {
-	                estaInscrito = true;
-	                break;
-	            }
+	                estaInscrito = true;	            
 	        }
 	        if (!estaInscrito) {
 	            disponibles.add(camino);
