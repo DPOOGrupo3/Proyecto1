@@ -51,7 +51,7 @@ public class PersistenciaUsuarios {
 			List<Integer> actividades = new ArrayList<Integer>();
 			for (int j = 0; j < jCaminos.length(); j++) {
 				JSONObject camino = jCaminos.getJSONObject(j);
-				caminos.addFirst(camino.getInt("ID"));
+				caminos.add(camino.getInt("ID"));
 				JSONArray jActividadesterminadas = camino.getJSONArray("actividadesTerminadas");
 				for (int k = 0; k < jActividadesterminadas.length(); k++) {
 					actividades.add(jActividadesterminadas.getInt(k));
