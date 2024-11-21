@@ -21,6 +21,15 @@ import modelo.actividad.Actividad;
 public class PersistenciaLearningPaths {
 	private String[] titulos = {"ID", "titulo", "descripcion", "objetivo", "duracion", "dificultad", "rating", "raters", "actividades", "fechaCreacion", "fechaModificacion", "version"};
 	
+	
+	/**
+	 * Método para cargar caminos de aprendizaje desde un archivo JSON.
+	 * @param ruta Ruta del archivo JSON que contiene los caminos de aprendizaje.
+	 * @param learningPaths Lista donde se almacenarán los caminos cargados.
+	 * @param actividades Lista completa de actividades necesarias para los caminos.
+	 * @throws IOException Si ocurre un error al leer el archivo.
+	 * @throws JSONException Si hay un error al interpretar el archivo JSON.
+	 */
 	public void cargarArchivo(String ruta, List<LearningPath> caminos, List<Actividad> actividadesCompleta) throws JSONException, IOException {
 		JSONArray jCaminos = new JSONArray(new String(Files.readAllBytes(new File(ruta).toPath())));
 		List<JSONObject> caminosOrdenados = new ArrayList<JSONObject>();
@@ -41,6 +50,14 @@ public class PersistenciaLearningPaths {
 		}
 	}
 	
+	/**
+	 * Método privado para obtener actividades desde un JSONArray.
+	 * 
+	 * @param jActividades JSONArray de actividades.
+	 * @param actividadesCompleta Lista de actividades completas disponibles.
+	 * @return Lista de actividades relacionadas a partir de los IDs en jActividades.
+	 */
+	
 	private List<Actividad> obtenerActividades(JSONArray jActividades, List<Actividad> actividadesCompleta) {
 		List<Actividad> actividades = new ArrayList<Actividad>();
 		for (int i = 0; i < jActividades.length(); i++) {
@@ -54,6 +71,13 @@ public class PersistenciaLearningPaths {
 		return actividades;
 	}
 	
+	/**
+	 * Método privado para convertir una cadena de texto en un objeto Date.
+	 * 
+	 * @param fecha Fecha en formato String (por ejemplo, "Sep 12 2022 10:30:00").
+	 * @return Un objeto Date representando la fecha.
+	 */
+	
 	private void cargarDatos(LearningPath camino, int raters, double rating, int version, String fechaCreacion, String fechaModificacion) {
 		camino.cambiarDuracionEsperada();
 		camino.cambiarNivelDificultad();
@@ -64,6 +88,13 @@ public class PersistenciaLearningPaths {
 		camino.setFechaCreacion(obtenerFecha(fechaCreacion));
 		camino.setFechaModificacion(obtenerFecha(fechaModificacion));
 	}
+	
+	/**
+	 * Método privado para convertir una cadena de texto en un objeto Date.
+	 * 
+	 * @param fecha Fecha en formato String (por ejemplo, "Sep 12 2022 10:30:00").
+	 * @return Un objeto Date representando la fecha.
+	 */
 	
 	private Date obtenerFecha(String fecha) {
 		String[] arrayFecha = fecha.split(" ");
@@ -78,6 +109,13 @@ public class PersistenciaLearningPaths {
 		String[] hora = arrayFecha[3].split(":");
 		return new Date(Integer.parseInt(arrayFecha[5]) - 1900, mes, Integer.parseInt(arrayFecha[2]), Integer.parseInt(hora[0]), Integer.parseInt(hora[1]), Integer.parseInt(hora[2]));
 	}
+	
+	/**
+	 * Método para guardar una lista de LearningPaths en un archivo JSON.
+	 * 
+	 * @param ruta Ruta del archivo donde se guardarán los caminos de aprendizaje.
+	 * @param caminos Lista de LearningPaths a guardar.
+	 */
 	
 	public void guardarArchivo(String ruta, List<LearningPath> caminos) {
 		JSONArray jCaminos = new JSONArray();
@@ -114,6 +152,14 @@ public class PersistenciaLearningPaths {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Método privado para comparar dos ID de LearningPaths.
+	 * 
+	 * @param first Primer ID.
+	 * @param second Segundo ID.
+	 * @return -1 si el primer ID es menor, 1 si el segundo ID es menor, 0 si son iguales.
+	 */
 	
 	private int comparatorID(int first, int second) {
 		if (first < second) {

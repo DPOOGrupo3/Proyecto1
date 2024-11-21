@@ -24,6 +24,13 @@ import modelo.actividad.examen.Quiz;
 public class PersistenciaActividades {
 	private String[] titulos = {"ID", "descripcion", "objetivo", "tipo", "nivelDificultad", "duracionEsperada", "preRequisitos", "contenido"};
 	
+	/**
+	 * Método para cargar actividades desde un archivo JSON.
+	 * @param ruta Ruta del archivo JSON que contiene las actividades.
+	 * @param actividades Lista donde se almacenarán las actividades cargadas.
+	 * @throws JSONException Si hay un error al interpretar el archivo JSON.
+	 * @throws IOException Si ocurre un error al leer el archivo.
+	 */
 	public void cargarArchivo(String ruta, List<Actividad> actividades) throws JSONException, IOException {
 		JSONArray jActividades = new JSONArray(new String(Files.readAllBytes(new File(ruta).toPath())));
 		
@@ -50,6 +57,11 @@ public class PersistenciaActividades {
 			actividades.add(actividad);
 		}
 	}
+	/**
+	 * Método para obtener una lista de cadenas desde un JSONArray.
+	 * @param jStrings JSONArray que contiene las cadenas.
+	 * @return Lista de cadenas extraídas del JSONArray.
+	 */
 	
 	private List<String> obtenerListaStrings(JSONArray jStrings) {
 		System.out.println(jStrings);
@@ -60,6 +72,12 @@ public class PersistenciaActividades {
 		return strings;
 	}
 	
+	/**
+	 * Método para obtener una lista de actividades en base a sus IDs desde un JSONArray.
+	 * @param jActividades JSONArray que contiene los IDs de las actividades.
+	 * @param actividadesCompleta Lista completa de actividades disponibles.
+	 * @return Lista de actividades que coinciden con los IDs proporcionados.
+	 */
 	private List<Actividad> obtenerActividades(JSONArray jActividades, List<Actividad> actividadesCompleta) {
 		List<Actividad> actividades = new ArrayList<Actividad>();
 		for (int i = 0; i < jActividades.length(); i++) {
@@ -73,6 +91,11 @@ public class PersistenciaActividades {
 		return actividades;
 	}
 	
+	/**
+	 * Método para guardar una lista de actividades en un archivo JSON.
+	 * @param ruta Ruta del archivo donde se guardarán las actividades.
+	 * @param actividades Lista de actividades a guardar.
+	 */
 	public void guardarArchivo(String ruta, List<Actividad> actividades) {
 		JSONArray jActividades = new JSONArray();
 
@@ -110,6 +133,14 @@ public class PersistenciaActividades {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Método privado para guardar el contenido específico de cada tipo de actividad.
+	 * 
+	 * @param tipo Tipo de actividad (RE, T, Q, P, E).
+	 * @param contenido Contenido relacionado con la actividad.
+	 * @return Un JSONObject que representa el contenido de la actividad.
+	 */
 	
 	private JSONObject guardarContenido(String tipo, String contenido) {
 		JSONObject jContenido = new JSONObject();

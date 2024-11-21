@@ -21,12 +21,29 @@ import modelo.usuario.Usuario;
 public class PersistenciaUsuarios {
 	private String[] titulos = {"nombre", "correo", "contrasena", "caminosCreados", "caminosInscritos"};
 	
+	
+	/**
+	 * Método para cargar usuarios desde un archivo JSON.
+	 * @param ruta Ruta del archivo JSON que contiene los usuarios.
+	 * @param profesores Lista donde se almacenarán los profesores cargados.
+	 * @param estudiantes Lista donde se almacenarán los estudiantes cargados.
+	 * @param learningPaths Lista de caminos de aprendizaje asociados a los usuarios.
+	 * @throws IOException Si ocurre un error al leer el archivo.
+	 * @throws JSONException Si hay un error al interpretar el archivo JSON.
+	 */
 	public void cargarArchivo(String ruta, List<Profesor> profesores, List<Estudiante> estudiantes, List<LearningPath> caminosCompletos) throws IOException {
 		JSONObject usuarios = new JSONObject(new String(Files.readAllBytes(new File(ruta).toPath())));
 		
 		cargarProfesores(profesores, caminosCompletos, usuarios.getJSONArray("profesores"));
 		cargarEstudiantes(estudiantes, caminosCompletos, usuarios.getJSONArray("estudiantes"));
 	}
+	
+	/**
+	 * Método para obtener un objeto Usuario desde un JSONObject.
+	 * @param usuarioJSON JSONObject que representa el usuario.
+	 * @param caminos Lista de caminos de aprendizaje disponibles.
+	 * @return Objeto Usuario creado a partir del JSONObject.
+	 */
 	
 	private void cargarProfesores(List<Profesor> profesores, List<LearningPath> caminosCompletos, JSONArray jProfesores) {
 		for (int i = 0; i < jProfesores.length(); i++) {
@@ -42,6 +59,11 @@ public class PersistenciaUsuarios {
 		}
 	}
 	
+	/**
+	 * Método para convertir una lista de caminos de aprendizaje a una lista de sus identificadores.
+	 * @param caminos Lista de caminos de aprendizaje.
+	 * @return Lista de identificadores de los caminos proporcionados.
+	 */
 	private void cargarEstudiantes(List<Estudiante> estudiantes, List<LearningPath> caminosCompletos, JSONArray jEstudiantes) {
 		for (int i = 0; i < jEstudiantes.length(); i++) {
 			JSONObject estudiante = jEstudiantes.getJSONObject(i);
@@ -61,6 +83,14 @@ public class PersistenciaUsuarios {
 			estudiantes.add(student);
 		}
 	}
+	
+	/**
+	 * Método para guardar una lista de usuarios (profesores y estudiantes) en un archivo JSON.
+	 * @param ruta Ruta del archivo donde se guardarán los usuarios.
+	 * @param profesores Lista de profesores a guardar.
+	 * @param estudiantes Lista de estudiantes a guardar.
+	 * @throws IOException Si ocurre un error al escribir el archivo.
+	 */
 	
 	public void guardarArchivo(String ruta, List<Profesor> profesores, List<Estudiante> estudiantes) {
 		JSONObject usuarios = new JSONObject();
@@ -136,6 +166,14 @@ public class PersistenciaUsuarios {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Método privado para comparar dos ID de LearningPaths.
+	 * 
+	 * @param first Primer ID.
+	 * @param second Segundo ID.
+	 * @return -1 si el primer ID es menor, 1 si el segundo ID es menor, 0 si son iguales.
+	 */
 	
 	private int comparatorID(int first, int second) {
 		if (first < second) {
