@@ -46,6 +46,7 @@ public class CentralPersistencia {
 	}
 	
 	public void guardarDatos(List<Profesor> profesores, List<Estudiante> estudiantes, List<LearningPath> caminos, List<Actividad> actividades) {
+		System.out.println(actividades.size());
 		try {
 			guardarUsusarios(profesores, estudiantes);
 		} catch (Exception e) {

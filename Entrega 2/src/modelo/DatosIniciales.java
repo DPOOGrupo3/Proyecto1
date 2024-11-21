@@ -125,9 +125,6 @@ public class DatosIniciales {
         actividades.add(quiz);
         actividades.add(parcial);
         actividades.add(encuesta);
-
-        
-        actividadesGlobales.addAll(actividades);
         return actividades;
     }
     

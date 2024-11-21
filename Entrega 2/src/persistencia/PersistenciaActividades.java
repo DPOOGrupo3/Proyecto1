@@ -28,10 +28,13 @@ public class PersistenciaActividades {
 		JSONArray jActividades = new JSONArray(new String(Files.readAllBytes(new File(ruta).toPath())));
 		
 		for (int i = 0; i < jActividades.length(); i++) {
+			System.out.println("Iteración " + String.valueOf(i) + " comenzada");
 			JSONObject jActividad = jActividades.getJSONObject(i);
-			List<Actividad> preRequisitos = obtenerActividades(jActividades, actividades);
+			System.out.println("Obtención de JSON object bien");
+			List<Actividad> preRequisitos = obtenerActividades(jActividad.getJSONArray(titulos[6]), actividades);
+			System.out.println("Pre requisitos correctamente cargados");
 			Actividad actividad = null;
-			
+			System.out.println("Atividad creada null bien");
 			if (jActividad.getString(titulos[3]).equals("RE")) {
 				actividad = new RecursoEducativo(jActividad.getString(titulos[1]), jActividad.getString(titulos[2]), jActividad.getString(titulos[3]), jActividad.getInt(titulos[4]), jActividad.getDouble(titulos[5]), preRequisitos, jActividad.getJSONObject(titulos[7]).getString("recurso"), jActividad.getJSONObject(titulos[7]).getString("tipo"));
 			}else if (jActividad.getString(titulos[3]).equals("T")) {
@@ -49,6 +52,7 @@ public class PersistenciaActividades {
 	}
 	
 	private List<String> obtenerListaStrings(JSONArray jStrings) {
+		System.out.println(jStrings);
 		List<String> strings = new ArrayList<String>();
 		for (int i = 0; i < jStrings.length(); i++) {
 			strings.add(jStrings.getString(i));
@@ -60,7 +64,7 @@ public class PersistenciaActividades {
 		List<Actividad> actividades = new ArrayList<Actividad>();
 		for (int i = 0; i < jActividades.length(); i++) {
 			for (int j = 0; j < actividadesCompleta.size(); j++) {
-				if (String.valueOf(actividadesCompleta.get(j).getID()).equals(jActividades.getString(i))) {
+				if (actividadesCompleta.get(j).getID() == jActividades.getInt(i)) {
 					actividades.add(actividadesCompleta.get(j));
 					break;
 				}
@@ -120,7 +124,7 @@ public class PersistenciaActividades {
 			for (int i = 0; i < arrayEjercicios.length; i++) {
 				ejericios.put(arrayEjercicios[i]);
 			}
-			jContenido.put("preguntas", ejericios);
+			jContenido.put("ejercicios", ejericios);
 		}else if (tipo.equals("Q")) {
 			String[] titulosQuiz = {"preguntas", "respuestas", "calificacionMin"};
 			String[] arrayContenido = contenido.split(":/:");
