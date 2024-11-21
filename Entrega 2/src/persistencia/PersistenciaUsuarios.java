@@ -25,7 +25,7 @@ public class PersistenciaUsuarios {
 		JSONObject usuarios = new JSONObject(new String(Files.readAllBytes(new File(ruta).toPath())));
 		
 		cargarProfesores(profesores, caminosCompletos, usuarios.getJSONArray("profesores"));
-		cargarEstudiantes(estudiantes, usuarios.getJSONArray("estudiantes"));
+		cargarEstudiantes(estudiantes, caminosCompletos, usuarios.getJSONArray("estudiantes"));
 	}
 	
 	private void cargarProfesores(List<Profesor> profesores, List<LearningPath> caminosCompletos, JSONArray jProfesores) {
@@ -42,10 +42,23 @@ public class PersistenciaUsuarios {
 		}
 	}
 	
-	private void cargarEstudiantes(List<Estudiante> estudiantes, JSONArray jEstudiantes) {
+	private void cargarEstudiantes(List<Estudiante> estudiantes, List<LearningPath> caminosCompletos, JSONArray jEstudiantes) {
 		for (int i = 0; i < jEstudiantes.length(); i++) {
 			JSONObject estudiante = jEstudiantes.getJSONObject(i);
-			estudiantes.add(new Estudiante(estudiante.getString(titulos[0]), estudiante.getString(titulos[1]), estudiante.getString(titulos[2])));
+			Estudiante student = new Estudiante(estudiante.getString(titulos[0]), estudiante.getString(titulos[1]), estudiante.getString(titulos[2]));
+			JSONArray jCaminos = estudiante.getJSONArray(titulos[4]);
+			List<Integer> caminos = new ArrayList<Integer>();
+			List<Integer> actividades = new ArrayList<Integer>();
+			for (int j = 0; j < jCaminos.length(); j++) {
+				JSONObject camino = jCaminos.getJSONObject(j);
+				caminos.addFirst(camino.getInt("ID"));
+				JSONArray jActividadesterminadas = camino.getJSONArray("actividadesTerminadas");
+				for (int k = 0; k < jActividadesterminadas.length(); k++) {
+					actividades.add(jActividadesterminadas.getInt(k));
+				}
+			}
+			student.cargarDatos(caminos, caminosCompletos, actividades);
+			estudiantes.add(student);
 		}
 	}
 	
@@ -122,5 +135,14 @@ public class PersistenciaUsuarios {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private int comparatorID(int first, int second) {
+		if (first < second) {
+			return -1;
+		} else if (first > second) {
+			return 1;
+		}
+		return 0;
 	}
 }

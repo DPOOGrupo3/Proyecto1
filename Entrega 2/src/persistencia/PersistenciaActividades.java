@@ -132,7 +132,7 @@ public class PersistenciaActividades {
 				}
 				jContenido.put(titulosQuiz[i], jArreglo);
 			}
-			jContenido.put(titulosQuiz[3], arrayContenido[3]);
+			jContenido.put(titulosQuiz[2], arrayContenido[2]);
 		}else if (tipo.equals("P")) {
 			String[] arrayPreguntas = contenido.split("//");
 			JSONArray preguntas = new JSONArray();

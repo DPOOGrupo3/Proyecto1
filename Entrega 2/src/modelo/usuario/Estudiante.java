@@ -17,6 +17,25 @@ public class Estudiante extends Usuario {
 		this.caminosInscritos = new HashMap<LearningPath, Progreso>();
 	}
 	
+	public void cargarDatos(List<Integer> caminosACargar, List<LearningPath> caminosCompletos, List<Integer> actividadesTerminadas) {
+		if (caminosACargar.size() > 0) {
+			for (int IDCamino: caminosACargar) {
+				for (LearningPath camino: caminosCompletos) {
+					if (camino.getID()==IDCamino) {
+						inscribirCamino(camino);
+						if (!actividadesTerminadas.isEmpty()) {
+							for (Actividad actividad: camino.getActivdades()) {
+								if (actividadesTerminadas.contains(actividad.getID())) {
+									entregarActividad(camino, actividad);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	public void inscribirCamino(LearningPath camino) {
 		caminosInscritos.put(camino, new Progreso(camino));
 	}
@@ -38,7 +57,6 @@ public class Estudiante extends Usuario {
 	}
 	
 	public void entregarActividad(LearningPath camino, Actividad actividad) {
-		
 	    if (!camino.getActivdades().contains(actividad)) {
 	        throw new IllegalArgumentException("La actividad no pertenece al Learning Path proporcionado.");
 	    }

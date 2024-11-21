@@ -72,7 +72,7 @@ public class Progreso {
 			cadena = cadena.substring(0, cadena.length()-2);
 		}
 		if (actividadesPendinetes.isEmpty()) {
-			cadena += "NA" + "-";
+			cadena += "NA";
 		} else {
 			for (Actividad actividad: actividadesPendinetes) {
 				cadena += String.valueOf(actividad.getID()) + "::";

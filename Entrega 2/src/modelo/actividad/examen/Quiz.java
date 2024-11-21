@@ -44,7 +44,7 @@ public class Quiz extends Examen {
 			for (String respuesta: respuestas) {
 				cadenaRespuestas += respuesta + "//";
 			}
-			cadenaRespuestas.substring(0, cadenaRespuestas.length()-1);
+			cadenaRespuestas = cadenaRespuestas.substring(0, cadenaRespuestas.length()-2);
 		}else {
 			cadenaRespuestas = "NA";
 		}
